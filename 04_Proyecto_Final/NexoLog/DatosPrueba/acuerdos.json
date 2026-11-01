@@ -1,0 +1,23 @@
+[
+  {
+    "codigoComercio": "COM-01",
+    "nombreComercio": "Comercio Caribe",
+    "tipoTarifa": "PESO",
+    "tarifaBase": 3500.0,
+    "descripcion": "Tarifa calculada por peso total ($3.500 por kilogramo). Para NX-1001 con 3.7 kg genera exactamente $12.950."
+  },
+  {
+    "codigoComercio": "COM-02",
+    "nombreComercio": "Comercio Andino",
+    "tipoTarifa": "DISTANCIA",
+    "tarifaBase": 150.0,
+    "descripcion": "Tarifa calculada por distancia recorrida ($150 por kilómetro)."
+  },
+  {
+    "codigoComercio": "COM-03",
+    "nombreComercio": "Comercio Sierra",
+    "tipoTarifa": "FIJA",
+    "tarifaBase": 18500.0,
+    "descripcion": "Tarifa fija institucional por despacho entregado exitosamente ($18.500)."
+  }
+]

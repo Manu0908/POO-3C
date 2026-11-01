@@ -1,0 +1,149 @@
+[
+  {
+    "idAcontecimiento": "EVT-NORTE-102",
+    "numeroGuia": "NX-1001",
+    "tipo": "ENT",
+    "fechaHora": "2026-11-04T18:15:00",
+    "observacion": "Mercancía entregada a satisfacción a Laura Restrepo (desordenado deliberadamente en el archivo)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-100",
+    "numeroGuia": "NX-1001",
+    "tipo": "REC",
+    "fechaHora": "2026-11-04T08:30:00",
+    "observacion": "Paquetes recibidos en bodega central de Transportadora Norte"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-101",
+    "numeroGuia": "NX-1001",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-04T09:45:00",
+    "observacion": "Salida a distribución local (1h 15m tras recepción, cumple estándar exprés <= 2h)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-200",
+    "numeroGuia": "NX-1002",
+    "tipo": "REC",
+    "fechaHora": "2026-11-04T10:00:00",
+    "observacion": "Recepción de bulto de papelería corporativa"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-201",
+    "numeroGuia": "NX-1002",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-05T08:00:00",
+    "observacion": "Despacho intermunicipal hacia Cartagena"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-202",
+    "numeroGuia": "NX-1002",
+    "tipo": "ENT",
+    "fechaHora": "2026-11-06T11:00:00",
+    "observacion": "Entrega confirmada a Carlos Mendoza (49h tras recepción, cumple <= 72h)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-300",
+    "numeroGuia": "NX-1003",
+    "tipo": "REC",
+    "fechaHora": "2026-11-04T14:00:00",
+    "observacion": "Recepción de paquete para entrega programada"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-301",
+    "numeroGuia": "NX-1003",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-05T10:00:00",
+    "observacion": "Salida a ruta el día previsto para franja de la tarde"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-302",
+    "numeroGuia": "NX-1003",
+    "tipo": "ENT",
+    "fechaHora": "2026-11-05T15:30:00",
+    "observacion": "Entrega exitosa dentro de la franja programada (14:00 - 17:00)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-400",
+    "numeroGuia": "NX-3001",
+    "tipo": "REC",
+    "fechaHora": "2026-11-01T08:00:00",
+    "observacion": "Recepción de cajas pesadas de herramientas"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-401",
+    "numeroGuia": "NX-3001",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-02T09:00:00",
+    "observacion": "Ruta hacia Bucaramanga"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-402",
+    "numeroGuia": "NX-3001",
+    "tipo": "ENT",
+    "fechaHora": "2026-11-04T15:00:00",
+    "observacion": "Entrega tardía (79h tras recepción, excede compromiso de 72h pero facturable)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-500",
+    "numeroGuia": "NX-3002",
+    "tipo": "REC",
+    "fechaHora": "2026-11-05T11:00:00",
+    "observacion": "Recepción de telas en punto de despacho"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-501",
+    "numeroGuia": "NX-3002",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-06T08:00:00",
+    "observacion": "Ruta en Valledupar programada para la mañana"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-502",
+    "numeroGuia": "NX-3002",
+    "tipo": "DEV",
+    "fechaHora": "2026-11-06T10:30:00",
+    "observacion": "Destinatario no se encontró en el domicilio; se inicia devolución"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-600",
+    "numeroGuia": "NX-3003",
+    "tipo": "REC",
+    "fechaHora": "2026-11-06T14:00:00",
+    "observacion": "Recepción exprés de suministros"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-601",
+    "numeroGuia": "NX-3003",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-06T15:15:00",
+    "observacion": "En tránsito hacia Riohacha (Despacho permanece pendiente/en ruta)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-901",
+    "numeroGuia": "NX-9999",
+    "tipo": "REC",
+    "fechaHora": "2026-11-04T11:00:00",
+    "observacion": "INCONSISTENCIA: Acontecimiento asociado a guía inexistente en el sistema"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-101",
+    "numeroGuia": "NX-1001",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-04T09:45:00",
+    "observacion": "INCONSISTENCIA: Acontecimiento duplicado exactamente idéntico"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-100",
+    "numeroGuia": "NX-1001",
+    "tipo": "REC",
+    "fechaHora": "2026-11-04T07:00:00",
+    "observacion": "INCONSISTENCIA: Mismo ID con hora contradictoria (conflicto)"
+  },
+  {
+    "idAcontecimiento": "EVT-NORTE-902",
+    "numeroGuia": "NX-1001",
+    "tipo": "RUT",
+    "fechaHora": "2026-11-05T09:00:00",
+    "observacion": "INCONSISTENCIA: Acontecimiento registrado con posterioridad a la entrega final del despacho"
+  }
+]

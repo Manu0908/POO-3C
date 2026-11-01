@@ -1,0 +1,226 @@
+[
+  {
+    "codigoEstablecimiento": "COM-01",
+    "nombreComercio": "Comercio Caribe",
+    "solicitudes": [
+      {
+        "numeroGuia": "NX-1001",
+        "destinatario": "Laura Restrepo",
+        "ciudadDestino": "Barranquilla",
+        "distanciaKm": 120.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "EXPRES",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-1001-A",
+            "descripcion": "Accesorios de computación y conectividad",
+            "peso": 2.2,
+            "valorDeclarado": 180000.0
+          },
+          {
+            "idPaquete": "PAQ-1001-B",
+            "descripcion": "Dispositivos periféricos de red",
+            "peso": 1.5,
+            "valorDeclarado": 95000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1002",
+        "destinatario": "Carlos Mendoza",
+        "ciudadDestino": "Cartagena",
+        "distanciaKm": 230.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-1002-A",
+            "descripcion": "Material de oficina y papelería corporativa",
+            "peso": 4.5,
+            "valorDeclarado": 210000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1003",
+        "destinatario": "Sofía Herrera",
+        "ciudadDestino": "Santa Marta",
+        "distanciaKm": 95.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "PROGRAMADO",
+        "fechaProgramada": "2026-11-05",
+        "horaInicio": "14:00",
+        "horaFin": "17:00",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-1003-A",
+            "descripcion": "Calzado deportivo y prendas térmicas",
+            "peso": 2.0,
+            "valorDeclarado": 85000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1002",
+        "destinatario": "Carlos Mendoza",
+        "ciudadDestino": "Cartagena",
+        "distanciaKm": 230.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-1002-A",
+            "descripcion": "Material de oficina y papelería corporativa",
+            "peso": 4.5,
+            "valorDeclarado": 210000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1001",
+        "destinatario": "Pedro Gómez",
+        "ciudadDestino": "Montería",
+        "distanciaKm": 310.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-CONFLICTO-1",
+            "descripcion": "Caja sospechosa en conflicto",
+            "peso": 5.0,
+            "valorDeclarado": 50000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1090",
+        "destinatario": "Mario Silva",
+        "ciudadDestino": "Sincelejo",
+        "distanciaKm": 180.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-INV-01",
+            "descripcion": "Paquete con peso inválido de cero",
+            "peso": 0.0,
+            "valorDeclarado": 30000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-1091",
+        "destinatario": "Clara Villegas",
+        "ciudadDestino": "Barranquilla",
+        "distanciaKm": 115.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "EXPRES",
+        "paquetes": []
+      }
+    ]
+  },
+  {
+    "codigoEstablecimiento": "COM-03",
+    "nombreComercio": "Comercio Sierra",
+    "solicitudes": [
+      {
+        "numeroGuia": "NX-3001",
+        "destinatario": "Jorge Bucaramanga",
+        "ciudadDestino": "Bucaramanga",
+        "distanciaKm": 380.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-3001-A",
+            "descripcion": "Herramientas mecánicas de precisión",
+            "peso": 3.0,
+            "valorDeclarado": 150000.0
+          },
+          {
+            "idPaquete": "PAQ-3001-B",
+            "descripcion": "Equipos de medición láser",
+            "peso": 2.5,
+            "valorDeclarado": 110000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-3002",
+        "destinatario": "Elena Duarte",
+        "ciudadDestino": "Valledupar",
+        "distanciaKm": 290.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "PROGRAMADO",
+        "fechaProgramada": "2026-11-06",
+        "horaInicio": "09:00",
+        "horaFin": "12:00",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-3002-A",
+            "descripcion": "Textiles y telas especiales",
+            "peso": 3.2,
+            "valorDeclarado": 160000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-3003",
+        "destinatario": "Andrés Cepeda",
+        "ciudadDestino": "Riohacha",
+        "distanciaKm": 420.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "EXPRES",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-3003-A",
+            "descripcion": "Suministros médicos prioritarios",
+            "peso": 1.8,
+            "valorDeclarado": 90000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-3090",
+        "destinatario": "Roberto Peña",
+        "ciudadDestino": "San Gil",
+        "distanciaKm": 210.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "PROGRAMADO",
+        "fechaProgramada": "2026-11-08",
+        "horaInicio": "17:00",
+        "horaFin": "13:00",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-3090-A",
+            "descripcion": "Caja con intervalo horario invertido",
+            "peso": 2.5,
+            "valorDeclarado": 75000.0
+          }
+        ]
+      },
+      {
+        "numeroGuia": "NX-3091",
+        "destinatario": "Lucía Cadena",
+        "ciudadDestino": "Cúcuta",
+        "distanciaKm": 540.0,
+        "transportadora": "Transportadora Norte",
+        "modalidad": "ESTANDAR",
+        "paquetes": [
+          {
+            "idPaquete": "PAQ-DUP-01",
+            "descripcion": "Repuestos de ferretería parte 1",
+            "peso": 2.0,
+            "valorDeclarado": 40000.0
+          },
+          {
+            "idPaquete": "PAQ-DUP-01",
+            "descripcion": "Repuestos de ferretería parte 2",
+            "peso": 1.8,
+            "valorDeclarado": 40000.0
+          }
+        ]
+      }
+    ]
+  }
+]

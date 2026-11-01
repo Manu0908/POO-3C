@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<solicitudes codigoComercio="COM-02" nombreComercio="Comercio Andino">
+  <solicitud guia="NX-2001" modalidad="ESTANDAR">
+    <destinatario>Alejandro Morales</destinatario>
+    <ciudadDestino>Tunja</ciudadDestino>
+    <distanciaKm>140.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-2001-A">
+        <descripcion>Insumos agrícolas orgánicos</descripcion>
+        <peso>2.5</peso>
+        <valorDeclarado>120000.0</valorDeclarado>
+      </paquete>
+      <paquete id="PAQ-2001-B">
+        <descripcion>Semillas certificadas de papa nativa</descripcion>
+        <peso>1.3</peso>
+        <valorDeclarado>85000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <solicitud guia="NX-2002" modalidad="EXPRES">
+    <destinatario>Camila Rojas</destinatario>
+    <ciudadDestino>Duitama</ciudadDestino>
+    <distanciaKm>195.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-2002-A">
+        <descripcion>Instrumental óptico de laboratorio</descripcion>
+        <peso>2.8</peso>
+        <valorDeclarado>650000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <solicitud guia="NX-2003" modalidad="PROGRAMADO">
+    <destinatario>Felipe Barón</destinatario>
+    <ciudadDestino>Sogamoso</ciudadDestino>
+    <distanciaKm>220.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <programacion fecha="2026-11-07" horaInicio="08:00" horaFin="11:00" />
+    <paquetes>
+      <paquete id="PAQ-2003-A">
+        <descripcion>Textiles artesanales y ruanas de lana</descripcion>
+        <peso>4.0</peso>
+        <valorDeclarado>210000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <solicitud guia="NX-2004" modalidad="ESTANDAR">
+    <destinatario>Diana Chía</destinatario>
+    <ciudadDestino>Chiquinquirá</ciudadDestino>
+    <distanciaKm>110.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-2004-A">
+        <descripcion>Vajilla de cerámica artesanal</descripcion>
+        <peso>3.5</peso>
+        <valorDeclarado>140000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <!-- INCONSISTENCIA 1: Registro duplicado idéntico de NX-2001 -->
+  <solicitud guia="NX-2001" modalidad="ESTANDAR">
+    <destinatario>Alejandro Morales</destinatario>
+    <ciudadDestino>Tunja</ciudadDestino>
+    <distanciaKm>140.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-2001-A">
+        <descripcion>Insumos agrícolas orgánicos</descripcion>
+        <peso>2.5</peso>
+        <valorDeclarado>120000.0</valorDeclarado>
+      </paquete>
+      <paquete id="PAQ-2001-B">
+        <descripcion>Semillas certificadas de papa nativa</descripcion>
+        <peso>1.3</peso>
+        <valorDeclarado>85000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <!-- INCONSISTENCIA 2: Conflicto de guía (NX-2002 repetida con destinatario y ciudad contradictorios) -->
+  <solicitud guia="NX-2002" modalidad="ESTANDAR">
+    <destinatario>Gabriel Castro</destinatario>
+    <ciudadDestino>Paipa</ciudadDestino>
+    <distanciaKm>175.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-CONF-01">
+        <descripcion>Mercancía contradictoria en conflicto</descripcion>
+        <peso>1.0</peso>
+        <valorDeclarado>30000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <!-- INCONSISTENCIA 3: Paquete con peso inválido (peso <= 0) -->
+  <solicitud guia="NX-2090" modalidad="ESTANDAR">
+    <destinatario>Valeria Santos</destinatario>
+    <ciudadDestino>Villa de Leyva</ciudadDestino>
+    <distanciaKm>160.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-INV-ZERO">
+        <descripcion>Muestra fósil con peso cero</descripcion>
+        <peso>0.0</peso>
+        <valorDeclarado>50000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <!-- INCONSISTENCIA 4: Paquete con valor declarado negativo -->
+  <solicitud guia="NX-2091" modalidad="ESTANDAR">
+    <destinatario>Mauricio Pinzón</destinatario>
+    <ciudadDestino>Moniquirá</ciudadDestino>
+    <distanciaKm>185.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes>
+      <paquete id="PAQ-INV-NEG">
+        <descripcion>Dulces típicos con valor negativo</descripcion>
+        <peso>2.0</peso>
+        <valorDeclarado>-25000.0</valorDeclarado>
+      </paquete>
+    </paquetes>
+  </solicitud>
+
+  <!-- INCONSISTENCIA 5: Despacho sin paquetes -->
+  <solicitud guia="NX-2092" modalidad="ESTANDAR">
+    <destinatario>Jimena Ospina</destinatario>
+    <ciudadDestino>Nobsa</ciudadDestino>
+    <distanciaKm>205.0</distanciaKm>
+    <transportadora>Transportadora Andina</transportadora>
+    <paquetes />
+  </solicitud>
+</solicitudes>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<seguimiento transportadora="Transportadora Andina">
+  <acontecimiento id="EVT-AND-100" guia="NX-2001" tipo="REC" fechaHora="2026-11-03T07:30:00">
+    <observacion>Recepción de paquetes agrícolas en Tunja</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-101" guia="NX-2001" tipo="RUT" fechaHora="2026-11-03T11:00:00">
+    <observacion>Salida de camión a distribución local</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-102" guia="NX-2001" tipo="ENT" fechaHora="2026-11-04T15:30:00">
+    <observacion>Entrega exitosa a Alejandro Morales (32h tras REC, cumple compromiso estandar)</observacion>
+  </acontecimiento>
+
+  <acontecimiento id="EVT-AND-200" guia="NX-2002" tipo="REC" fechaHora="2026-11-04T08:00:00">
+    <observacion>Recepción de instrumental de laboratorio en terminal Duitama</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-201" guia="NX-2002" tipo="RUT" fechaHora="2026-11-04T11:30:00">
+    <observacion>Salida tardía a ruta exprés (3h 30m tras REC, supera límite de 2h de inicio exprés)</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-202" guia="NX-2002" tipo="ENT" fechaHora="2026-11-04T20:00:00">
+    <observacion>Entrega completada a Camila Rojas (12h tras REC, cumple plazo total pero con inicio tardío)</observacion>
+  </acontecimiento>
+
+  <acontecimiento id="EVT-AND-300" guia="NX-2003" tipo="REC" fechaHora="2026-11-06T15:00:00">
+    <observacion>Recepción de paquete programado en terminal Sogamoso</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-301" guia="NX-2003" tipo="RUT" fechaHora="2026-11-07T07:15:00">
+    <observacion>Salida en ruta el día convenido de entrega</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-302" guia="NX-2003" tipo="DEV" fechaHora="2026-11-07T09:30:00">
+    <observacion>Destinatario no presente en la franja pactada; producto devuelto a bodega</observacion>
+  </acontecimiento>
+
+  <!-- INCONSISTENCIA EXPLICADA EN ENUNCIADO: Entrega (ENT) sin previa salida a distribución (RUT) -->
+  <acontecimiento id="EVT-AND-400" guia="NX-2004" tipo="REC" fechaHora="2026-11-05T09:00:00">
+    <observacion>Recepción de mercancía artesanal en centro de despacho</observacion>
+  </acontecimiento>
+  <acontecimiento id="EVT-AND-401" guia="NX-2004" tipo="ENT" fechaHora="2026-11-05T14:00:00">
+    <observacion>INCONSISTENCIA: Entrega registrada directamente sin haber tenido evento RUT de salida a distribución</observacion>
+  </acontecimiento>
+
+  <!-- INCONSISTENCIA ADICIONAL: Guía inexistente en el sistema -->
+  <acontecimiento id="EVT-AND-901" guia="NX-7777" tipo="REC" fechaHora="2026-11-05T10:00:00">
+    <observacion>INCONSISTENCIA: Acontecimiento referido a guía desconocida</observacion>
+  </acontecimiento>
+
+  <!-- INCONSISTENCIA ADICIONAL: Acontecimiento posterior a la finalización de entrega de NX-2001 -->
+  <acontecimiento id="EVT-AND-902" guia="NX-2001" tipo="DEV" fechaHora="2026-11-05T12:00:00">
+    <observacion>INCONSISTENCIA: Se intenta registrar una devolución en un despacho ya finalizado como ENT</observacion>
+  </acontecimiento>
+</seguimiento>
