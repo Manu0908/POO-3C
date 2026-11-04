@@ -1,9 +1,6 @@
 namespace NexoLog.Dominio.Modalidades;
 
-/// <summary>
-/// Modalidad de servicio Programado: la entrega debe realizarse en una fecha pactada
-/// y dentro de una franja horaria convenida, sin que la salida a ruta se adelante a dicha fecha.
-/// </summary>
+// Modalidad Programado: entrega en fecha pactada y en franja horaria pactada.
 public class ServicioProgramado : ModalidadServicio
 {
     private DateTime _fechaProgramada;
@@ -53,17 +50,16 @@ public class ServicioProgramado : ModalidadServicio
 
         foreach (Acontecimiento acontecimiento in despacho.Historial)
         {
-            if (acontecimiento.Tipo == TipoAcontecimiento.RUT && eventoRut == null)
+            if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoRut, StringComparison.OrdinalIgnoreCase) && eventoRut == null)
             {
                 eventoRut = acontecimiento;
             }
-            else if (acontecimiento.Tipo == TipoAcontecimiento.ENT)
+            else if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoEnt, StringComparison.OrdinalIgnoreCase))
             {
                 eventoEnt = acontecimiento;
             }
         }
 
-        // Si no se registra entrega, no hay cumplimiento
         if (eventoEnt == null)
         {
             return false;

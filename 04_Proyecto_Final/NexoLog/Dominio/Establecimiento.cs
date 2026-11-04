@@ -2,9 +2,7 @@ using NexoLog.Dominio.Tarifas;
 
 namespace NexoLog.Dominio;
 
-/// <summary>
-/// Representa una sucursal, tienda o punto de expedición remitente.
-/// </summary>
+// Representa una sucursal, tienda o punto de expedición remitente.
 public class Establecimiento
 {
     private string _codigo;
@@ -68,17 +66,13 @@ public class Establecimiento
         _tarifaAcordada = tarifaAcordada;
     }
 
-    /// <summary>
-    /// Asigna o modifica la estrategia de cobro comercial pactada con el establecimiento.
-    /// </summary>
+    // Asigna o modifica la estrategia de cobro comercial pactada con el establecimiento
     public void AsignarTarifa(IEstrategiaCobro tarifa)
     {
         _tarifaAcordada = tarifa;
     }
 
-    /// <summary>
-    /// Registra un nuevo despacho en el establecimiento evitando duplicidad de número de guía.
-    /// </summary>
+    // Registra un nuevo despacho en el establecimiento evitando duplicidad de número de guía
     public void AgregarDespacho(Despacho despacho)
     {
         if (despacho == null)
@@ -97,9 +91,7 @@ public class Establecimiento
         _despachos.Add(despacho);
     }
 
-    /// <summary>
-    /// Calcula el importe total facturable consolidado de todos los despachos entregados del establecimiento.
-    /// </summary>
+    // Calcula el importe total facturable consolidado de todos los despachos entregados
     public decimal CalcularTotalFacturable()
     {
         if (_tarifaAcordada == null)

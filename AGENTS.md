@@ -57,6 +57,14 @@ flowchart LR
   - Evitar cualquier desvío de la planeación: no agregar clases, dependencias o patrones que no hayan sido acordados previamente.
   - Proveer instrucciones directas para compilar, probar y verificar el funcionamiento del código entregado.
 
+### Agente de Refactorización y Simplificación (`poo-refactor`)
+* **Propósito:** Pulir, limpiar y podar código para maximizar su simpleza y defendibilidad académica.
+* **Responsabilidades:**
+  - Reducir métodos largos dividiéndolos en submétodos privados con nombres directos en español.
+  - Eliminar etiquetas de documentación XML (`/// <summary>`) y reemplazarlas por comentarios estándar `//`.
+  - Reemplazar conceptos no vistos en clase (como `enum`) por alternativas estándar (`const string`).
+  - Eliminar artificios visuales o formateos sobrecargados en consola.
+
 ---
 
 ## 4. Normas de Estilo en C# y "Reglas de Oro" del Docente

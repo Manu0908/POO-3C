@@ -16,19 +16,16 @@ El software:
 
 ---
 
-## 2. Mapa de Clases y Carpetas
-
-El código está dividido en tres capas ordenadas:
+## 2. Mapa de Clases Simplificado
 
 ```text
 04_Proyecto_Final/NexoLog/
 ├── Dominio/                              # Las entidades del negocio puro
 │   ├── Paquete.cs                       # Cada bulto con peso (> 0) y valor (>= 0)
-│   ├── Acontecimiento.cs                # Cada evento en la vida del envío (REC, RUT, ENT, DEV)
-│   ├── Despacho.cs                      # El envío central con su lista de paquetes y tracking
-│   ├── Establecimiento.cs               # El comercio remitente (COM-01, COM-02, COM-03)
+│   ├── Acontecimiento.cs                # Hitos logísticos con constantes (TipoRec, TipoRut, TipoEnt, TipoDev)
+│   ├── Despacho.cs                      # Envío central con constantes de estado (EstadoPendiente, EstadoEnDistribucion, etc.)
+│   ├── Establecimiento.cs               # Comercio remitente (COM-01, COM-02, COM-03)
 │   ├── NexoLogException.cs              # Excepción propia para capturar errores de negocio
-│   ├── Enums/ (TipoAcontecimiento, EstadoDespacho)
 │   ├── Modalidades/                     # Jerarquía de entrega (Estándar, Exprés, Programado)
 │   ├── Tarifas/                         # Estrategias de cobro (Fija, Peso, Distancia)
 │   └── Inconsistencias/                 # Registro de auditoría para anomalías detectadas
@@ -36,19 +33,27 @@ El código está dividido en tres capas ordenadas:
 ├── Infraestructura/                      # Entrada y salida de datos
 │   ├── Lectores/                        # Lectores de JSON y XML con codificación UTF-8
 │   │   ├── LectorArchivoFactory.cs      # Fábrica para instanciar el lector adecuado
-│   │   └── DTOs/                        # Modelos simples para recibir el texto de los archivos
+│   │   └── DTOs/                        # Modelos simples para deserializar archivos
 │   └── Exportadores/                    # Exportadores a JSON y XML (IExportadorInforme)
 │
-├── Servicios/                           # Lógica de coordinación
-│   ├── ServicioIntegracion.cs           # Junta pedidos, acuerdos y ordena el tracking
-│   └── ServicioInformes.cs              # Calcula métricas operativas y financieras
+├── Servicios/                           # Lógica de coordinación central
+│   └── SistemaNexoLog.cs                # Clase coordinadora que carga, procesa y genera los 3 informes
 │
-└── Program.cs                           # Menú interactivo de consola (Opciones 1 a 6)
+└── Program.cs                           # Menú universitario interactivo en consola (Opciones 1 a 6)
 ```
 
 ---
 
-## 3. Los dos Patrones de Diseño (Cómo explicarlos al docente)
+## 3. Decisiones de Diseño Clave y Respuestas para el Docente
+
+### ¿Por qué constantes `string` en vez de `enum`?
+Se utilizaron constantes de texto (`public const string EstadoPendiente = "Pendiente";`) directamente dentro de `Despacho`, `Acontecimiento` y `RegistroInconsistencia`. Esta alternativa es estándar en C#, no requiere conceptos que aún no se hayan evaluado y previene errores tipográficos al referenciar `Despacho.EstadoPendiente`.
+
+### ¿Qué es `SistemaNexoLog`? (El concepto de Servicio en POO)
+Representa a la oficina operativa de la empresa. No representa un paquete ni un camión, sino al sistema central que coordina la carga de archivos, organiza los despachos en memoria y emite los reportes. Así se evita recargar al `Main` o a las entidades individuales con tareas que no les corresponden.
+
+### ¿Cómo se resolvió el método de 100 líneas en `Despacho`?
+El método `ProcesarAcontecimiento` se fragmentó en 5 submétodos privados con nombres directos en español (`ValidarNoFinalizado`, `ProcesarRecepcion`, `ProcesarSalidaRuta`, `ProcesarEntrega`, `ProcesarDevolucion`), logrando que cada método haga una sola cosa bien y sea fácil de explicar en un tablero.
 
 ### Patrón Strategy (Estrategias de Cobro)
 * **¿Dónde está?** En la interfaz `IEstrategiaCobro` y sus clases: `TarifaFijaStrategy`, `TarifaPesoStrategy`, `TarifaDistanciaStrategy`.
@@ -61,12 +66,12 @@ El código está dividido en tres capas ordenadas:
 
 ---
 
-## 4. Reglas Clave para Defender en la Sustentación
+## 4. Preguntas Frecuentes en la Sustentación Oral
 
 1. **¿Por qué el estado inicial nunca es `null`?**
-   El despacho nace explícitamente en `EstadoDespacho.Pendiente` en el constructor. Nunca existe un objeto en un estado indefinido.
+   El despacho nace explícitamente en `Despacho.EstadoPendiente` en el constructor. Nunca existe un objeto en un estado indefinido.
 2. **¿Por qué se ordenan los acontecimientos antes de procesarlos?**
-   Los operadores logísticos envían archivos con eventos en desorden (por ejemplo, el evento de entrega aparece antes que la recepción en el texto). Si procesáramos en orden de llegada, el sistema rechazaría la entrega por "no haber salido a ruta". Ordenar por `FechaHora` ascendente primero reconstruye la línea de tiempo real.
+   Los operadores logísticos envían archivos con eventos en desorden (por ejemplo, el evento de entrega aparece antes que la recepción en el archivo físico). Si procesáramos en orden de llegada, el sistema rechazaría la entrega por "no haber salido a ruta". Ordenar por `FechaHora` ascendente primero reconstruye la línea de tiempo real.
 3. **¿Cómo se calculan las tarifas?**
    Solo se cobran los despachos con estado `Entregado`. Los despachos devueltos o pendientes no generan cobro ($0). Si un despacho se entregó tarde, sigue siendo facturable según las reglas comerciales de la empresa.
 4. **¿Cómo se calcula el porcentaje de cumplimiento (SLA)?**

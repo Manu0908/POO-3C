@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio;
 
-/// <summary>
-/// Representa una unidad física de carga asociada a un despacho.
-/// </summary>
+// Representa una unidad física de carga asociada a un despacho.
 public class Paquete
 {
     private string _idPaquete;

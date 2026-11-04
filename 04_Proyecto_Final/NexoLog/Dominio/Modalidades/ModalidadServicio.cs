@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio.Modalidades;
 
-/// <summary>
-/// Clase base abstracta que define las reglas de cumplimiento (SLA) para las modalidades de servicio.
-/// </summary>
+// Clase base abstracta que define las reglas de cumplimiento (SLA) para las modalidades de servicio.
 public abstract class ModalidadServicio
 {
     private string _nombreModalidad;
@@ -25,9 +23,7 @@ public abstract class ModalidadServicio
         NombreModalidad = nombreModalidad;
     }
 
-    /// <summary>
-    /// Evalúa si el despacho cumplió los acuerdos de nivel de servicio específicos de esta modalidad.
-    /// </summary>
+    // Evalúa si el despacho cumplió los acuerdos de nivel de servicio
     public abstract bool EvaluarCumplimiento(Despacho despacho);
 
     public override string ToString()

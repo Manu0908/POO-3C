@@ -2,9 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.Infraestructura.Lectores.DTOs;
 
-/// <summary>
-/// Objeto de transferencia de datos para deserializar acuerdos comerciales desde JSON.
-/// </summary>
+// DTO para deserializar acuerdos comerciales desde JSON.
 public class AcuerdoDto
 {
     [JsonPropertyName("codigoComercio")]

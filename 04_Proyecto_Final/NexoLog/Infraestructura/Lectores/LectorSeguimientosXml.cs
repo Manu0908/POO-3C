@@ -6,9 +6,7 @@ using NexoLog.Dominio.Inconsistencias;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Lector resiliente para acontecimientos y eventos de seguimiento en formato XML.
-/// </summary>
+// Lector resiliente para acontecimientos y eventos de seguimiento en formato XML.
 public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
 {
     public List<Acontecimiento> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -21,7 +19,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.ReferenciaInexistente,
+                RegistroInconsistencia.TipoReferenciaInexistente,
                 $"El archivo XML de seguimiento '{rutaArchivo}' no existe.",
                 DateTime.Now));
             return acontecimientosValidos;
@@ -40,7 +38,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         "GENERAL",
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "El archivo XML de seguimiento no contiene elemento raíz.",
                         DateTime.Now));
                     return acontecimientosValidos;
@@ -59,18 +57,22 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
                         inconsistencias.Add(new RegistroInconsistencia(
                             nombreArchivo,
                             "EVENTO_XML_INCOMPLETO",
-                            TipoInconsistencia.DatoInvalido,
+                            RegistroInconsistencia.TipoDatoInvalido,
                             "Se detectó un elemento <acontecimiento> sin atributo 'id' o 'guia'.",
                             DateTime.Now));
                         continue;
                     }
 
-                    if (!Enum.TryParse(tipoTexto, true, out TipoAcontecimiento tipoAcontecimiento))
+                    string tipoLimpio = tipoTexto.Trim().ToUpperInvariant();
+                    if (tipoLimpio != Acontecimiento.TipoRec &&
+                        tipoLimpio != Acontecimiento.TipoRut &&
+                        tipoLimpio != Acontecimiento.TipoEnt &&
+                        tipoLimpio != Acontecimiento.TipoDev)
                     {
                         inconsistencias.Add(new RegistroInconsistencia(
                             nombreArchivo,
                             idEvt,
-                            TipoInconsistencia.DatoInvalido,
+                            RegistroInconsistencia.TipoDatoInvalido,
                             $"Tipo de acontecimiento XML desconocido '{tipoTexto}' en el evento '{idEvt}'.",
                             DateTime.Now));
                         continue;
@@ -81,7 +83,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
                         inconsistencias.Add(new RegistroInconsistencia(
                             nombreArchivo,
                             idEvt,
-                            TipoInconsistencia.DatoInvalido,
+                            RegistroInconsistencia.TipoDatoInvalido,
                             $"Fecha/Hora XML inválida '{fechaHoraTexto}' en el evento '{idEvt}'.",
                             DateTime.Now));
                         continue;
@@ -92,7 +94,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
                         Acontecimiento nuevoAcontecimiento = new Acontecimiento(
                             idEvt,
                             guia,
-                            tipoAcontecimiento,
+                            tipoLimpio,
                             fechaHora);
 
                         acontecimientosValidos.Add(nuevoAcontecimiento);
@@ -102,7 +104,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
                         inconsistencias.Add(new RegistroInconsistencia(
                             nombreArchivo,
                             idEvt,
-                            TipoInconsistencia.DatoInvalido,
+                            RegistroInconsistencia.TipoDatoInvalido,
                             $"Error al crear acontecimiento XML '{idEvt}': {ex.Message}",
                             DateTime.Now));
                     }
@@ -114,7 +116,7 @@ public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Error crítico al procesar el archivo XML de seguimiento: {ex.Message}",
                 DateTime.Now));
         }

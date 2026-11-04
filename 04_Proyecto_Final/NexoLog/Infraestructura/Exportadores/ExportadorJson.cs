@@ -5,9 +5,7 @@ using NexoLog.Servicios.Modelos;
 
 namespace NexoLog.Infraestructura.Exportadores;
 
-/// <summary>
-/// Exportador de informes consolidados a formato JSON estructurado con codificación UTF-8.
-/// </summary>
+// Exportador de informes consolidados a formato JSON con codificación UTF-8.
 public class ExportadorJson : IExportadorInforme
 {
     public void Exportar(

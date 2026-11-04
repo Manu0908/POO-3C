@@ -7,9 +7,7 @@ using NexoLog.Dominio.Modalidades;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Lector resiliente para solicitudes de pedidos en formato XML estructurado.
-/// </summary>
+// Lector resiliente para solicitudes de pedidos en formato XML.
 public class LectorPedidosXml : ILectorArchivo<Despacho>
 {
     public List<Despacho> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -22,7 +20,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.ReferenciaInexistente,
+                RegistroInconsistencia.TipoReferenciaInexistente,
                 $"El archivo XML de pedidos '{rutaArchivo}' no existe.",
                 DateTime.Now));
             return despachosValidos;
@@ -41,7 +39,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         "GENERAL",
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "El archivo XML de pedidos no contiene nodo raíz.",
                         DateTime.Now));
                     return despachosValidos;
@@ -53,7 +51,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         "RAIZ_SIN_COMERCIO",
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "El elemento raíz del XML no define el atributo 'codigoComercio'.",
                         DateTime.Now));
                     return despachosValidos;
@@ -71,7 +69,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Error crítico al procesar el archivo XML de pedidos: {ex.Message}",
                 DateTime.Now));
         }
@@ -92,7 +90,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "SOLICITUD_SIN_GUIA",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 "Se detectó un elemento <solicitud> sin atributo 'guia'.",
                 DateTime.Now));
             return;
@@ -108,7 +106,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Distancia en km inválida '{distanciaKmTexto}' en la guía '{numeroGuia}'.",
                 DateTime.Now));
             return;
@@ -123,7 +121,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"El despacho '{numeroGuia}' no contiene paquetes asociados.",
                 DateTime.Now));
             return;
@@ -144,7 +142,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Paquete sin atributo 'id' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -155,7 +153,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Identificador de paquete duplicado '{idPaquete}' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -166,7 +164,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Peso inválido '{pesoTexto}' para el paquete '{idPaquete}' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -177,7 +175,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Valor declarado inválido '{valorTexto}' para el paquete '{idPaquete}' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -194,14 +192,14 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Paquete inválido en la guía '{numeroGuia}': {ex.Message}",
                     DateTime.Now));
                 return;
             }
         }
 
-        // Determinación de la modalidad de servicio
+        // Modalidad de servicio
         string modalidadTexto = ((string)elSol.Attribute("modalidad") ?? string.Empty).Trim().ToUpperInvariant();
         ModalidadServicio modalidadConstruida;
 
@@ -223,7 +221,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"La guía '{numeroGuia}' con modalidad PROGRAMADO carece de etiqueta <programacion>.",
                         DateTime.Now));
                     return;
@@ -238,7 +236,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Fecha programada XML inválida '{fechaProgTexto}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -249,7 +247,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Hora inicial XML inválida '{horaIniTexto}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -260,7 +258,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Hora final XML inválida '{horaFinTexto}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -273,7 +271,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Modalidad XML desconocida '{modalidadTexto}' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -284,7 +282,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Modalidad inválida en la guía '{numeroGuia}': {ex.Message}",
                 DateTime.Now));
             return;
@@ -315,7 +313,7 @@ public class LectorPedidosXml : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Datos de despacho inválidos en la guía '{numeroGuia}': {ex.Message}",
                 DateTime.Now));
         }

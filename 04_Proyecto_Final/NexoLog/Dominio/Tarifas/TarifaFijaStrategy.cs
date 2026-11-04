@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio.Tarifas;
 
-/// <summary>
-/// Estrategia de cobro basada en una tarifa plana o fija por cada despacho efectivamente entregado.
-/// </summary>
+// Estrategia de cobro basada en una tarifa fija por despacho entregado.
 public class TarifaFijaStrategy : IEstrategiaCobro
 {
     private decimal _tarifaFija;

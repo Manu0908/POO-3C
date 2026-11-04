@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio.Tarifas;
 
-/// <summary>
-/// Estrategia de cobro basada en el peso acumulado en kilogramos de los paquetes del despacho.
-/// </summary>
+// Estrategia de cobro basada en el peso acumulado en kilogramos.
 public class TarifaPesoStrategy : IEstrategiaCobro
 {
     private decimal _valorPorKilogramo;

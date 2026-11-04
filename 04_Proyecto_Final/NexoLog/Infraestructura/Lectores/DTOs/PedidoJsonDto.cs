@@ -2,9 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.Infraestructura.Lectores.DTOs;
 
-/// <summary>
-/// Objeto de transferencia de datos para deserializar solicitudes de despacho desde JSON.
-/// </summary>
+// DTO para deserializar solicitudes de despacho desde JSON.
 public class PedidoJsonDto
 {
     [JsonPropertyName("numeroGuia")]

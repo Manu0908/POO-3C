@@ -3,9 +3,7 @@ using NexoLog.Infraestructura.Lectores.DTOs;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Fábrica centralizada (Factory) para la obtención de lectores concretos de archivos.
-/// </summary>
+// Fábrica para centralizar la instanciación de lectores de archivo.
 public static class LectorArchivoFactory
 {
     public static ILectorArchivo<AcuerdoDto> CrearLectorAcuerdosJson()

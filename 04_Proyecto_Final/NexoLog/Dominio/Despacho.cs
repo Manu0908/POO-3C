@@ -2,18 +2,21 @@ using NexoLog.Dominio.Modalidades;
 
 namespace NexoLog.Dominio;
 
-/// <summary>
-/// Representa una orden de despacho o envío logístico gestionado por la compañía.
-/// </summary>
+// Representa una orden de despacho o envío logístico gestionado por la compañía.
 public class Despacho
 {
+    public const string EstadoPendiente = "Pendiente";
+    public const string EstadoEnDistribucion = "EnDistribucion";
+    public const string EstadoEntregado = "Entregado";
+    public const string EstadoDevuelto = "Devuelto";
+
     private string _numeroGuia;
     private string _codigoEstablecimiento;
     private string _destinatario;
     private string _ciudadDestino;
     private double _distanciaKm;
     private string _transportadora;
-    private EstadoDespacho _estadoActual;
+    private string _estadoActual;
     private ModalidadServicio _modalidad;
     private List<Paquete> _paquetes;
     private List<Acontecimiento> _historial;
@@ -96,7 +99,7 @@ public class Despacho
         }
     }
 
-    public EstadoDespacho EstadoActual
+    public string EstadoActual
     {
         get { return _estadoActual; }
         set { _estadoActual = value; }
@@ -137,25 +140,21 @@ public class Despacho
         CiudadDestino = ciudadDestino;
         DistanciaKm = distanciaKm;
         Transportadora = transportadora;
-        
-        // Estado inicial de todo despacho recién creado
-        _estadoActual = EstadoDespacho.Pendiente;
+
+        // Estado inicial obligatorio según reglas de negocio
+        _estadoActual = EstadoPendiente;
         _modalidad = null;
         _paquetes = new List<Paquete>();
         _historial = new List<Acontecimiento>();
     }
 
-    /// <summary>
-    /// Asigna explícitamente la modalidad de servicio logístico (SLA) al despacho.
-    /// </summary>
+    // Asigna explícitamente la modalidad de servicio logístico al despacho
     public void AsignarModalidad(ModalidadServicio modalidad)
     {
         _modalidad = modalidad;
     }
 
-    /// <summary>
-    /// Agrega un paquete al despacho verificando que no sea nulo ni esté duplicado.
-    /// </summary>
+    // Agrega un paquete al despacho verificando que no sea nulo ni esté duplicado
     public void AgregarPaquete(Paquete paquete)
     {
         if (paquete == null)
@@ -174,9 +173,7 @@ public class Despacho
         _paquetes.Add(paquete);
     }
 
-    /// <summary>
-    /// Suma el peso de todos los paquetes asociados a este despacho.
-    /// </summary>
+    // Suma el peso de todos los paquetes asociados a este despacho
     public double CalcularPesoTotal()
     {
         double pesoTotal = 0.0;
@@ -187,20 +184,16 @@ public class Despacho
         return pesoTotal;
     }
 
-    /// <summary>
-    /// Determina si el despacho puede ser objeto de liquidación y facturación (sólo si fue entregado).
-    /// </summary>
+    // Determina si el despacho puede ser objeto de cobro (solo entregados)
     public bool EsFacturable()
     {
-        return _estadoActual == EstadoDespacho.Entregado;
+        return string.Equals(_estadoActual, EstadoEntregado, StringComparison.OrdinalIgnoreCase);
     }
 
-    /// <summary>
-    /// Evalúa si el despacho cumplió los acuerdos de nivel de servicio según su modalidad asignada.
-    /// </summary>
+    // Evalúa si el despacho cumplió los acuerdos de nivel de servicio
     public bool EvaluarCumplimiento()
     {
-        if (_modalidad != null && _estadoActual == EstadoDespacho.Entregado)
+        if (_modalidad != null && string.Equals(_estadoActual, EstadoEntregado, StringComparison.OrdinalIgnoreCase))
         {
             return _modalidad.EvaluarCumplimiento(this);
         }
@@ -208,9 +201,7 @@ public class Despacho
         return false;
     }
 
-    /// <summary>
-    /// Procesa un acontecimiento aplicando la máquina de estados estricta (REC -> RUT -> ENT/DEV).
-    /// </summary>
+    // Procesa un acontecimiento aplicando la máquina de estados estricta (REC -> RUT -> ENT/DEV)
     public void ProcesarAcontecimiento(Acontecimiento evt)
     {
         if (evt == null)
@@ -218,86 +209,102 @@ public class Despacho
             throw new NexoLogException("No se puede procesar un acontecimiento nulo.");
         }
 
-        // Si el despacho ya finalizó en estado terminal, no admite nuevos hitos
-        if (_estadoActual == EstadoDespacho.Entregado || _estadoActual == EstadoDespacho.Devuelto)
-        {
-            throw new NexoLogException($"El despacho ya se encuentra finalizado en estado '{_estadoActual}'.");
-        }
+        ValidarNoFinalizado();
 
         switch (evt.Tipo)
         {
-            case TipoAcontecimiento.REC:
-                if (_estadoActual != EstadoDespacho.Pendiente)
-                {
-                    throw new NexoLogException($"No se puede registrar recepción (REC) en un despacho en estado '{_estadoActual}'.");
-                }
-
-                // Verificar si ya cuenta con un REC previo
-                foreach (Acontecimiento hito in _historial)
-                {
-                    if (hito.Tipo == TipoAcontecimiento.REC)
-                    {
-                        throw new NexoLogException($"El despacho '{NumeroGuia}' ya cuenta con un acontecimiento de recepción (REC) registrado.");
-                    }
-                }
-
-                _historial.Add(evt);
+            case Acontecimiento.TipoRec:
+                ProcesarRecepcion(evt);
                 break;
-
-            case TipoAcontecimiento.RUT:
-                if (_estadoActual != EstadoDespacho.Pendiente)
-                {
-                    throw new NexoLogException($"No se puede pasar a ruta (RUT) desde el estado '{_estadoActual}'.");
-                }
-
-                // Requiere obligatoriamente que exista un acontecimiento REC previo
-                bool tieneRec = false;
-                foreach (Acontecimiento hito in _historial)
-                {
-                    if (hito.Tipo == TipoAcontecimiento.REC)
-                    {
-                        tieneRec = true;
-                        break;
-                    }
-                }
-
-                if (!tieneRec)
-                {
-                    throw new NexoLogException("No se puede enviar a ruta (RUT) sin un acontecimiento previo de recepción (REC).");
-                }
-
-                _estadoActual = EstadoDespacho.EnDistribucion;
-                _historial.Add(evt);
+            case Acontecimiento.TipoRut:
+                ProcesarSalidaRuta(evt);
                 break;
-
-            case TipoAcontecimiento.ENT:
-                if (_estadoActual != EstadoDespacho.EnDistribucion)
-                {
-                    throw new NexoLogException($"No se puede registrar entrega (ENT) si el despacho no está en distribución (estado actual: '{_estadoActual}').");
-                }
-
-                _estadoActual = EstadoDespacho.Entregado;
-                _historial.Add(evt);
+            case Acontecimiento.TipoEnt:
+                ProcesarEntrega(evt);
                 break;
-
-            case TipoAcontecimiento.DEV:
-                if (_estadoActual != EstadoDespacho.EnDistribucion)
-                {
-                    throw new NexoLogException($"No se puede registrar devolución (DEV) si el despacho no está en distribución (estado actual: '{_estadoActual}').");
-                }
-
-                _estadoActual = EstadoDespacho.Devuelto;
-                _historial.Add(evt);
+            case Acontecimiento.TipoDev:
+                ProcesarDevolucion(evt);
                 break;
-
             default:
-                throw new NexoLogException($"Tipo de acontecimiento desconocido o no soportado: '{evt.Tipo}'.");
+                throw new NexoLogException($"Tipo de acontecimiento desconocido: '{evt.Tipo}'.");
         }
     }
 
-    /// <summary>
-    /// Registra un acontecimiento en el historial de trazabilidad del despacho aplicando la máquina de estados.
-    /// </summary>
+    private void ValidarNoFinalizado()
+    {
+        if (string.Equals(_estadoActual, EstadoEntregado, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(_estadoActual, EstadoDevuelto, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NexoLogException($"El despacho ya se encuentra finalizado en estado '{_estadoActual}'.");
+        }
+    }
+
+    private void ProcesarRecepcion(Acontecimiento evt)
+    {
+        if (!string.Equals(_estadoActual, EstadoPendiente, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NexoLogException($"No se puede registrar recepción (REC) en un despacho en estado '{_estadoActual}'.");
+        }
+
+        foreach (Acontecimiento hito in _historial)
+        {
+            if (string.Equals(hito.Tipo, Acontecimiento.TipoRec, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new NexoLogException($"El despacho '{NumeroGuia}' ya cuenta con un acontecimiento de recepción (REC) registrado.");
+            }
+        }
+
+        _historial.Add(evt);
+    }
+
+    private void ProcesarSalidaRuta(Acontecimiento evt)
+    {
+        if (!string.Equals(_estadoActual, EstadoPendiente, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NexoLogException($"No se puede pasar a ruta (RUT) desde el estado '{_estadoActual}'.");
+        }
+
+        bool tieneRec = false;
+        foreach (Acontecimiento hito in _historial)
+        {
+            if (string.Equals(hito.Tipo, Acontecimiento.TipoRec, StringComparison.OrdinalIgnoreCase))
+            {
+                tieneRec = true;
+                break;
+            }
+        }
+
+        if (!tieneRec)
+        {
+            throw new NexoLogException("No se puede enviar a ruta (RUT) sin un acontecimiento previo de recepción (REC).");
+        }
+
+        _estadoActual = EstadoEnDistribucion;
+        _historial.Add(evt);
+    }
+
+    private void ProcesarEntrega(Acontecimiento evt)
+    {
+        if (!string.Equals(_estadoActual, EstadoEnDistribucion, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NexoLogException($"No se puede registrar entrega (ENT) si el despacho no está en distribución (estado actual: '{_estadoActual}').");
+        }
+
+        _estadoActual = EstadoEntregado;
+        _historial.Add(evt);
+    }
+
+    private void ProcesarDevolucion(Acontecimiento evt)
+    {
+        if (!string.Equals(_estadoActual, EstadoEnDistribucion, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new NexoLogException($"No se puede registrar devolución (DEV) si el despacho no está en distribución (estado actual: '{_estadoActual}').");
+        }
+
+        _estadoActual = EstadoDevuelto;
+        _historial.Add(evt);
+    }
+
     public void RegistrarAcontecimiento(Acontecimiento acontecimiento)
     {
         ProcesarAcontecimiento(acontecimiento);

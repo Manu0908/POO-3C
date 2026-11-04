@@ -1,9 +1,6 @@
 namespace NexoLog.Dominio.Modalidades;
 
-/// <summary>
-/// Modalidad de servicio Estándar: la entrega final (ENT) debe ocurrir dentro de las
-/// 72 horas posteriores a la recepción de la mercancía (REC).
-/// </summary>
+// Modalidad Estándar: la entrega final (ENT) debe ocurrir dentro de las 72 horas desde REC.
 public class ServicioEstandar : ModalidadServicio
 {
     public ServicioEstandar() : base("Estándar")
@@ -22,11 +19,11 @@ public class ServicioEstandar : ModalidadServicio
 
         foreach (Acontecimiento acontecimiento in despacho.Historial)
         {
-            if (acontecimiento.Tipo == TipoAcontecimiento.REC && eventoRec == null)
+            if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoRec, StringComparison.OrdinalIgnoreCase) && eventoRec == null)
             {
                 eventoRec = acontecimiento;
             }
-            else if (acontecimiento.Tipo == TipoAcontecimiento.ENT)
+            else if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoEnt, StringComparison.OrdinalIgnoreCase))
             {
                 eventoEnt = acontecimiento;
             }

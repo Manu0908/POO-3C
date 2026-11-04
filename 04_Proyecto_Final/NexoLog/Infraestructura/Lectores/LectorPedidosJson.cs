@@ -8,9 +8,7 @@ using NexoLog.Infraestructura.Lectores.DTOs;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Lector resiliente para pedidos y despachos en formato JSON.
-/// </summary>
+// Lector resiliente para pedidos y despachos en formato JSON.
 public class LectorPedidosJson : ILectorArchivo<Despacho>
 {
     public List<Despacho> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -23,7 +21,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.ReferenciaInexistente,
+                RegistroInconsistencia.TipoReferenciaInexistente,
                 $"El archivo de pedidos '{rutaArchivo}' no existe.",
                 DateTime.Now));
             return despachosValidos;
@@ -44,7 +42,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     "GENERAL",
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     "El archivo JSON de pedidos no contiene lotes ni comercios remitentes.",
                     DateTime.Now));
                 return despachosValidos;
@@ -58,7 +56,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         "LOTE_SIN_COMERCIO",
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "Se encontró un lote sin código de comercio asociado.",
                         DateTime.Now));
                     continue;
@@ -75,7 +73,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Error crítico al procesar el archivo JSON de pedidos: {ex.Message}",
                 DateTime.Now));
         }
@@ -97,25 +95,24 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "SOLICITUD_SIN_GUIA",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 "Se detectó una solicitud sin número de guía.",
                 DateTime.Now));
             return;
         }
 
-        // Validación de existencia de paquetes (regla: mínimo 1 paquete por despacho)
+        // Validación de paquetes
         if (solicitud.Paquetes == null || solicitud.Paquetes.Count == 0)
         {
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"El despacho '{numeroGuia}' no contiene paquetes asociados.",
                 DateTime.Now));
             return;
         }
 
-        // Validación y construcción de los paquetes
         List<Paquete> paquetesConstruidos = new List<Paquete>();
         HashSet<string> codigosPaquetesVistos = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
@@ -126,7 +123,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Paquete sin identificador en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -137,7 +134,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Identificador de paquete duplicado '{pDto.IdPaquete}' dentro de la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -159,14 +156,14 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Paquete inválido en la guía '{numeroGuia}': {ex.Message}",
                     DateTime.Now));
                 return;
             }
         }
 
-        // Determinación y construcción de la modalidad
+        // Construcción de la modalidad
         ModalidadServicio modalidadConstruida;
         string modalidadTexto = (solicitud.Modalidad ?? string.Empty).Trim().ToUpperInvariant();
 
@@ -187,7 +184,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Fecha programada inválida '{solicitud.FechaProgramada}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -198,7 +195,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Hora inicial programada inválida '{solicitud.HoraInicio}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -209,7 +206,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         numeroGuia,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Hora final programada inválida '{solicitud.HoraFin}' en la guía '{numeroGuia}'.",
                         DateTime.Now));
                     return;
@@ -222,7 +219,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     numeroGuia,
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     $"Modalidad de servicio desconocida '{solicitud.Modalidad}' en la guía '{numeroGuia}'.",
                     DateTime.Now));
                 return;
@@ -233,13 +230,13 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Modalidad inválida en la guía '{numeroGuia}': {ex.Message}",
                 DateTime.Now));
             return;
         }
 
-        // Construcción del despacho de dominio
+        // Construcción del despacho
         try
         {
             Despacho nuevoDespacho = new Despacho(
@@ -264,7 +261,7 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 numeroGuia,
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Datos de despacho inválidos en la guía '{numeroGuia}': {ex.Message}",
                 DateTime.Now));
         }

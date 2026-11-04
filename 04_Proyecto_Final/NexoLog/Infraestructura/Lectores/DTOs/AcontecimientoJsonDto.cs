@@ -2,9 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.Infraestructura.Lectores.DTOs;
 
-/// <summary>
-/// Objeto de transferencia de datos para deserializar acontecimientos de seguimiento desde JSON.
-/// </summary>
+// DTO para deserializar acontecimientos de seguimiento desde JSON.
 public class AcontecimientoJsonDto
 {
     [JsonPropertyName("idAcontecimiento")]

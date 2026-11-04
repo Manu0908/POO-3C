@@ -5,9 +5,7 @@ using NexoLog.Infraestructura.Lectores.DTOs;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Lector resiliente para el archivo de acuerdos comerciales en formato JSON.
-/// </summary>
+// Lector resiliente para el archivo de acuerdos comerciales en formato JSON.
 public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
 {
     public List<AcuerdoDto> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -20,7 +18,7 @@ public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.ReferenciaInexistente,
+                RegistroInconsistencia.TipoReferenciaInexistente,
                 $"El archivo de acuerdos '{rutaArchivo}' no existe.",
                 DateTime.Now));
             return acuerdosValidos;
@@ -41,7 +39,7 @@ public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     "GENERAL",
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     "El archivo de acuerdos está vacío o no contiene registros válidos.",
                     DateTime.Now));
                 return acuerdosValidos;
@@ -53,8 +51,8 @@ public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
                 {
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
-                        "ACUERDO_SINCÓDIGO",
-                        TipoInconsistencia.DatoInvalido,
+                        "ACUERDO_SIN_CODIGO",
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "El acuerdo comercial carece de código de comercio.",
                         DateTime.Now));
                     continue;
@@ -65,19 +63,19 @@ public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         acuerdo.CodigoComercio,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"La tarifa base para {acuerdo.CodigoComercio} debe ser mayor a cero.",
                         DateTime.Now));
                     continue;
                 }
 
-                string tipoTarifaMayus = acuerdo.TipoTarifa.Trim().ToUpperInvariant();
+                string tipoTarifaMayus = (acuerdo.TipoTarifa ?? string.Empty).Trim().ToUpperInvariant();
                 if (tipoTarifaMayus != "PESO" && tipoTarifaMayus != "DISTANCIA" && tipoTarifaMayus != "FIJA")
                 {
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         acuerdo.CodigoComercio,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Tipo de tarifa desconocido: '{acuerdo.TipoTarifa}'.",
                         DateTime.Now));
                     continue;
@@ -92,7 +90,7 @@ public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Error crítico al leer acuerdos: {ex.Message}",
                 DateTime.Now));
         }

@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio.Tarifas;
 
-/// <summary>
-/// Estrategia de cobro basada en la distancia recorrida en kilómetros hacia la ciudad destino.
-/// </summary>
+// Estrategia de cobro basada en la distancia recorrida en kilómetros.
 public class TarifaDistanciaStrategy : IEstrategiaCobro
 {
     private decimal _valorPorKilometro;

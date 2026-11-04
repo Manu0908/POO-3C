@@ -2,9 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.Infraestructura.Lectores.DTOs;
 
-/// <summary>
-/// Objeto de transferencia de datos para deserializar un lote de solicitudes agrupadas por comercio remitente en JSON.
-/// </summary>
+// DTO para deserializar un lote de solicitudes agrupadas por comercio en JSON.
 public class LoteEstablecimientoDto
 {
     [JsonPropertyName("codigoEstablecimiento")]

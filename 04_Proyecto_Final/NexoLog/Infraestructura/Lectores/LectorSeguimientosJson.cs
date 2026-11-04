@@ -6,9 +6,7 @@ using NexoLog.Infraestructura.Lectores.DTOs;
 
 namespace NexoLog.Infraestructura.Lectores;
 
-/// <summary>
-/// Lector resiliente para acontecimientos y eventos de seguimiento en formato JSON.
-/// </summary>
+// Lector resiliente para acontecimientos y eventos de seguimiento en formato JSON.
 public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
 {
     public List<Acontecimiento> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -21,7 +19,7 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.ReferenciaInexistente,
+                RegistroInconsistencia.TipoReferenciaInexistente,
                 $"El archivo de seguimiento '{rutaArchivo}' no existe.",
                 DateTime.Now));
             return acontecimientosValidos;
@@ -42,7 +40,7 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
                 inconsistencias.Add(new RegistroInconsistencia(
                     nombreArchivo,
                     "GENERAL",
-                    TipoInconsistencia.DatoInvalido,
+                    RegistroInconsistencia.TipoDatoInvalido,
                     "El archivo de seguimiento JSON no contiene acontecimientos.",
                     DateTime.Now));
                 return acontecimientosValidos;
@@ -58,18 +56,22 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         "EVENTO_INCOMPLETO",
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         "Se detectó un acontecimiento sin identificador o sin número de guía.",
                         DateTime.Now));
                     continue;
                 }
 
-                if (!Enum.TryParse(evtDto.Tipo, true, out TipoAcontecimiento tipoAcontecimiento))
+                string tipoLimpio = (evtDto.Tipo ?? string.Empty).Trim().ToUpperInvariant();
+                if (tipoLimpio != Acontecimiento.TipoRec &&
+                    tipoLimpio != Acontecimiento.TipoRut &&
+                    tipoLimpio != Acontecimiento.TipoEnt &&
+                    tipoLimpio != Acontecimiento.TipoDev)
                 {
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         idEvt,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Tipo de acontecimiento desconocido '{evtDto.Tipo}' en el evento '{idEvt}'.",
                         DateTime.Now));
                     continue;
@@ -80,7 +82,7 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
                     Acontecimiento nuevoAcontecimiento = new Acontecimiento(
                         idEvt,
                         guia,
-                        tipoAcontecimiento,
+                        tipoLimpio,
                         evtDto.FechaHora);
 
                     acontecimientosValidos.Add(nuevoAcontecimiento);
@@ -90,7 +92,7 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
                         idEvt,
-                        TipoInconsistencia.DatoInvalido,
+                        RegistroInconsistencia.TipoDatoInvalido,
                         $"Error al crear acontecimiento '{idEvt}': {ex.Message}",
                         DateTime.Now));
                 }
@@ -101,7 +103,7 @@ public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
             inconsistencias.Add(new RegistroInconsistencia(
                 nombreArchivo,
                 "GENERAL",
-                TipoInconsistencia.DatoInvalido,
+                RegistroInconsistencia.TipoDatoInvalido,
                 $"Error crítico al procesar el archivo JSON de seguimiento: {ex.Message}",
                 DateTime.Now));
         }

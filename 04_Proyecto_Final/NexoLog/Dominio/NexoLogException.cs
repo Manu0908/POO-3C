@@ -1,8 +1,6 @@
 namespace NexoLog.Dominio;
 
-/// <summary>
-/// Excepción personalizada para el control de reglas del negocio en el sistema NexoLog.
-/// </summary>
+// Excepción personalizada para el control de reglas del negocio en el sistema NexoLog.
 public class NexoLogException : Exception
 {
     public NexoLogException()

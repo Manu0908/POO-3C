@@ -1,13 +1,17 @@
 namespace NexoLog.Dominio.Inconsistencias;
 
-/// <summary>
-/// Registra una inconsistencia o infracción detectada durante la validación de archivos e insumos operativos.
-/// </summary>
+// Registra una inconsistencia o infracción detectada durante la validación de archivos e insumos operativos.
 public class RegistroInconsistencia
 {
+    public const string TipoDuplicado = "Duplicado";
+    public const string TipoDatoInvalido = "DatoInvalido";
+    public const string TipoReferenciaInexistente = "ReferenciaInexistente";
+    public const string TipoAcontecimientoIncompatible = "AcontecimientoIncompatible";
+    public const string TipoConflictoIdentificacion = "ConflictoIdentificacion";
+
     private string _archivoOrigen;
     private string _identificadorReferencia;
-    private TipoInconsistencia _tipo;
+    private string _tipo;
     private string _motivo;
     private DateTime _fechaDeteccion;
 
@@ -37,10 +41,17 @@ public class RegistroInconsistencia
         }
     }
 
-    public TipoInconsistencia Tipo
+    public string Tipo
     {
         get { return _tipo; }
-        private set { _tipo = value; }
+        private set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El tipo de inconsistencia es obligatorio.");
+            }
+            _tipo = value.Trim();
+        }
     }
 
     public string Motivo
@@ -65,7 +76,7 @@ public class RegistroInconsistencia
     public RegistroInconsistencia(
         string archivoOrigen,
         string identificadorReferencia,
-        TipoInconsistencia tipo,
+        string tipo,
         string motivo,
         DateTime fechaDeteccion)
     {

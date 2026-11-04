@@ -2,9 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.Infraestructura.Lectores.DTOs;
 
-/// <summary>
-/// Objeto de transferencia de datos para deserializar información de un paquete individual.
-/// </summary>
+// DTO para deserializar información de un paquete individual.
 public class PaqueteJsonDto
 {
     [JsonPropertyName("idPaquete")]

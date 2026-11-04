@@ -60,3 +60,8 @@ nunit-*.xml
 # Windows / OS
 desktop.ini
 Thumbs.db
+
+# Carpetas privadas y notas personales (no se suben a GitHub)
+.privado/
+.personal/
+*.privado.*

@@ -1,9 +1,6 @@
 namespace NexoLog.Dominio.Modalidades;
 
-/// <summary>
-/// Modalidad de servicio Exprés: exige salida a ruta (RUT) dentro de 2 horas desde REC
-/// y entrega final (ENT) dentro de 24 horas desde REC.
-/// </summary>
+// Modalidad Exprés: salida a ruta (RUT) <= 2 horas desde REC y entrega (ENT) <= 24 horas desde REC.
 public class ServicioExpres : ModalidadServicio
 {
     public ServicioExpres() : base("Exprés")
@@ -23,21 +20,20 @@ public class ServicioExpres : ModalidadServicio
 
         foreach (Acontecimiento acontecimiento in despacho.Historial)
         {
-            if (acontecimiento.Tipo == TipoAcontecimiento.REC && eventoRec == null)
+            if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoRec, StringComparison.OrdinalIgnoreCase) && eventoRec == null)
             {
                 eventoRec = acontecimiento;
             }
-            else if (acontecimiento.Tipo == TipoAcontecimiento.RUT && eventoRut == null)
+            else if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoRut, StringComparison.OrdinalIgnoreCase) && eventoRut == null)
             {
                 eventoRut = acontecimiento;
             }
-            else if (acontecimiento.Tipo == TipoAcontecimiento.ENT)
+            else if (string.Equals(acontecimiento.Tipo, Acontecimiento.TipoEnt, StringComparison.OrdinalIgnoreCase))
             {
                 eventoEnt = acontecimiento;
             }
         }
 
-        // Si falta alguno de los acontecimientos indispensables, no cumple
         if (eventoRec == null || eventoRut == null || eventoEnt == null)
         {
             return false;

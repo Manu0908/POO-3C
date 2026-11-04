@@ -7,9 +7,7 @@ using NexoLog.Servicios.Modelos;
 
 namespace NexoLog.Infraestructura.Exportadores;
 
-/// <summary>
-/// Exportador de informes consolidados a formato XML estructurado con codificación UTF-8.
-/// </summary>
+// Exportador de informes consolidados a formato XML con codificación UTF-8.
 public class ExportadorXml : IExportadorInforme
 {
     public void Exportar(
@@ -29,9 +27,7 @@ public class ExportadorXml : IExportadorInforme
             new XAttribute("sistema", "NexoLog S.A.S.")
         );
 
-        // ==========================================
-        // 1. Sección Operativa
-        // ==========================================
+        // Sección Operativa
         if (operativo != null)
         {
             XElement elOperativo = new XElement("informeOperativo",
@@ -84,9 +80,7 @@ public class ExportadorXml : IExportadorInforme
             raiz.Add(elOperativo);
         }
 
-        // ==========================================
-        // 2. Sección Financiera
-        // ==========================================
+        // Sección Financiera
         if (financiero != null)
         {
             XElement elFinanciero = new XElement("informeFinanciero",
@@ -124,9 +118,7 @@ public class ExportadorXml : IExportadorInforme
             raiz.Add(elFinanciero);
         }
 
-        // ==========================================
-        // 3. Sección Inconsistencias
-        // ==========================================
+        // Sección Inconsistencias
         if (inconsistencias != null)
         {
             XElement elInconsistencias = new XElement("informeInconsistencias",
@@ -134,10 +126,10 @@ public class ExportadorXml : IExportadorInforme
             );
 
             XElement elPorTipo = new XElement("porTipo");
-            foreach (KeyValuePair<TipoInconsistencia, int> par in inconsistencias.InconsistenciasPorTipo)
+            foreach (KeyValuePair<string, int> par in inconsistencias.InconsistenciasPorTipo)
             {
                 elPorTipo.Add(new XElement("inconsistencia",
-                    new XAttribute("tipo", par.Key.ToString()),
+                    new XAttribute("tipo", par.Key),
                     new XAttribute("cantidad", par.Value)
                 ));
             }
@@ -159,7 +151,7 @@ public class ExportadorXml : IExportadorInforme
                 elDetalle.Add(new XElement("registro",
                     new XAttribute("archivo", reg.ArchivoOrigen),
                     new XAttribute("referencia", reg.IdentificadorReferencia),
-                    new XAttribute("tipo", reg.Tipo.ToString()),
+                    new XAttribute("tipo", reg.Tipo),
                     new XAttribute("fecha", reg.FechaDeteccion.ToString("yyyy-MM-dd HH:mm:ss")),
                     new XElement("motivo", reg.Motivo)
                 ));
