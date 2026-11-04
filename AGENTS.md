@@ -167,6 +167,11 @@ public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
   2. `ESTRUCTURA_PROYECTO.md` dentro de `04_Proyecto_Final` (guía de arquitectura, patrones y sustentación oral).
 * **Cero comentarios obvios en el código fuente:** El código debe ser autoexplicativo gracias al uso riguroso de nombres significativos en español o inglés técnico coherente. Solo se admiten comentarios breves cuando justifican una decisión de negocio no trivial o una restricción impuesta por el docente.
 
+### 4.9. Reglas de Oro para Diagramas UML de Clases (Draw.io)
+* **Máxima simpleza y concisión académica:** Los diagramas deben ser visualmente limpios, simétricos y libres de ruido o sobreespecificación innecesaria.
+* **Cero asignación de valores a constantes o atributos:** Queda prohibido escribir expresiones de asignación de valores en los diagramas (nada de `= 34`, `= 2000` o `= 0.10`). Los atributos y constantes se definen exclusivamente con su visibilidad, nombre y tipo de dato (por ejemplo, `- Descuento: double` o `- BateriaMaxima: int`).
+* **Cero etiquetas `{override}` en subclases:** El modificador o etiqueta `{override}` en métodos y propiedades de clases hijas es redundante y se descarta. El polimorfismo se expresa a través de la flecha de generalización (herencia), bastando con marcar `{abstract}` en los miembros correspondientes de la clase padre.
+
 ---
 
 ## 5. Memoria de Acuerdos Confirmados en el Repositorio

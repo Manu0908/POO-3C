@@ -1,0 +1,225 @@
+<mxfile host="Electron">
+  <diagram name="UML Clases Alquiler Vehiculos" id="TallerVehiculosSesion16">
+    <mxGraphModel dx="1414" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rel-empresa-vehiculo" edge="1" parent="1" source="class-empresa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;startFill=0;startSize=14;strokeWidth=1.5;fontColor=default;endFill=0;labelBackgroundColor=none;" target="class-vehiculo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl-mult-empresa" connectable="0" parent="rel-empresa-vehiculo" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];labelBackgroundColor=none;fontSize=12;fontStyle=1;rounded=0;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.8" y="-8" as="geometry">
+            <mxPoint x="3" y="19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl-mult-vehiculo" connectable="0" parent="rel-empresa-vehiculo" style="edgeLabel;html=1;align=center;verticalAlign=bottom;resizable=0;points=[];labelBackgroundColor=none;fontSize=13;fontStyle=1;rounded=0;" value="*" vertex="1">
+          <mxGeometry relative="1" x="0.8" y="-8" as="geometry">
+            <mxPoint y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-estacion-recargable" edge="1" parent="1" source="class-estacion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endSize=8;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-recargable">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel-bicicleta-vehiculo" edge="1" parent="1" source="class-bicicleta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-vehiculo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="340" />
+              <mxPoint x="510" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-patineta-vehiculo" edge="1" parent="1" source="class-patineta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-vehiculo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="575" y="340" />
+              <mxPoint x="575" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-automovil-vehiculo" edge="1" parent="1" source="class-automovil" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-vehiculo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="340" />
+              <mxPoint x="640" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-patineta-recargable" edge="1" parent="1" source="class-patineta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-recargable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="370" />
+              <mxPoint x="890" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rel-automovil-recargable" edge="1" parent="1" source="class-automovil" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=block;endFill=0;endSize=12;strokeWidth=1.5;fontColor=default;labelBackgroundColor=none;" target="class-recargable">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="360" />
+              <mxPoint x="1010" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="class-empresa" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="Empresa" vertex="1">
+          <mxGeometry height="226" width="280" x="55" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-attr-1" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- _vehiculos: List&amp;lt;Vehiculo&amp;gt;" vertex="1">
+          <mxGeometry height="24" width="280" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-prop-1" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Vehiculos: List&amp;lt;Vehiculo&amp;gt; {get}" vertex="1">
+          <mxGeometry height="24" width="280" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-sep" parent="class-empresa" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="280" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-0" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Empresa()" vertex="1">
+          <mxGeometry height="24" width="280" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-1" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ IncorporarVehiculo(vehiculo: Vehiculo): void" vertex="1">
+          <mxGeometry height="24" width="280" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-2" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ RetirarVehiculo(codigo: string): void" vertex="1">
+          <mxGeometry height="24" width="280" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-3" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ MostrarFlota(): void" vertex="1">
+          <mxGeometry height="24" width="280" y="154" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-4" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ CalcularCostoTotal(horas: int): double" vertex="1">
+          <mxGeometry height="24" width="280" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="empresa-meth-5" parent="class-empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- BuscarPorCodigo(codigo: string): Vehiculo" vertex="1">
+          <mxGeometry height="24" width="280" y="202" as="geometry" />
+        </mxCell>
+        <mxCell id="class-vehiculo" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="&amp;laquo;abstract&amp;raquo;&lt;br&gt;&lt;b&gt;Vehiculo&lt;/b&gt;" vertex="1">
+          <mxGeometry height="186" width="290" x="435" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-attr-1" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- _codigo: string" vertex="1">
+          <mxGeometry height="24" width="290" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-prop-1" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;fontStyle=2;rounded=0;labelBackgroundColor=none;" value="+ TarifaHora: double {abstract, get}" vertex="1">
+          <mxGeometry height="24" width="290" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-prop-2" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Codigo: string {get; private set;}" vertex="1">
+          <mxGeometry height="24" width="290" y="84" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-sep" parent="class-vehiculo" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="290" y="108" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-meth-1" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="# Vehiculo(codigo: string)" vertex="1">
+          <mxGeometry height="24" width="290" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-meth-2" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ CalcularValorAlquiler(horas: int): double" vertex="1">
+          <mxGeometry height="24" width="290" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="vehiculo-meth-3" parent="class-vehiculo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;fontStyle=2;rounded=0;labelBackgroundColor=none;" value="+ MostrarInfo(): void {abstract}" vertex="1">
+          <mxGeometry height="24" width="290" y="162" as="geometry" />
+        </mxCell>
+        <mxCell id="class-estacion" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="EstacionCarga" vertex="1">
+          <mxGeometry height="58" width="270" x="840" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="estacion-sep" parent="class-estacion" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="270" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="estacion-meth-1" parent="class-estacion" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Recargar(vehiculo: IRecargable, cant: int): void" vertex="1">
+          <mxGeometry height="24" width="270" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="class-recargable" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=36;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="&amp;laquo;interface&amp;raquo;&lt;br&gt;&lt;b&gt;IRecargable&lt;/b&gt;" vertex="1">
+          <mxGeometry height="90" width="270" x="840" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="recargable-prop-1" parent="class-recargable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ NivelBateria: int {get}" vertex="1">
+          <mxGeometry height="24" width="270" y="36" as="geometry" />
+        </mxCell>
+        <mxCell id="recargable-sep" parent="class-recargable" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="270" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="recargable-meth-1" parent="class-recargable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Recargar(cantidad: int): void" vertex="1">
+          <mxGeometry height="24" width="270" y="66" as="geometry" />
+        </mxCell>
+        <mxCell id="class-bicicleta" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="Bicicleta" vertex="1">
+          <mxGeometry height="106" width="280" x="55" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="bicicleta-prop-1" parent="class-bicicleta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ TarifaHora: double {get}" vertex="1">
+          <mxGeometry height="24" width="280" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="bicicleta-sep" parent="class-bicicleta" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="280" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="bicicleta-meth-1" parent="class-bicicleta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Bicicleta(codigo: string)" vertex="1">
+          <mxGeometry height="24" width="280" y="58" as="geometry" />
+        </mxCell>
+        <mxCell id="bicicleta-meth-2" parent="class-bicicleta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ MostrarInfo(): void" vertex="1">
+          <mxGeometry height="24" width="280" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="class-patineta" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="PatinetaElectrica" vertex="1">
+          <mxGeometry height="250" width="350" x="400" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-attr-1" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- CargoFijoActivacion: double" vertex="1">
+          <mxGeometry height="24" width="350" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-attr-2" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- BateriaMaxima: int" vertex="1">
+          <mxGeometry height="24" width="350" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-attr-3" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- _nivelBateria: int" vertex="1">
+          <mxGeometry height="24" width="350" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-prop-1" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ TarifaHora: double {get}" vertex="1">
+          <mxGeometry height="24" width="350" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-prop-2" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ NivelBateria: int {get; private set;}" vertex="1">
+          <mxGeometry height="24" width="350" y="124" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-sep" parent="class-patineta" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="350" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-meth-1" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ PatinetaElectrica(codigo: string, nivelBateria: int)" vertex="1">
+          <mxGeometry height="24" width="350" y="154" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-meth-2" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Recargar(cantidad: int): void" vertex="1">
+          <mxGeometry height="24" width="350" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-meth-3" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ CalcularValorAlquiler(horas: int): double" vertex="1">
+          <mxGeometry height="24" width="350" y="202" as="geometry" />
+        </mxCell>
+        <mxCell id="patineta-meth-4" parent="class-patineta" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ MostrarInfo(): void" vertex="1">
+          <mxGeometry height="24" width="350" y="226" as="geometry" />
+        </mxCell>
+        <mxCell id="class-automovil" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;rounded=0;labelBackgroundColor=none;" value="AutomovilElectrico" vertex="1">
+          <mxGeometry height="274" width="330" x="790" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-attr-1" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- Descuento: double" vertex="1">
+          <mxGeometry height="24" width="330" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-attr-2" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- HorasMinimasDescuento: int" vertex="1">
+          <mxGeometry height="24" width="330" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-attr-3" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- BateriaMaxima: int" vertex="1">
+          <mxGeometry height="24" width="330" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-attr-4" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="- _nivelBateria: int" vertex="1">
+          <mxGeometry height="24" width="330" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-prop-1" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ TarifaHora: double {get}" vertex="1">
+          <mxGeometry height="24" width="330" y="124" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-prop-2" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ NivelBateria: int {get; private set;}" vertex="1">
+          <mxGeometry height="24" width="330" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-sep" parent="class-automovil" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;rotatable=0;portConstraint=eastwest;rounded=0;labelBackgroundColor=none;" value="" vertex="1">
+          <mxGeometry height="6" width="330" y="172" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-meth-1" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ AutomovilElectrico(codigo: string, nivelBateria: int)" vertex="1">
+          <mxGeometry height="24" width="330" y="178" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-meth-2" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ Recargar(cantidad: int): void" vertex="1">
+          <mxGeometry height="24" width="330" y="202" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-meth-3" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ CalcularValorAlquiler(horas: int): double" vertex="1">
+          <mxGeometry height="24" width="330" y="226" as="geometry" />
+        </mxCell>
+        <mxCell id="auto-meth-4" parent="class-automovil" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=6;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=11;rounded=0;labelBackgroundColor=none;" value="+ MostrarInfo(): void" vertex="1">
+          <mxGeometry height="24" width="330" y="250" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

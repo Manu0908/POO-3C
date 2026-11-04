@@ -36,6 +36,9 @@ ScaffoldingReadMe.txt
 # Others
 ~$*
 *~
+.$*
+*.bkp
+*.drawio.bkp
 CodeCoverage/
 
 # MSBuild Binary and Structured Log
