@@ -40,7 +40,8 @@ POO-3C-IA/
 │   ├── Sesion_04_Taller_Cine_CRC/
 │   ├── Sesion_06_Actividad_MoviCar/
 │   ├── Sesion_13_Actividad_ClasesAbstractas/
-│   └── Sesion_15_Taller_Veterinaria_UML/
+│   ├── Sesion_15_Taller_Veterinaria_UML/
+│   └── Sesion_16_Taller_Alquiler_Vehiculos/
 │
 ├── 03_Evaluaciones/                                   # Parciales y recuperaciones
 │   ├── Sesion_08_Parcial_01/

@@ -107,15 +107,26 @@ private string _codigo = string.Empty; // Redundante si el constructor lo asigna
 private string _codigo, _descripcion; // Declaración agrupada prohibida
 ```
 
-### 4.3. Encapsulamiento Estricto y Métodos de Negocio
-* Propiedades con visibilidad restringida: las propiedades públicas deben tener modificador de acceso de escritura `private set` (o carecer de setter si son de solo lectura) para evitar manipulaciones externas indiscriminadas del estado interno.
+### 4.3. Encapsulamiento Estricto, Prohibición de `readonly` y Métodos de Negocio
+* **Regla general de memoria: Cero `readonly`:** Queda estrictamente prohibido el uso de la palabra clave `readonly` en cualquier parte del código (tanto en campos `private readonly` como en interfaces tipo `IReadOnlyList<T>` o llamadas `.AsReadOnly()`).
+* **Equivalente académico obligatorio:** Toda protección de solo lectura se modela exclusivamente mediante campos privados convencionales y **propiedades con solo `get`** (por ejemplo, `public List<T> Elementos { get { return _elementos; } }` o `public decimal TarifaHora { get { return 5000m; } }`).
+* **Propiedades con visibilidad restringida:** Las propiedades públicas con estado modificable deben tener setter privado (`private set`) o carecer totalmente de setter si son calculadas o de solo lectura.
 * **Prohibido el uso de setters para lógica transaccional:** Toda modificación de estado relevante debe efectuarse mediante métodos de negocio explícitos con nombres de dominio claros (por ejemplo, `RegistrarSalidaRuta()`, `MarcarComoEntregado()`, `RegistrarNovedad()`), en lugar de exponer propiedades mutables.
-* **Protección de colecciones internas:** Jamás exponer listas crudas (`List<T>`) como propiedades públicas. Se debe encapsular la lista interna en un campo privado (`_paquetes`) y exponerla como una vista de solo lectura mediante `IReadOnlyList<T>` con `.AsReadOnly()`.
+* **Encapsulamiento de colecciones internas:** La lista interna se declara como campo privado (inicializado preferentemente en el constructor) y se expone mediante una propiedad de solo `get`:
 
 ```csharp
-// CORRECTO
-private readonly List<Paquete> _paquetes = new List<Paquete>();
-public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
+// CORRECTO (Regla innegociable: sin readonly, propiedad con solo get)
+private List<Paquete> _paquetes;
+
+public Despacho()
+{
+    _paquetes = new List<Paquete>();
+}
+
+public List<Paquete> Paquetes
+{
+    get { return _paquetes; }
+}
 
 public void AgregarPaquete(Paquete paquete)
 {
@@ -123,6 +134,10 @@ public void AgregarPaquete(Paquete paquete)
         throw new NexoLogException("No se puede agregar un paquete nulo.");
     _paquetes.Add(paquete);
 }
+
+// INCORRECTO (Prohibido: uso de readonly e IReadOnlyList)
+private readonly List<Paquete> _paquetes = new List<Paquete>();
+public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
 ```
 
 ### 4.4. Estado Inicial Siempre Explícito (Nunca `null`)
@@ -136,9 +151,12 @@ public void AgregarPaquete(Paquete paquete)
   - Valores monetarios, recargos o acumuladores pueden admitir cero o positivo (`>= 0`), pero nunca negativos.
 * Lanzar excepciones tempranas ante datos incongruentes.
 
-### 4.6. Excepciones de Dominio Propias
-* Se debe emplear una excepción propia del dominio para encapsular violaciones de reglas de negocio (por ejemplo, `NexoLogException`, siguiendo el precedente académico de `VeterinariaException` visto en la Sesión 15).
-* No abusar de `Exception` genérica en la lógica interna del modelo; utilizar la excepción de dominio para facilitar el diagnóstico y las pruebas unitarias.
+### 4.6. Manejo de Excepciones: Estándar por Defecto
+* **Cero excepciones personalizadas a menos que el enunciado las exija:** No crear clases de excepción propias (como `MovilidadException`) a menos que el PDF, la guía o el docente lo soliciten explícitamente.
+* **Uso de excepciones vistas en clase:** Utilizar las excepciones estándar de .NET vistas en la asignatura:
+  - `ArgumentException` para validar argumentos inválidos, valores fuera de rango, cadenas vacías o parámetros inconsistentes.
+  - `Exception` general para inconsistencias operativas o de estado cuando no aplique una más específica.
+* Cuando un proyecto formal sí exija una excepción propia (como ocurrió con `VeterinariaException` en la Sesión 15 o `NexoLogException` en el Proyecto Final), esta se creará derivando de `Exception` conforme al requerimiento formal.
 
 ### 4.7. Codificación y Manejo de Archivos
 * Cualquier operación de lectura, escritura o exportación sobre el sistema de archivos (JSON, XML, CSV o TXT) debe especificar de manera obligatoria y explícita la codificación `Encoding.UTF8`.
@@ -174,7 +192,7 @@ El repositorio mantiene una convención de nombres y numeración uniforme para f
   - `Sesion_15 - UML.pdf`
 * **Carpetas Funcionales:**
   - `01_Ejemplos_Clase/`: Proyectos demostrativos de aula (`Sesion_03_Gimnasio`, `Sesion_05_Encapsulamiento_Cine`, `Sesion_07_Vehiculo`, `Sesion_10_Herencia_Empleados`, `Sesion_12_Polimorfismo_Hotel`).
-  - `02_Actividades_y_Talleres/`: Talleres evaluados y tarjetas CRC (`Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`).
+  - `02_Actividades_y_Talleres/`: Talleres evaluados y tarjetas CRC (`Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`, `Sesion_16_Taller_Alquiler_Vehiculos`).
   - `03_Evaluaciones/`: Parciales y recuperaciones (`Sesion_08_Parcial_01`, `Sesion_11_Recuperacion_Parcial_01_EcoRide`).
   - `04_Proyecto_Final/`: Código de producción del sistema `NexoLog` y su documento de sustentación `ESTRUCTURA_PROYECTO.md`.
   - `InformesExportados/`: Destino por defecto de los archivos de reporte (`informes_nexolog.json`, `informes_nexolog.xml`).
