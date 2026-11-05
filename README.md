@@ -1,4 +1,4 @@
-# POO-3C-IA: Programación y Diseño Orientado a Objetos
+# POO-3C: Programación y Diseño Orientado a Objetos
 
 Repositorio académico y de experimentación asistida por Inteligencia Artificial para la asignatura de **Programación Orientada a Objetos (C#)** correspondiente al tercer cuatrimestre.
 
@@ -11,7 +11,7 @@ El propósito central es desarrollar código limpio, defendible y progresivo, ut
 El contenido se encuentra organizado por propósito académico:
 
 ```text
-POO-3C-IA/
+POO-3C/
 ├── [Documentos Rectores]
 │   ├── 00_MicroDiseño - ICD.pdf
 │   ├── 00_Cronograma Detallado de Clases.pdf
@@ -54,7 +54,7 @@ POO-3C-IA/
 
 ## Sistema de Trabajo con Agentes de IA
 
-Para la elaboración y seguimiento de los proyectos se utiliza un flujo con roles definidos en [AGENTS.md](file:///c:/Users/pc/OneDrive/Documentos/GitHub/POO-3C-IA/AGENTS.md):
+Para la elaboración y seguimiento de los proyectos se utiliza un flujo con roles definidos en [AGENTS.md](file:///c:/Users/pc/OneDrive/Documentos/GitHub/POO-3C/AGENTS.md):
 - **Tutor / Monitor General:** Supervisa el proceso formativo, la pedagogía y la coherencia técnica.
 - **Agente de Planeación (`poo-planner`):** Desglosa requerimientos, diseña modelos conceptuales (UML) y formula planes de trabajo secuenciales.
 - **Agente de Construcción (`poo-builder`):** Implementa el código C# respetando normas de estilo de clase (declaraciones explícitas, encapsulamiento y código defendible).
