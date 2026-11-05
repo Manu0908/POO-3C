@@ -26,7 +26,7 @@ public abstract class ModalidadServicio
     // Evalúa si el despacho cumplió los acuerdos de nivel de servicio
     public abstract bool EvaluarCumplimiento(Despacho despacho);
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         return _nombreModalidad;
     }

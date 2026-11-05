@@ -68,7 +68,7 @@ public class Paquete
         ValorDeclarado = valorDeclarado;
     }
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         return $"Paquete [{IdPaquete}] - {Descripcion} | Peso: {Peso:F2} kg | Declarado: ${ValorDeclarado:N2}";
     }

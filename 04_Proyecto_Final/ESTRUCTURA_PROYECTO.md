@@ -32,7 +32,7 @@ El software:
 │
 ├── Infraestructura/                      # Entrada y salida de datos
 │   ├── Lectores/                        # Lectores de JSON y XML con codificación UTF-8
-│   │   ├── LectorArchivoFactory.cs      # Fábrica para instanciar el lector adecuado
+│   │   ├── CreadorLectores.cs           # Creador centralizado para instanciar el lector adecuado
 │   │   └── DTOs/                        # Modelos simples para deserializar archivos
 │   └── Exportadores/                    # Exportadores a JSON y XML (IExportadorInforme)
 │
@@ -55,14 +55,14 @@ Representa a la oficina operativa de la empresa. No representa un paquete ni un 
 ### ¿Cómo se resolvió el método de 100 líneas en `Despacho`?
 El método `ProcesarAcontecimiento` se fragmentó en 5 submétodos privados con nombres directos en español (`ValidarNoFinalizado`, `ProcesarRecepcion`, `ProcesarSalidaRuta`, `ProcesarEntrega`, `ProcesarDevolucion`), logrando que cada método haga una sola cosa bien y sea fácil de explicar en un tablero.
 
-### Patrón Strategy (Estrategias de Cobro)
-* **¿Dónde está?** En la interfaz `IEstrategiaCobro` y sus clases: `TarifaFijaStrategy`, `TarifaPesoStrategy`, `TarifaDistanciaStrategy`.
-* **¿Por qué se usó?** Porque cada comercio cobra de manera diferente. En vez de llenar la clase `Despacho` o `Establecimiento` con `switch` o `if (tipo == "peso")`, cada estrategia encapsula su propia matemática. Si mañana NexoLog crea una tarifa mixta o por zonas, solo creamos una clase nueva sin tocar el resto del sistema.
+### Patrón Strategy (Tarifas Comerciales)
+* **¿Dónde está?** En la interfaz `ITarifa` y sus clases: `TarifaFija`, `TarifaPorPeso`, `TarifaPorDistancia`.
+* **¿Por qué se usó?** Porque cada comercio cobra de manera diferente. En vez de llenar la clase `Despacho` o `Establecimiento` con `switch` o `if (tipo == "peso")`, cada estrategia de tarifa encapsula su propia matemática mediante polimorfismo. Si mañana NexoLog crea una tarifa mixta o por zonas, solo creamos una clase nueva sin tocar el resto del sistema.
 * **Comprobación clave:** Para Comercio Caribe (`COM-01`) se aplica tarifa por peso ($3.500/kg). El despacho `NX-1001` pesa 3.7 kg y liquida exactamente **$12.950**, tal como lo pide el enunciado.
 
-### Patrón Factory (Fábrica de Lectores)
-* **¿Dónde está?** En `LectorArchivoFactory`.
-* **¿Por qué se usó?** Centraliza la decisión de qué lector crear según la extensión (`.json` o `.xml`) y el tipo de dato. El resto del programa no necesita saber cómo se lee un XML o un JSON; solo le pide a la fábrica el lector y recibe los datos listos.
+### Patrón Factory (Creador de Lectores)
+* **¿Dónde está?** En `CreadorLectores`.
+* **¿Por qué se usó?** Centraliza la decisión de qué lector crear según la extensión (`.json` o `.xml`) y el tipo de dato. El resto del programa no necesita saber cómo se lee un XML o un JSON; solo le pide al creador el lector correspondiente y recibe los datos listos.
 
 ---
 

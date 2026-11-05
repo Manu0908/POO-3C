@@ -28,7 +28,16 @@ while (continuar)
     Console.WriteLine("--------------------------------------------------------");
     Console.Write(" Seleccione una opcion [0-6]: ");
 
-    string opcion = (Console.ReadLine() ?? string.Empty).Trim();
+    string lineaLeida = Console.ReadLine();
+    if (lineaLeida == null)
+    {
+        break;
+    }
+    string opcion = lineaLeida.Trim().Trim('\uFEFF');
+    if (string.IsNullOrEmpty(opcion))
+    {
+        continue;
+    }
     Console.WriteLine();
 
     switch (opcion)

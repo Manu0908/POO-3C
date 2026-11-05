@@ -87,7 +87,7 @@ public class RegistroInconsistencia
         FechaDeteccion = fechaDeteccion;
     }
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         return $"[{FechaDeteccion:yyyy-MM-dd HH:mm:ss}] [{Tipo}] Archivo: '{ArchivoOrigen}' | Ref: '{IdentificadorReferencia}' | {Motivo}";
     }

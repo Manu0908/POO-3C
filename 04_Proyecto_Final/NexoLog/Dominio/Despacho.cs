@@ -111,14 +111,14 @@ public class Despacho
         set { _modalidad = value; }
     }
 
-    public IReadOnlyList<Paquete> Paquetes
+    public List<Paquete> Paquetes
     {
-        get { return _paquetes.AsReadOnly(); }
+        get { return _paquetes; }
     }
 
-    public IReadOnlyList<Acontecimiento> Historial
+    public List<Acontecimiento> Historial
     {
-        get { return _historial.AsReadOnly(); }
+        get { return _historial; }
     }
 
     public int CantidadPaquetes
@@ -310,7 +310,7 @@ public class Despacho
         ProcesarAcontecimiento(acontecimiento);
     }
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         string modalidadNombre = _modalidad != null ? _modalidad.NombreModalidad : "Sin Asignar";
         return $"Guía: {NumeroGuia} | Modalidad: {modalidadNombre} | Destino: {CiudadDestino} ({Destinatario}) | Distancia: {DistanciaKm:F1} km | Estado: {EstadoActual} | Paquetes: {CantidadPaquetes} ({CalcularPesoTotal():F2} kg)";

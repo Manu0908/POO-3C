@@ -33,19 +33,19 @@ public class SistemaNexoLog
         get { return _informacionIntegrada; }
     }
 
-    public IReadOnlyCollection<Establecimiento> Establecimientos
+    public Dictionary<string, Establecimiento>.ValueCollection Establecimientos
     {
         get { return _establecimientos.Values; }
     }
 
-    public IReadOnlyCollection<Despacho> Despachos
+    public Dictionary<string, Despacho>.ValueCollection Despachos
     {
         get { return _despachosPorGuia.Values; }
     }
 
-    public IReadOnlyList<RegistroInconsistencia> Inconsistencias
+    public List<RegistroInconsistencia> Inconsistencias
     {
-        get { return _inconsistencias.AsReadOnly(); }
+        get { return _inconsistencias; }
     }
 
     public int TotalAcuerdosCargados
@@ -95,11 +95,11 @@ public class SistemaNexoLog
         string rutaNorte = Path.Combine(carpetaDatos, "seguimiento_norte.json");
         string rutaAndina = Path.Combine(carpetaDatos, "seguimiento_andina.xml");
 
-        ILectorArchivo<AcuerdoDto> lectorAcuerdos = LectorArchivoFactory.CrearLectorAcuerdosJson();
-        ILectorArchivo<Despacho> lectorCaribe = LectorArchivoFactory.CrearLectorPedidosJson();
-        ILectorArchivo<Despacho> lectorAndino = LectorArchivoFactory.CrearLectorPedidosXml();
-        ILectorArchivo<Acontecimiento> lectorNorte = LectorArchivoFactory.CrearLectorSeguimientosJson();
-        ILectorArchivo<Acontecimiento> lectorAndina = LectorArchivoFactory.CrearLectorSeguimientosXml();
+        ILectorArchivo<AcuerdoDto> lectorAcuerdos = CreadorLectores.CrearLectorAcuerdosJson();
+        ILectorArchivo<Despacho> lectorCaribe = CreadorLectores.CrearLectorPedidosJson();
+        ILectorArchivo<Despacho> lectorAndino = CreadorLectores.CrearLectorPedidosXml();
+        ILectorArchivo<Acontecimiento> lectorNorte = CreadorLectores.CrearLectorSeguimientosJson();
+        ILectorArchivo<Acontecimiento> lectorAndina = CreadorLectores.CrearLectorSeguimientosXml();
 
         _acuerdosCargados = lectorAcuerdos.Leer(rutaAcuerdos, _inconsistencias);
         _pedidosCaribeCargados = lectorCaribe.Leer(rutaCaribe, _inconsistencias);
@@ -150,18 +150,18 @@ public class SistemaNexoLog
             decimal baseTarifa = dto.TarifaBase;
             string tipoTarifa = (dto.TipoTarifa ?? string.Empty).Trim().ToUpperInvariant();
 
-            IEstrategiaCobro estrategia;
+            ITarifa tarifa;
             if (tipoTarifa == "PESO")
             {
-                estrategia = new TarifaPesoStrategy(baseTarifa);
+                tarifa = new TarifaPorPeso(baseTarifa);
             }
             else if (tipoTarifa == "DISTANCIA")
             {
-                estrategia = new TarifaDistanciaStrategy(baseTarifa);
+                tarifa = new TarifaPorDistancia(baseTarifa);
             }
             else if (tipoTarifa == "FIJA")
             {
-                estrategia = new TarifaFijaStrategy(baseTarifa);
+                tarifa = new TarifaFija(baseTarifa);
             }
             else
             {
@@ -176,11 +176,11 @@ public class SistemaNexoLog
 
             if (_establecimientos.TryGetValue(codigo, out Establecimiento establecimientoExistente))
             {
-                establecimientoExistente.AsignarTarifa(estrategia);
+                establecimientoExistente.AsignarTarifa(tarifa);
             }
             else
             {
-                Establecimiento nuevo = new Establecimiento(codigo, nombre, estrategia);
+                Establecimiento nuevo = new Establecimiento(codigo, nombre, tarifa);
                 _establecimientos.Add(codigo, nuevo);
             }
         }
@@ -510,17 +510,17 @@ public class SistemaNexoLog
             item.ModalidadTarifa = nombreTarifa;
 
             decimal tarifaBase = 0m;
-            if (est.TarifaAcordada is TarifaPesoStrategy tPeso)
+            if (est.TarifaAcordada is TarifaPorPeso tPeso)
             {
                 tarifaBase = tPeso.ValorPorKilogramo;
             }
-            else if (est.TarifaAcordada is TarifaDistanciaStrategy tDist)
+            else if (est.TarifaAcordada is TarifaPorDistancia tDist)
             {
                 tarifaBase = tDist.ValorPorKilometro;
             }
-            else if (est.TarifaAcordada is TarifaFijaStrategy tFija)
+            else if (est.TarifaAcordada is TarifaFija tFija)
             {
-                tarifaBase = tFija.TarifaFija;
+                tarifaBase = tFija.ValorFijo;
             }
 
             item.TarifaBase = tarifaBase;

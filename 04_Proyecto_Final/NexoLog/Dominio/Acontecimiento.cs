@@ -66,7 +66,7 @@ public class Acontecimiento
         FechaHora = fechaHora;
     }
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         return $"[{FechaHora:yyyy-MM-dd HH:mm:ss}] Guía: {NumeroGuia} | Tipo: {Tipo} | ID: {IdAcontecimiento}";
     }

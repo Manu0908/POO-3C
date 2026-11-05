@@ -1,7 +1,7 @@
 namespace NexoLog.Dominio.Tarifas;
 
-// Estrategia de cobro basada en la distancia recorrida en kilómetros.
-public class TarifaDistanciaStrategy : IEstrategiaCobro
+// Tarifa comercial basada en la distancia recorrida en kilometros.
+public class TarifaPorDistancia : ITarifa
 {
     private decimal _valorPorKilometro;
 
@@ -12,13 +12,13 @@ public class TarifaDistanciaStrategy : IEstrategiaCobro
         {
             if (value <= 0)
             {
-                throw new NexoLogException("El valor por kilómetro debe ser estrictamente mayor a cero.");
+                throw new NexoLogException("El valor por kilometro debe ser estrictamente mayor a cero.");
             }
             _valorPorKilometro = value;
         }
     }
 
-    public TarifaDistanciaStrategy(decimal valorPorKilometro)
+    public TarifaPorDistancia(decimal valorPorKilometro)
     {
         ValorPorKilometro = valorPorKilometro;
     }

@@ -2,12 +2,12 @@ using NexoLog.Dominio.Tarifas;
 
 namespace NexoLog.Dominio;
 
-// Representa una sucursal, tienda o punto de expedición remitente.
+// Representa una sucursal, tienda o punto de expedicion remitente.
 public class Establecimiento
 {
     private string _codigo;
     private string _nombreComercial;
-    private IEstrategiaCobro _tarifaAcordada;
+    private ITarifa _tarifaAcordada;
     private List<Despacho> _despachos;
 
     public string Codigo
@@ -17,7 +17,7 @@ public class Establecimiento
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new NexoLogException("El código del establecimiento es obligatorio.");
+                throw new NexoLogException("El codigo del establecimiento es obligatorio.");
             }
             _codigo = value.Trim();
         }
@@ -36,15 +36,15 @@ public class Establecimiento
         }
     }
 
-    public IEstrategiaCobro TarifaAcordada
+    public ITarifa TarifaAcordada
     {
         get { return _tarifaAcordada; }
         set { _tarifaAcordada = value; }
     }
 
-    public IReadOnlyList<Despacho> Despachos
+    public List<Despacho> Despachos
     {
-        get { return _despachos.AsReadOnly(); }
+        get { return _despachos; }
     }
 
     public int CantidadDespachos
@@ -60,19 +60,19 @@ public class Establecimiento
         _despachos = new List<Despacho>();
     }
 
-    public Establecimiento(string codigo, string nombreComercial, IEstrategiaCobro tarifaAcordada)
+    public Establecimiento(string codigo, string nombreComercial, ITarifa tarifaAcordada)
         : this(codigo, nombreComercial)
     {
         _tarifaAcordada = tarifaAcordada;
     }
 
-    // Asigna o modifica la estrategia de cobro comercial pactada con el establecimiento
-    public void AsignarTarifa(IEstrategiaCobro tarifa)
+    // Asigna o modifica la tarifa comercial pactada con el establecimiento
+    public void AsignarTarifa(ITarifa tarifa)
     {
         _tarifaAcordada = tarifa;
     }
 
-    // Registra un nuevo despacho en el establecimiento evitando duplicidad de número de guía
+    // Registra un nuevo despacho en el establecimiento evitando duplicidad de numero de guia
     public void AgregarDespacho(Despacho despacho)
     {
         if (despacho == null)
@@ -84,7 +84,7 @@ public class Establecimiento
         {
             if (string.Equals(d.NumeroGuia, despacho.NumeroGuia, StringComparison.OrdinalIgnoreCase))
             {
-                throw new NexoLogException($"Ya existe un despacho registrado con el número de guía '{despacho.NumeroGuia}' en el establecimiento {NombreComercial}.");
+                throw new NexoLogException($"Ya existe un despacho registrado con el numero de guia '{despacho.NumeroGuia}' en el establecimiento {NombreComercial}.");
             }
         }
 
@@ -111,7 +111,7 @@ public class Establecimiento
         return totalFacturable;
     }
 
-    public override string ToString()
+    public string MostrarInformacion()
     {
         string tarifaDesc = _tarifaAcordada != null ? _tarifaAcordada.ObtenerTipoTarifa() : "Sin Tarifa";
         return $"Establecimiento [{Codigo}] - {NombreComercial} | Tarifa: {tarifaDesc} | Despachos: {CantidadDespachos}";

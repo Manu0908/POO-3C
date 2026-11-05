@@ -1,26 +1,26 @@
 namespace NexoLog.Dominio.Tarifas;
 
-// Estrategia de cobro basada en una tarifa fija por despacho entregado.
-public class TarifaFijaStrategy : IEstrategiaCobro
+// Tarifa comercial fija por despacho entregado.
+public class TarifaFija : ITarifa
 {
-    private decimal _tarifaFija;
+    private decimal _valorFijo;
 
-    public decimal TarifaFija
+    public decimal ValorFijo
     {
-        get { return _tarifaFija; }
+        get { return _valorFijo; }
         private set
         {
             if (value <= 0)
             {
                 throw new NexoLogException("El valor de la tarifa fija debe ser estrictamente mayor a cero.");
             }
-            _tarifaFija = value;
+            _valorFijo = value;
         }
     }
 
-    public TarifaFijaStrategy(decimal tarifaFija)
+    public TarifaFija(decimal valorFijo)
     {
-        TarifaFija = tarifaFija;
+        ValorFijo = valorFijo;
     }
 
     public decimal CalcularTarifa(Despacho despacho)
@@ -35,7 +35,7 @@ public class TarifaFijaStrategy : IEstrategiaCobro
             return 0m;
         }
 
-        return _tarifaFija;
+        return _valorFijo;
     }
 
     public string ObtenerTipoTarifa()
