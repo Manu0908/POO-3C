@@ -1,15 +1,13 @@
 using System.Globalization;
 using System.Text;
-using NexoLog.Dominio;
-using NexoLog.Dominio.Inconsistencias;
-using NexoLog.Infraestructura.Exportadores;
-using NexoLog.Servicios;
-using NexoLog.Servicios.Modelos;
+using NexoLog;
+using NexoLog.Exportadores;
+using NexoLog.Informes;
 
 Console.OutputEncoding = Encoding.UTF8;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
-SistemaNexoLog sistema = new SistemaNexoLog();
+Empresa sistema = new Empresa();
 string carpetaDatos = LocalizarCarpetaDatos();
 bool continuar = true;
 
@@ -40,37 +38,42 @@ while (continuar)
     }
     Console.WriteLine();
 
-    switch (opcion)
+    if (opcion == "1")
     {
-        case "1":
-            CargarArchivos(sistema, carpetaDatos);
-            break;
-        case "2":
-            IntegrarInformacion(sistema);
-            break;
-        case "3":
-            MostrarInformeOperativo(sistema);
-            break;
-        case "4":
-            MostrarInformeFinanciero(sistema);
-            break;
-        case "5":
-            MostrarInformeInconsistencias(sistema);
-            break;
-        case "6":
-            ExportarInformes(sistema);
-            break;
-        case "0":
-            Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
-            continuar = false;
-            break;
-        default:
-            Console.WriteLine("Opcion invalida. Intente nuevamente.");
-            break;
+        CargarArchivos(sistema, carpetaDatos);
+    }
+    else if (opcion == "2")
+    {
+        IntegrarInformacion(sistema);
+    }
+    else if (opcion == "3")
+    {
+        MostrarInformeOperativo(sistema);
+    }
+    else if (opcion == "4")
+    {
+        MostrarInformeFinanciero(sistema);
+    }
+    else if (opcion == "5")
+    {
+        MostrarInformeInconsistencias(sistema);
+    }
+    else if (opcion == "6")
+    {
+        ExportarInformes(sistema);
+    }
+    else if (opcion == "0")
+    {
+        Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
+        continuar = false;
+    }
+    else
+    {
+        Console.WriteLine("Opcion invalida. Intente nuevamente.");
     }
 }
 
-void CargarArchivos(SistemaNexoLog sys, string ruta)
+void CargarArchivos(Empresa sys, string ruta)
 {
     Console.WriteLine("--- Carga de Archivos ---");
     bool exito = sys.CargarArchivos(ruta);
@@ -87,7 +90,7 @@ void CargarArchivos(SistemaNexoLog sys, string ruta)
     Console.WriteLine("Archivos cargados exitosamente.");
 }
 
-void IntegrarInformacion(SistemaNexoLog sys)
+void IntegrarInformacion(Empresa sys)
 {
     Console.WriteLine("--- Integracion de Informacion ---");
     if (!sys.ArchivosCargados)
@@ -103,7 +106,7 @@ void IntegrarInformacion(SistemaNexoLog sys)
     Console.WriteLine("Integracion completada con exito.");
 }
 
-void MostrarInformeOperativo(SistemaNexoLog sys)
+void MostrarInformeOperativo(Empresa sys)
 {
     Console.WriteLine("--- Informe Operativo ---");
     if (!sys.InformacionIntegrada)
@@ -132,7 +135,7 @@ void MostrarInformeOperativo(SistemaNexoLog sys)
     }
 }
 
-void MostrarInformeFinanciero(SistemaNexoLog sys)
+void MostrarInformeFinanciero(Empresa sys)
 {
     Console.WriteLine("--- Informe Financiero ---");
     if (!sys.InformacionIntegrada)
@@ -163,7 +166,7 @@ void MostrarInformeFinanciero(SistemaNexoLog sys)
     }
 }
 
-void MostrarInformeInconsistencias(SistemaNexoLog sys)
+void MostrarInformeInconsistencias(Empresa sys)
 {
     Console.WriteLine("--- Informe de Inconsistencias ---");
     InformeInconsistencias inc = sys.GenerarInformeInconsistencias();
@@ -190,7 +193,7 @@ void MostrarInformeInconsistencias(SistemaNexoLog sys)
     }
 }
 
-void ExportarInformes(SistemaNexoLog sys)
+void ExportarInformes(Empresa sys)
 {
     Console.WriteLine("--- Exportacion de Informes ---");
     if (!sys.InformacionIntegrada)

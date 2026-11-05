@@ -20,26 +20,52 @@ El software:
 
 ```text
 04_Proyecto_Final/NexoLog/
-├── Dominio/                              # Las entidades del negocio puro
-│   ├── Paquete.cs                       # Cada bulto con peso (> 0) y valor (>= 0)
-│   ├── Acontecimiento.cs                # Hitos logísticos con constantes (TipoRec, TipoRut, TipoEnt, TipoDev)
-│   ├── Despacho.cs                      # Envío central con constantes de estado (EstadoPendiente, EstadoEnDistribucion, etc.)
-│   ├── Establecimiento.cs               # Comercio remitente (COM-01, COM-02, COM-03)
-│   ├── NexoLogException.cs              # Excepción propia para capturar errores de negocio
-│   ├── Modalidades/                     # Jerarquía de entrega (Estándar, Exprés, Programado)
-│   ├── Tarifas/                         # Estrategias de cobro (Fija, Peso, Distancia)
-│   └── Inconsistencias/                 # Registro de auditoría para anomalías detectadas
+├── Despacho.cs                  # Envio central con maquina de estados (Pendiente, EnDistribucion, Entregado, Devuelto)
+├── Paquete.cs                   # Cada bulto con peso (> 0) y valor declarado (>= 0)
+├── Establecimiento.cs           # Comercio remitente (COM-01, COM-02, COM-03)
+├── Acontecimiento.cs            # Hitos logisticos (REC, RUT, ENT, DEV)
+├── RegistroInconsistencia.cs    # Registro de auditoria para anomalias detectadas
+├── NexoLogException.cs          # Excepcion propia para capturar errores de reglas de negocio
+├── Empresa.cs                   # Entidad coordinadora central (carga, integracion y generacion de informes)
+├── Program.cs                   # Menu universitario interactivo en consola (Opciones 1 a 6)
 │
-├── Infraestructura/                      # Entrada y salida de datos
-│   ├── Lectores/                        # Lectores de JSON y XML con codificación UTF-8
-│   │   ├── CreadorLectores.cs           # Creador centralizado para instanciar el lector adecuado
-│   │   └── DTOs/                        # Modelos simples para deserializar archivos
-│   └── Exportadores/                    # Exportadores a JSON y XML (IExportadorInforme)
+├── Tarifas/                     # Estrategias de cobro polimorficas (Pattern Strategy)
+│   ├── ITarifa.cs               # Contrato para el calculo de tarifas
+│   ├── TarifaFija.cs            # Tarifa fija pactada por envio
+│   ├── TarifaPorPeso.cs         # Tarifa por kilogramo acumulado ($3.500/kg en COM-01)
+│   └── TarifaPorDistancia.cs    # Tarifa por kilometro recorrido
 │
-├── Servicios/                           # Lógica de coordinación central
-│   └── SistemaNexoLog.cs                # Clase coordinadora que carga, procesa y genera los 3 informes
+├── Servicios/                   # Modalidades de servicio y evaluacion de SLAs (Herencia)
+│   ├── ModalidadServicio.cs     # Clase base abstracta de modalidad
+│   ├── ServicioEstandar.cs      # Entrega en un maximo de 72 horas desde REC
+│   ├── ServicioExpres.cs        # Salida <= 2h y entrega <= 24h desde REC
+│   └── ServicioProgramado.cs    # Entrega en fecha y franja horaria pactada (horas como enteros simples)
 │
-└── Program.cs                           # Menú universitario interactivo en consola (Opciones 1 a 6)
+├── Lectores/                    # Lectores de archivos JSON y XML con codificacion UTF-8
+│   ├── ILectorArchivo.cs        # Contrato generico para lectura de archivos
+│   ├── CreadorLectores.cs       # Creador centralizado de instancias (Pattern Factory)
+│   ├── LectorAcuerdosJson.cs    # Lector de acuerdos comerciales
+│   ├── LectorPedidosJson.cs     # Lector de pedidos en JSON
+│   ├── LectorPedidosXml.cs      # Lector de pedidos en XML
+│   ├── LectorSeguimientosJson.cs# Lector de seguimientos en JSON
+│   └── LectorSeguimientosXml.cs # Lector de seguimientos en XML
+│
+├── DTOs/                        # Modelos simples para deserializacion de insumos
+│   ├── AcuerdoDto.cs
+│   ├── PedidoJsonDto.cs
+│   ├── PaqueteJsonDto.cs
+│   ├── AcontecimientoJsonDto.cs
+│   └── LoteEstablecimientoDto.cs
+│
+├── Informes/                    # Modelos de datos para los informes consolidados
+│   ├── InformeOperativo.cs      # Metricas operativas y desglose por comercio/modalidad
+│   ├── InformeFinanciero.cs     # Liquidacion financiera por comercio y modalidad
+│   └── InformeInconsistencias.cs# Consolidacion y agrupacion de irregularidades
+│
+└── Exportadores/                # Exportacion polimorfica en UTF-8
+    ├── IExportadorInforme.cs    # Contrato comun de exportacion
+    ├── ExportadorJson.cs        # Exportador a formato JSON estructurado
+    └── ExportadorXml.cs         # Exportador a formato XML estructurado
 ```
 
 ---
@@ -49,15 +75,15 @@ El software:
 ### ¿Por qué constantes `string` en vez de `enum`?
 Se utilizaron constantes de texto (`public const string EstadoPendiente = "Pendiente";`) directamente dentro de `Despacho`, `Acontecimiento` y `RegistroInconsistencia`. Esta alternativa es estándar en C#, no requiere conceptos que aún no se hayan evaluado y previene errores tipográficos al referenciar `Despacho.EstadoPendiente`.
 
-### ¿Qué es `SistemaNexoLog`? (El concepto de Servicio en POO)
-Representa a la oficina operativa de la empresa. No representa un paquete ni un camión, sino al sistema central que coordina la carga de archivos, organiza los despachos en memoria y emite los reportes. Así se evita recargar al `Main` o a las entidades individuales con tareas que no les corresponden.
+### ¿Qué es `Empresa`? (El concepto de Entidad Coordinadora en POO)
+Representa a la entidad central del negocio (`Empresa.cs`). No representa un solo paquete ni un camión, sino a la empresa que coordina la carga de archivos, organiza los comercios y despachos en memoria y emite los reportes. Así se evita recargar al `Program.cs` o a las entidades individuales con tareas que no les corresponden.
 
-### ¿Cómo se resolvió el método de 100 líneas en `Despacho`?
-El método `ProcesarAcontecimiento` se fragmentó en 5 submétodos privados con nombres directos en español (`ValidarNoFinalizado`, `ProcesarRecepcion`, `ProcesarSalidaRuta`, `ProcesarEntrega`, `ProcesarDevolucion`), logrando que cada método haga una sola cosa bien y sea fácil de explicar en un tablero.
+### ¿Cómo se resolvió la máquina de estados en `Despacho`?
+El método `ProcesarAcontecimiento` se fragmentó en 5 submétodos privados con nombres directos en español (`ValidarNoFinalizado`, `ProcesarRecepcion`, `ProcesarSalidaRuta`, `ProcesarEntrega`, `ProcesarDevolucion`), usando cadenas claras de `if / else if / else` en lugar de `switch`, logrando que cada método haga una sola cosa bien y sea fácil de explicar en un tablero.
 
 ### Patrón Strategy (Tarifas Comerciales)
 * **¿Dónde está?** En la interfaz `ITarifa` y sus clases: `TarifaFija`, `TarifaPorPeso`, `TarifaPorDistancia`.
-* **¿Por qué se usó?** Porque cada comercio cobra de manera diferente. En vez de llenar la clase `Despacho` o `Establecimiento` con `switch` o `if (tipo == "peso")`, cada estrategia de tarifa encapsula su propia matemática mediante polimorfismo. Si mañana NexoLog crea una tarifa mixta o por zonas, solo creamos una clase nueva sin tocar el resto del sistema.
+* **¿Por qué se usó?** Porque cada comercio cobra de manera diferente. En vez de llenar la clase `Despacho` o `Establecimiento` con condicionales por tipo de tarifa, cada estrategia encapsula su propia matemática mediante polimorfismo. Si mañana NexoLog crea una tarifa mixta o por zonas, solo creamos una clase nueva sin tocar el resto del sistema.
 * **Comprobación clave:** Para Comercio Caribe (`COM-01`) se aplica tarifa por peso ($3.500/kg). El despacho `NX-1001` pesa 3.7 kg y liquida exactamente **$12.950**, tal como lo pide el enunciado.
 
 ### Patrón Factory (Creador de Lectores)

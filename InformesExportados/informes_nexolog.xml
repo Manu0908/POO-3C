@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<informesNexoLog fechaGeneracion="2026-11-03 23:59:38" sistema="NexoLog S.A.S.">
+<informesNexoLog fechaGeneracion="2026-11-05 16:02:30" sistema="NexoLog S.A.S.">
   <informeOperativo>
     <metricasGenerales>
-      <totalDespachos>10</totalDespachos>
+      <totalDespachos>11</totalDespachos>
       <totalEntregados>6</totalEntregados>
       <totalDevueltos>2</totalDevueltos>
-      <totalPendientes>1</totalPendientes>
+      <totalPendientes>2</totalPendientes>
       <totalEnDistribucion>1</totalEnDistribucion>
-      <totalPaquetes>13</totalPaquetes>
-      <pesoTotalKg>34.80</pesoTotalKg>
+      <totalPaquetes>14</totalPaquetes>
+      <pesoTotalKg>36.80</pesoTotalKg>
       <cumplidosSLA>4</cumplidosSLA>
       <incumplidosSLA>2</incumplidosSLA>
       <porcentajeCumplimiento>66.67</porcentajeCumplimiento>
@@ -25,10 +25,10 @@
         <porcentajeCumplimiento>100.00</porcentajeCumplimiento>
       </comercio>
       <comercio codigo="COM-02" nombre="Comercio Andino">
-        <totalDespachos>4</totalDespachos>
+        <totalDespachos>5</totalDespachos>
         <entregados>2</entregados>
         <devueltos>1</devueltos>
-        <pendientes>1</pendientes>
+        <pendientes>2</pendientes>
         <enDistribucion>0</enDistribucion>
         <cumplidosSLA>1</cumplidosSLA>
         <incumplidosSLA>1</incumplidosSLA>
@@ -54,7 +54,7 @@
         <porcentajeCumplimiento>50.00</porcentajeCumplimiento>
       </modalidad>
       <modalidad nombre="Estándar">
-        <totalDespachos>4</totalDespachos>
+        <totalDespachos>5</totalDespachos>
         <entregados>3</entregados>
         <cumplidosSLA>2</cumplidosSLA>
         <incumplidosSLA>1</incumplidosSLA>
@@ -85,7 +85,7 @@
       <comercio codigo="COM-02" nombre="Comercio Andino">
         <modalidadTarifa>Tarifa por Distancia</modalidadTarifa>
         <tarifaBase>150.00</tarifaBase>
-        <despachosTotales>4</despachosTotales>
+        <despachosTotales>5</despachosTotales>
         <despachosFacturables>2</despachosFacturables>
         <totalFacturado>50250.00</totalFacturado>
       </comercio>
@@ -104,9 +104,9 @@
     </cobrosPorModalidadTarifa>
   </informeFinanciero>
   <informeInconsistencias>
-    <totalInconsistencias>18</totalInconsistencias>
+    <totalInconsistencias>17</totalInconsistencias>
     <porTipo>
-      <inconsistencia tipo="DatoInvalido" cantidad="7" />
+      <inconsistencia tipo="DatoInvalido" cantidad="6" />
       <inconsistencia tipo="Duplicado" cantidad="3" />
       <inconsistencia tipo="ConflictoIdentificacion" cantidad="3" />
       <inconsistencia tipo="AcontecimientoIncompatible" cantidad="3" />
@@ -114,64 +114,61 @@
     </porTipo>
     <porArchivo>
       <archivo nombre="pedidos_caribe.json" cantidad="6" />
-      <archivo nombre="pedidos_andino.xml" cantidad="5" />
+      <archivo nombre="pedidos_andino.xml" cantidad="4" />
       <archivo nombre="seguimiento_norte.json" cantidad="4" />
       <archivo nombre="seguimiento_andina.xml" cantidad="3" />
     </porArchivo>
     <listadoDetallado>
-      <registro archivo="pedidos_caribe.json" referencia="NX-1090" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
-        <motivo>Paquete inválido en la guía 'NX-1090': El peso del paquete debe ser un valor positivo mayor a 0 kg.</motivo>
+      <registro archivo="pedidos_caribe.json" referencia="NX-1090" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
+        <motivo>Paquete invalido en la guia 'NX-1090': El peso del paquete debe ser estrictamente mayor a 0 kg.</motivo>
       </registro>
-      <registro archivo="pedidos_caribe.json" referencia="NX-1091" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
+      <registro archivo="pedidos_caribe.json" referencia="NX-1091" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
         <motivo>El despacho 'NX-1091' no contiene paquetes asociados.</motivo>
       </registro>
-      <registro archivo="pedidos_caribe.json" referencia="NX-3090" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
-        <motivo>Modalidad inválida en la guía 'NX-3090': La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial.</motivo>
+      <registro archivo="pedidos_caribe.json" referencia="NX-3090" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
+        <motivo>Modalidad invalida en la guia 'NX-3090': La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial.</motivo>
       </registro>
-      <registro archivo="pedidos_caribe.json" referencia="NX-3091" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
-        <motivo>Identificador de paquete duplicado 'PAQ-DUP-01' dentro de la guía 'NX-3091'.</motivo>
+      <registro archivo="pedidos_caribe.json" referencia="NX-3091" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
+        <motivo>Identificador de paquete duplicado 'PAQ-DUP-01' dentro de la guia 'NX-3091'.</motivo>
       </registro>
-      <registro archivo="pedidos_andino.xml" referencia="NX-2090" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
-        <motivo>Paquete inválido en la guía 'NX-2090': El peso del paquete debe ser un valor positivo mayor a 0 kg.</motivo>
+      <registro archivo="pedidos_andino.xml" referencia="NX-2090" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
+        <motivo>Paquete invalido en la guia 'NX-2090': El peso del paquete debe ser estrictamente mayor a 0 kg.</motivo>
       </registro>
-      <registro archivo="pedidos_andino.xml" referencia="NX-2091" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
-        <motivo>Paquete inválido en la guía 'NX-2091': El valor declarado del paquete no puede ser negativo.</motivo>
-      </registro>
-      <registro archivo="pedidos_andino.xml" referencia="NX-2092" tipo="DatoInvalido" fecha="2026-11-03 23:59:38">
+      <registro archivo="pedidos_andino.xml" referencia="NX-2092" tipo="DatoInvalido" fecha="2026-11-05 16:02:30">
         <motivo>El despacho 'NX-2092' no contiene paquetes asociados.</motivo>
       </registro>
-      <registro archivo="pedidos_caribe.json" referencia="NX-1002" tipo="Duplicado" fecha="2026-11-03 23:59:38">
-        <motivo>Despacho con guía 'NX-1002' duplicado idénticamente en la fuente; se omite duplicado.</motivo>
+      <registro archivo="pedidos_caribe.json" referencia="NX-1002" tipo="Duplicado" fecha="2026-11-05 16:02:30">
+        <motivo>Despacho con guia 'NX-1002' duplicado identicamente en la fuente; se omite duplicado.</motivo>
       </registro>
-      <registro archivo="pedidos_caribe.json" referencia="NX-1001" tipo="ConflictoIdentificacion" fecha="2026-11-03 23:59:38">
-        <motivo>Conflicto de identificación: La guía 'NX-1001' ya existe con información contradictoria.</motivo>
+      <registro archivo="pedidos_caribe.json" referencia="NX-1001" tipo="ConflictoIdentificacion" fecha="2026-11-05 16:02:30">
+        <motivo>Conflicto de identificacion: La guia 'NX-1001' ya existe con informacion contradictoria.</motivo>
       </registro>
-      <registro archivo="pedidos_andino.xml" referencia="NX-2001" tipo="Duplicado" fecha="2026-11-03 23:59:38">
-        <motivo>Despacho con guía 'NX-2001' duplicado idénticamente en la fuente; se omite duplicado.</motivo>
+      <registro archivo="pedidos_andino.xml" referencia="NX-2001" tipo="Duplicado" fecha="2026-11-05 16:02:30">
+        <motivo>Despacho con guia 'NX-2001' duplicado identicamente en la fuente; se omite duplicado.</motivo>
       </registro>
-      <registro archivo="pedidos_andino.xml" referencia="NX-2002" tipo="ConflictoIdentificacion" fecha="2026-11-03 23:59:38">
-        <motivo>Conflicto de identificación: La guía 'NX-2002' ya existe con información contradictoria.</motivo>
+      <registro archivo="pedidos_andino.xml" referencia="NX-2002" tipo="ConflictoIdentificacion" fecha="2026-11-05 16:02:30">
+        <motivo>Conflicto de identificacion: La guia 'NX-2002' ya existe con informacion contradictoria.</motivo>
       </registro>
-      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-101" tipo="Duplicado" fecha="2026-11-03 23:59:38">
-        <motivo>Acontecimiento 'EVT-NORTE-101' duplicado idénticamente en la guía 'NX-1001'.</motivo>
+      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-101" tipo="Duplicado" fecha="2026-11-05 16:02:30">
+        <motivo>Acontecimiento 'EVT-NORTE-101' duplicado identicamente en la guia 'NX-1001'.</motivo>
       </registro>
-      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-100" tipo="ConflictoIdentificacion" fecha="2026-11-03 23:59:38">
-        <motivo>Conflicto en acontecimiento 'EVT-NORTE-100' de la guía 'NX-1001': mismo ID con datos contradictorios.</motivo>
+      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-100" tipo="ConflictoIdentificacion" fecha="2026-11-05 16:02:30">
+        <motivo>Conflicto en acontecimiento 'EVT-NORTE-100' de la guia 'NX-1001': mismo ID con datos contradictorios.</motivo>
       </registro>
-      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-902" tipo="AcontecimientoIncompatible" fecha="2026-11-03 23:59:38">
-        <motivo>Incompatibilidad de secuencia en la guía 'NX-1001': El despacho ya se encuentra finalizado en estado 'Entregado'.</motivo>
+      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-902" tipo="AcontecimientoIncompatible" fecha="2026-11-05 16:02:30">
+        <motivo>Incompatibilidad de secuencia en la guia 'NX-1001': El despacho ya se encuentra finalizado en estado 'Entregado'.</motivo>
       </registro>
-      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-901" tipo="ReferenciaInexistente" fecha="2026-11-03 23:59:38">
-        <motivo>El acontecimiento 'EVT-NORTE-901' referencia a una guía inexistente: 'NX-9999'.</motivo>
+      <registro archivo="seguimiento_norte.json" referencia="EVT-NORTE-901" tipo="ReferenciaInexistente" fecha="2026-11-05 16:02:30">
+        <motivo>El acontecimiento 'EVT-NORTE-901' referencia a una guia inexistente: 'NX-9999'.</motivo>
       </registro>
-      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-902" tipo="AcontecimientoIncompatible" fecha="2026-11-03 23:59:38">
-        <motivo>Incompatibilidad de secuencia en la guía 'NX-2001': El despacho ya se encuentra finalizado en estado 'Entregado'.</motivo>
+      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-902" tipo="AcontecimientoIncompatible" fecha="2026-11-05 16:02:30">
+        <motivo>Incompatibilidad de secuencia en la guia 'NX-2001': El despacho ya se encuentra finalizado en estado 'Entregado'.</motivo>
       </registro>
-      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-401" tipo="AcontecimientoIncompatible" fecha="2026-11-03 23:59:38">
-        <motivo>Incompatibilidad de secuencia en la guía 'NX-2004': No se puede registrar entrega (ENT) si el despacho no está en distribución (estado actual: 'Pendiente').</motivo>
+      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-401" tipo="AcontecimientoIncompatible" fecha="2026-11-05 16:02:30">
+        <motivo>Incompatibilidad de secuencia en la guia 'NX-2004': No se puede registrar entrega si el despacho no esta en distribucion (estado actual: 'Pendiente').</motivo>
       </registro>
-      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-901" tipo="ReferenciaInexistente" fecha="2026-11-03 23:59:38">
-        <motivo>El acontecimiento 'EVT-AND-901' referencia a una guía inexistente: 'NX-7777'.</motivo>
+      <registro archivo="seguimiento_andina.xml" referencia="EVT-AND-901" tipo="ReferenciaInexistente" fecha="2026-11-05 16:02:30">
+        <motivo>El acontecimiento 'EVT-AND-901' referencia a una guia inexistente: 'NX-7777'.</motivo>
       </registro>
     </listadoDetallado>
   </informeInconsistencias>
