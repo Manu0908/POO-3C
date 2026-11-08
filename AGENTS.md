@@ -171,6 +171,8 @@ public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
 * **Máxima simpleza y concisión académica:** Los diagramas deben ser visualmente limpios, simétricos y libres de ruido o sobreespecificación innecesaria.
 * **Cero asignación de valores a constantes o atributos:** Queda prohibido escribir expresiones de asignación de valores en los diagramas (nada de `= 34`, `= 2000` o `= 0.10`). Los atributos y constantes se definen exclusivamente con su visibilidad, nombre y tipo de dato (por ejemplo, `- Descuento: double` o `- BateriaMaxima: int`).
 * **Cero etiquetas `{override}` en subclases:** El modificador o etiqueta `{override}` en métodos y propiedades de clases hijas es redundante y se descarta. El polimorfismo se expresa a través de la flecha de generalización (herencia), bastando con marcar `{abstract}` en los miembros correspondientes de la clase padre.
+* **Cero rombos en relaciones (convención estricta de cátedra):** El docente no utiliza rombos de agregación ni de composición. Las relaciones entre clases se modelan exclusivamente como **asociaciones directas con líneas simples y multiplicidades explícitas** (ej. `1` y `0..*`), herencia con flecha de triángulo cerrado vacío y realización de interfaz con línea punteada y triángulo vacío (según diapositivas 4, 6 y 7 de la Sesión 15).
+* **Cero prefijo `_` en atributos privados:** La visibilidad privada queda establecida únicamente por el símbolo menos `-` seguido del nombre en camelCase (ej. `- codigo: string`, `- destinatario: string`), eliminando el guion bajo redundante del lenguaje C#.
 
 ---
 

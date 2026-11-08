@@ -186,3 +186,14 @@ Toda clase en C# debe organizarse en este orden exacto:
    * Queda estrictamente prohibido el uso de etiquetas de documentación XML (`/// <summary>`, `<param>`, etc.).
 2. **Código Autoexplicativo:**
    * El código debe entenderse por la claridad de sus nombres. Solo se admiten comentarios estándar de una sola línea (`//`) breves y puntuales para justificar fórmulas matemáticas complejas o restricciones directas del docente.
+
+---
+
+## 9. Reglas de Modelado UML (Draw.io)
+
+1. **Cero Rombos (Convención Estricta de Cátedra):**
+   * El docente no utiliza rombos de agregación ni de composición. Toda relación estructural se modela con líneas simples de asociación y sus multiplicidades explícitas (`1`, `*`, `0..*`, `0..1`), herencia con flecha de triángulo vacío hacia el padre y realización de interfaz con línea discontinua y triángulo vacío.
+2. **Cero Prefijos `_` en Atributos:**
+   * La visibilidad privada se expresa exclusivamente con el signo menos `-` seguido del nombre en camelCase (`- codigo: string`), eliminando el guion bajo redundante de C#.
+3. **Cero Asignaciones de Valores y Cero `{override}`:**
+   * Prohibido colocar valores fijos en atributos (`= 34`, `= 2000`) o etiquetas `{override}` en métodos polimórficos de clases hijas.
