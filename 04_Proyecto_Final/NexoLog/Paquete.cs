@@ -6,6 +6,13 @@ public class Paquete
     // Campos privados con validacion
     private double _peso;
 
+    // Constructor privado sin parametros para serializacion / reflexion
+    private Paquete()
+    {
+        IdPaquete = string.Empty;
+        Descripcion = string.Empty;
+    }
+
     // Constructor horizontal
     public Paquete(string idPaquete, string descripcion, double peso, decimal valorDeclarado)
     {

@@ -99,161 +99,9 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
             return;
         }
 
-        if (solicitud.Paquetes == null || solicitud.Paquetes.Count == 0)
-        {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                numeroGuia,
-                RegistroInconsistencia.TipoDatoInvalido,
-                $"El despacho '{numeroGuia}' no contiene paquetes asociados.",
-                DateTime.Now));
-            return;
-        }
-
-        List<Paquete> paquetesConstruidos = new List<Paquete>();
-        HashSet<string> codigosPaquetesVistos = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (PaqueteJsonDto pDto in solicitud.Paquetes)
-        {
-            if (string.IsNullOrWhiteSpace(pDto.IdPaquete))
-            {
-                inconsistencias.Add(new RegistroInconsistencia(
-                    nombreArchivo,
-                    numeroGuia,
-                    RegistroInconsistencia.TipoDatoInvalido,
-                    $"Paquete sin identificador en la guia '{numeroGuia}'.",
-                    DateTime.Now));
-                return;
-            }
-
-            if (codigosPaquetesVistos.Contains(pDto.IdPaquete))
-            {
-                inconsistencias.Add(new RegistroInconsistencia(
-                    nombreArchivo,
-                    numeroGuia,
-                    RegistroInconsistencia.TipoDatoInvalido,
-                    $"Identificador de paquete duplicado '{pDto.IdPaquete}' dentro de la guia '{numeroGuia}'.",
-                    DateTime.Now));
-                return;
-            }
-
-            try
-            {
-                Paquete nuevoPaquete = new Paquete(
-                    pDto.IdPaquete,
-                    pDto.Descripcion,
-                    pDto.Peso,
-                    pDto.ValorDeclarado);
-
-                codigosPaquetesVistos.Add(pDto.IdPaquete);
-                paquetesConstruidos.Add(nuevoPaquete);
-            }
-            catch (NexoLogException ex)
-            {
-                inconsistencias.Add(new RegistroInconsistencia(
-                    nombreArchivo,
-                    numeroGuia,
-                    RegistroInconsistencia.TipoDatoInvalido,
-                    $"Paquete invalido en la guia '{numeroGuia}': {ex.Message}",
-                    DateTime.Now));
-                return;
-            }
-        }
-
-        ModalidadServicio modalidadConstruida;
-        string modalidadTexto = (solicitud.Modalidad ?? string.Empty).Trim().ToUpperInvariant();
-
         try
         {
-            if (modalidadTexto == "ESTANDAR" || modalidadTexto == "ESTÁNDAR")
-            {
-                modalidadConstruida = new ServicioEstandar();
-            }
-            else if (modalidadTexto == "EXPRES" || modalidadTexto == "EXPRÉS")
-            {
-                modalidadConstruida = new ServicioExpres();
-            }
-            else if (modalidadTexto == "PROGRAMADO")
-            {
-                if (!DateTime.TryParse(solicitud.FechaProgramada, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaProg))
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        numeroGuia,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"Fecha programada invalida '{solicitud.FechaProgramada}' en la guia '{numeroGuia}'.",
-                        DateTime.Now));
-                    return;
-                }
-
-                int horaIni;
-                int horaFin;
-                string parteIni = (solicitud.HoraInicio ?? string.Empty).Split(':')[0].Trim();
-                string parteFin = (solicitud.HoraFin ?? string.Empty).Split(':')[0].Trim();
-
-                if (!int.TryParse(parteIni, out horaIni))
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        numeroGuia,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"Hora inicial programada invalida '{solicitud.HoraInicio}' en la guia '{numeroGuia}'.",
-                        DateTime.Now));
-                    return;
-                }
-
-                if (!int.TryParse(parteFin, out horaFin))
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        numeroGuia,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"Hora final programada invalida '{solicitud.HoraFin}' en la guia '{numeroGuia}'.",
-                        DateTime.Now));
-                    return;
-                }
-
-                modalidadConstruida = new ServicioProgramado(fechaProg, horaIni, horaFin);
-            }
-            else
-            {
-                inconsistencias.Add(new RegistroInconsistencia(
-                    nombreArchivo,
-                    numeroGuia,
-                    RegistroInconsistencia.TipoDatoInvalido,
-                    $"Modalidad de servicio desconocida '{solicitud.Modalidad}' en la guia '{numeroGuia}'.",
-                    DateTime.Now));
-                return;
-            }
-        }
-        catch (NexoLogException ex)
-        {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                numeroGuia,
-                RegistroInconsistencia.TipoDatoInvalido,
-                $"Modalidad invalida en la guia '{numeroGuia}': {ex.Message}",
-                DateTime.Now));
-            return;
-        }
-
-        try
-        {
-            Despacho nuevoDespacho = new Despacho(
-                numeroGuia,
-                codigoEstablecimiento,
-                solicitud.Destinatario,
-                solicitud.CiudadDestino,
-                solicitud.DistanciaKm,
-                solicitud.Transportadora);
-
-            nuevoDespacho.AsignarModalidad(modalidadConstruida);
-
-            foreach (Paquete p in paquetesConstruidos)
-            {
-                nuevoDespacho.AgregarPaquete(p);
-            }
-
+            Despacho nuevoDespacho = solicitud.MapToDomain(codigoEstablecimiento);
             listaDestino.Add(nuevoDespacho);
         }
         catch (NexoLogException ex)
@@ -262,8 +110,9 @@ public class LectorPedidosJson : ILectorArchivo<Despacho>
                 nombreArchivo,
                 numeroGuia,
                 RegistroInconsistencia.TipoDatoInvalido,
-                $"Datos de despacho invalidos en la guia '{numeroGuia}': {ex.Message}",
+                ex.Message,
                 DateTime.Now));
         }
     }
 }
+

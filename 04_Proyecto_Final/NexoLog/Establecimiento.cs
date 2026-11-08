@@ -12,6 +12,14 @@ public class Establecimiento
     // Propiedades calculadas / derivadas
     public int CantidadDespachos { get { return _despachos.Count; } }
 
+    // Constructor privado sin parametros para serializacion / reflexion
+    private Establecimiento()
+    {
+        Codigo = string.Empty;
+        NombreComercial = string.Empty;
+        _despachos = new List<Despacho>();
+    }
+
     // Constructores horizontales
     public Establecimiento(string codigo, string nombreComercial)
     {

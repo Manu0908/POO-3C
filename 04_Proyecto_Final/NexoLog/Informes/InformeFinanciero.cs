@@ -1,3 +1,5 @@
+using NexoLog.Tarifas;
+
 namespace NexoLog.Informes;
 
 // Detalle de liquidacion financiera por comercio.
@@ -19,4 +21,80 @@ public class InformeFinanciero
     public Dictionary<string, decimal> CobrosPorModalidadTarifa { get; set; } = new Dictionary<string, decimal>();
     public decimal GranTotalFacturado { get; set; }
     public int DespachosEntregadosNoValorados { get; set; }
+
+    public static InformeFinanciero Crear(IEnumerable<Establecimiento> establecimientos, IEnumerable<Despacho> despachos)
+    {
+        InformeFinanciero informe = new InformeFinanciero();
+        decimal granTotal = 0m;
+        int noValorados = 0;
+        Dictionary<string, Establecimiento> mapaEstablecimientos = new Dictionary<string, Establecimiento>(StringComparer.OrdinalIgnoreCase);
+
+        foreach (Establecimiento est in establecimientos)
+        {
+            mapaEstablecimientos[est.Codigo] = est;
+
+            ItemFinancieroComercio item = new ItemFinancieroComercio();
+            item.CodigoComercio = est.Codigo;
+            item.NombreComercio = est.NombreComercial;
+
+            string nombreTarifa = est.TarifaAcordada != null ? est.TarifaAcordada.ObtenerTipoTarifa() : "Sin Tarifa Asignada";
+            item.ModalidadTarifa = nombreTarifa;
+
+            decimal tarifaBase = 0m;
+            if (est.TarifaAcordada is TarifaPorPeso tPeso)
+            {
+                tarifaBase = tPeso.ValorPorKilogramo;
+            }
+            else if (est.TarifaAcordada is TarifaPorDistancia tDist)
+            {
+                tarifaBase = tDist.ValorPorKilometro;
+            }
+            else if (est.TarifaAcordada is TarifaFija tFija)
+            {
+                tarifaBase = tFija.ValorFijo;
+            }
+
+            item.TarifaBase = tarifaBase;
+            item.DespachosTotales = est.CantidadDespachos;
+
+            int facturables = 0;
+            foreach (Despacho d in est.Despachos)
+            {
+                if (d.EsFacturable())
+                {
+                    facturables++;
+                }
+            }
+
+            item.DespachosFacturables = facturables;
+            decimal totalComercio = est.CalcularTotalFacturable();
+            item.TotalFacturado = totalComercio;
+            granTotal += totalComercio;
+
+            informe.DesgloseComercios.Add(item);
+
+            if (!informe.CobrosPorModalidadTarifa.ContainsKey(nombreTarifa))
+            {
+                informe.CobrosPorModalidadTarifa[nombreTarifa] = 0m;
+            }
+            informe.CobrosPorModalidadTarifa[nombreTarifa] += totalComercio;
+        }
+
+        foreach (Despacho d in despachos)
+        {
+            if (d.EsFacturable())
+            {
+                Establecimiento est;
+                mapaEstablecimientos.TryGetValue(d.CodigoEstablecimiento, out est);
+                if (est == null || est.TarifaAcordada == null)
+                {
+                    noValorados++;
+                }
+            }
+        }
+
+        informe.GranTotalFacturado = granTotal;
+        informe.DespachosEntregadosNoValorados = noValorados;
+        return informe;
+    }
 }

@@ -68,3 +68,4 @@ Thumbs.db
 .privado/
 .personal/
 *.privado.*
+.agents/

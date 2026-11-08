@@ -22,6 +22,19 @@ public class Despacho
     // Propiedades calculadas / derivadas
     public int CantidadPaquetes { get { return _paquetes.Count; } }
 
+    // Constructor privado sin parametros para serializacion / reflexion
+    private Despacho()
+    {
+        _numeroGuia = string.Empty;
+        CodigoEstablecimiento = string.Empty;
+        Destinatario = string.Empty;
+        CiudadDestino = string.Empty;
+        Transportadora = string.Empty;
+        _estadoActual = EstadoPendiente;
+        _paquetes = new List<Paquete>();
+        _historial = new List<Acontecimiento>();
+    }
+
     // Constructor horizontal
     public Despacho(string numeroGuia, string codigoEstablecimiento, string destinatario, string ciudadDestino, double distanciaKm, string transportadora)
     {
@@ -234,5 +247,43 @@ public class Despacho
     {
         string modalidadNombre = _modalidad != null ? _modalidad.NombreModalidad : "Sin Asignar";
         return $"Guia: {NumeroGuia} | Modalidad: {modalidadNombre} | Destino: {CiudadDestino} ({Destinatario}) | Distancia: {DistanciaKm:F1} km | Estado: {EstadoActual} | Paquetes: {CantidadPaquetes} ({CalcularPesoTotal():F2} kg)";
+    }
+
+    public bool EsIdenticoA(Despacho candidato)
+    {
+        if (candidato == null)
+        {
+            return false;
+        }
+        if (CodigoEstablecimiento.ToLower() != candidato.CodigoEstablecimiento.ToLower())
+        {
+            return false;
+        }
+        if (Destinatario.ToLower() != candidato.Destinatario.ToLower())
+        {
+            return false;
+        }
+        if (CiudadDestino.ToLower() != candidato.CiudadDestino.ToLower())
+        {
+            return false;
+        }
+        if (Math.Abs(DistanciaKm - candidato.DistanciaKm) > 0.001)
+        {
+            return false;
+        }
+        if (Transportadora.ToLower() != candidato.Transportadora.ToLower())
+        {
+            return false;
+        }
+        if (CantidadPaquetes != candidato.CantidadPaquetes)
+        {
+            return false;
+        }
+        if (Math.Abs(CalcularPesoTotal() - candidato.CalcularPesoTotal()) > 0.001)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

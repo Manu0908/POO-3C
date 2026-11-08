@@ -1,8 +1,10 @@
 using System.Globalization;
 using System.Text;
 using NexoLog;
+using NexoLog.DTOs;
 using NexoLog.Exportadores;
 using NexoLog.Informes;
+using NexoLog.Lectores;
 
 Console.OutputEncoding = Encoding.UTF8;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -10,6 +12,16 @@ CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 Empresa sistema = new Empresa();
 string carpetaDatos = LocalizarCarpetaDatos();
 bool continuar = true;
+
+List<AcuerdoDto> acuerdosCargados = new List<AcuerdoDto>();
+List<Despacho> pedidosCaribeCargados = new List<Despacho>();
+List<Despacho> pedidosAndinoCargados = new List<Despacho>();
+List<Acontecimiento> seguimientosNorteCargados = new List<Acontecimiento>();
+List<Acontecimiento> seguimientosAndinaCargados = new List<Acontecimiento>();
+List<RegistroInconsistencia> inconsistenciasLectura = new List<RegistroInconsistencia>();
+
+bool archivosCargados = false;
+bool informacionIntegrada = false;
 
 while (continuar)
 {
@@ -76,30 +88,92 @@ while (continuar)
 void CargarArchivos(Empresa sys, string ruta)
 {
     Console.WriteLine("--- Carga de Archivos ---");
-    bool exito = sys.CargarArchivos(ruta);
-    if (!exito)
+    if (!Directory.Exists(ruta))
     {
         Console.WriteLine($"Error: no se encontro la carpeta de datos en '{ruta}'.");
         return;
     }
 
-    Console.WriteLine($"Acuerdos leidos: {sys.TotalAcuerdosCargados}");
-    Console.WriteLine($"Despachos preliminares: {sys.TotalDespachosPreliminares}");
-    Console.WriteLine($"Hitos de seguimiento: {sys.TotalSeguimientosPreliminares}");
-    Console.WriteLine($"Inconsistencias detectadas en lectura: {sys.Inconsistencias.Count}");
+    acuerdosCargados.Clear();
+    pedidosCaribeCargados.Clear();
+    pedidosAndinoCargados.Clear();
+    seguimientosNorteCargados.Clear();
+    seguimientosAndinaCargados.Clear();
+    inconsistenciasLectura.Clear();
+    sys.Limpiar();
+
+    string rutaAcuerdos = Path.Combine(ruta, "acuerdos.json");
+    string rutaCaribe = Path.Combine(ruta, "pedidos_caribe.json");
+    string rutaAndino = Path.Combine(ruta, "pedidos_andino.xml");
+    string rutaNorte = Path.Combine(ruta, "seguimiento_norte.json");
+    string rutaAndina = Path.Combine(ruta, "seguimiento_andina.xml");
+
+    ILectorArchivo<AcuerdoDto> lectorAcuerdos = CreadorLectores.CrearLectorAcuerdosJson();
+    ILectorArchivo<Despacho> lectorCaribe = CreadorLectores.CrearLectorPedidosJson();
+    ILectorArchivo<Despacho> lectorAndino = CreadorLectores.CrearLectorPedidosXml();
+    ILectorArchivo<Acontecimiento> lectorNorte = CreadorLectores.CrearLectorSeguimientosJson();
+    ILectorArchivo<Acontecimiento> lectorAndina = CreadorLectores.CrearLectorSeguimientosXml();
+
+    acuerdosCargados = lectorAcuerdos.Leer(rutaAcuerdos, inconsistenciasLectura);
+    pedidosCaribeCargados = lectorCaribe.Leer(rutaCaribe, inconsistenciasLectura);
+    pedidosAndinoCargados = lectorAndino.Leer(rutaAndino, inconsistenciasLectura);
+    seguimientosNorteCargados = lectorNorte.Leer(rutaNorte, inconsistenciasLectura);
+    seguimientosAndinaCargados = lectorAndina.Leer(rutaAndina, inconsistenciasLectura);
+
+    foreach (RegistroInconsistencia inc in inconsistenciasLectura)
+    {
+        sys.Inconsistencias.Add(inc);
+    }
+
+    archivosCargados = true;
+    informacionIntegrada = false;
+
+    int totalDespachosPrelim = pedidosCaribeCargados.Count + pedidosAndinoCargados.Count;
+    int totalSeguimientosPrelim = seguimientosNorteCargados.Count + seguimientosAndinaCargados.Count;
+
+    Console.WriteLine($"Acuerdos leidos: {acuerdosCargados.Count}");
+    Console.WriteLine($"Despachos preliminares: {totalDespachosPrelim}");
+    Console.WriteLine($"Hitos de seguimiento: {totalSeguimientosPrelim}");
+    Console.WriteLine($"Inconsistencias detectadas en lectura: {inconsistenciasLectura.Count}");
     Console.WriteLine("Archivos cargados exitosamente.");
 }
 
 void IntegrarInformacion(Empresa sys)
 {
     Console.WriteLine("--- Integracion de Informacion ---");
-    if (!sys.ArchivosCargados)
+    if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
         return;
     }
 
-    sys.Integrar();
+    sys.Limpiar();
+
+    foreach (RegistroInconsistencia inc in inconsistenciasLectura)
+    {
+        sys.Inconsistencias.Add(inc);
+    }
+
+    foreach (AcuerdoDto dto in acuerdosCargados)
+    {
+        sys.RegistrarEstablecimiento(dto.MapToDomain());
+    }
+
+    foreach (Despacho d in pedidosCaribeCargados)
+    {
+        sys.RegistrarDespacho(d, "pedidos_caribe.json");
+    }
+
+    foreach (Despacho d in pedidosAndinoCargados)
+    {
+        sys.RegistrarDespacho(d, "pedidos_andino.xml");
+    }
+
+    sys.RegistrarSeguimientos(seguimientosNorteCargados, "seguimiento_norte.json");
+    sys.RegistrarSeguimientos(seguimientosAndinaCargados, "seguimiento_andina.xml");
+
+    informacionIntegrada = true;
+
     Console.WriteLine($"Establecimientos consolidados: {sys.Establecimientos.Count}");
     Console.WriteLine($"Despachos unicos integrados: {sys.Despachos.Count}");
     Console.WriteLine($"Inconsistencias totales registradas: {sys.Inconsistencias.Count}");
@@ -109,7 +183,7 @@ void IntegrarInformacion(Empresa sys)
 void MostrarInformeOperativo(Empresa sys)
 {
     Console.WriteLine("--- Informe Operativo ---");
-    if (!sys.InformacionIntegrada)
+    if (!informacionIntegrada)
     {
         Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
         return;
@@ -138,7 +212,7 @@ void MostrarInformeOperativo(Empresa sys)
 void MostrarInformeFinanciero(Empresa sys)
 {
     Console.WriteLine("--- Informe Financiero ---");
-    if (!sys.InformacionIntegrada)
+    if (!informacionIntegrada)
     {
         Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
         return;
@@ -196,7 +270,7 @@ void MostrarInformeInconsistencias(Empresa sys)
 void ExportarInformes(Empresa sys)
 {
     Console.WriteLine("--- Exportacion de Informes ---");
-    if (!sys.InformacionIntegrada)
+    if (!informacionIntegrada)
     {
         Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
         return;

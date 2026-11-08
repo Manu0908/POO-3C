@@ -19,4 +19,26 @@ public class AcontecimientoJsonDto
 
     [JsonPropertyName("observacion")]
     public string Observacion { get; set; } = string.Empty;
+
+    public Acontecimiento MapToDomain()
+    {
+        string idEvt = IdAcontecimiento;
+        string guia = NumeroGuia;
+
+        if (string.IsNullOrWhiteSpace(idEvt) || string.IsNullOrWhiteSpace(guia))
+        {
+            throw new NexoLogException("Se detecto un acontecimiento sin identificador o sin numero de guia.");
+        }
+
+        string tipoLimpio = (Tipo ?? string.Empty).Trim().ToUpperInvariant();
+        if (tipoLimpio != Acontecimiento.TipoRec &&
+            tipoLimpio != Acontecimiento.TipoRut &&
+            tipoLimpio != Acontecimiento.TipoEnt &&
+            tipoLimpio != Acontecimiento.TipoDev)
+        {
+            throw new NexoLogException($"Tipo de acontecimiento desconocido '{Tipo}' en el evento '{idEvt}'.");
+        }
+
+        return new Acontecimiento(idEvt, guia, tipoLimpio, FechaHora);
+    }
 }

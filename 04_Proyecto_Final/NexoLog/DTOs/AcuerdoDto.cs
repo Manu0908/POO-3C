@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using NexoLog.Tarifas;
 
 namespace NexoLog.DTOs;
 
@@ -19,4 +20,29 @@ public class AcuerdoDto
 
     [JsonPropertyName("descripcion")]
     public string Descripcion { get; set; } = string.Empty;
+
+    public ITarifa CrearTarifa()
+    {
+        string tipo = (TipoTarifa ?? string.Empty).Trim().ToUpperInvariant();
+        if (tipo == "PESO")
+        {
+            return new TarifaPorPeso(TarifaBase);
+        }
+        if (tipo == "DISTANCIA")
+        {
+            return new TarifaPorDistancia(TarifaBase);
+        }
+        if (tipo == "FIJA")
+        {
+            return new TarifaFija(TarifaBase);
+        }
+
+        throw new NexoLogException($"Modalidad de tarifa desconocida '{TipoTarifa}' para el comercio {CodigoComercio}.");
+    }
+
+    public Establecimiento MapToDomain()
+    {
+        ITarifa tarifa = CrearTarifa();
+        return new Establecimiento(CodigoComercio.Trim(), NombreComercio.Trim(), tarifa);
+    }
 }

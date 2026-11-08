@@ -16,4 +16,13 @@ public class PaqueteJsonDto
 
     [JsonPropertyName("valorDeclarado")]
     public decimal ValorDeclarado { get; set; }
+
+    public Paquete MapToDomain()
+    {
+        if (string.IsNullOrWhiteSpace(IdPaquete))
+        {
+            throw new NexoLogException("Paquete sin identificador.");
+        }
+        return new Paquete(IdPaquete, Descripcion, Peso, ValorDeclarado);
+    }
 }

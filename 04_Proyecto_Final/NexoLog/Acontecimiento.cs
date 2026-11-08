@@ -9,6 +9,14 @@ public class Acontecimiento
     public const string TipoEnt = "ENT";
     public const string TipoDev = "DEV";
 
+    // Constructor privado sin parametros para serializacion / reflexion
+    private Acontecimiento()
+    {
+        IdAcontecimiento = string.Empty;
+        NumeroGuia = string.Empty;
+        Tipo = string.Empty;
+    }
+
     // Constructor horizontal
     public Acontecimiento(string idAcontecimiento, string numeroGuia, string tipo, DateTime fechaHora)
     {
