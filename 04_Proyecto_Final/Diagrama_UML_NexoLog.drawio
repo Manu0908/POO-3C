@@ -1,11 +1,11 @@
 <mxfile host="Electron" agent="Mozilla/5.0">
   <diagram id="diagrama-uml-nexolog" name="Diagrama de Clases UML - NexoLog">
-    <mxGraphModel dx="1414" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1178" dy="729" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="c_empresa" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0288D1;fontColor=#01579B;rounded=0;" value="Empresa" vertex="1">
-          <mxGeometry height="301" width="410" x="480" y="30" as="geometry" />
+          <mxGeometry height="310" width="410" x="480" y="29" as="geometry" />
         </mxCell>
         <mxCell id="c_empresa_attr1" parent="c_empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- establecimientos: List&amp;lt;Establecimiento&amp;gt;" vertex="1">
           <mxGeometry height="24" width="410" y="28" as="geometry" />
@@ -41,7 +41,7 @@
           <mxGeometry height="21" width="410" y="259" as="geometry" />
         </mxCell>
         <mxCell id="c_empresa_m8" parent="c_empresa" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ ObtenerEstablecimiento(codigo: string): Establecimiento" vertex="1">
-          <mxGeometry height="21" width="410" y="280" as="geometry" />
+          <mxGeometry height="30" width="410" y="280" as="geometry" />
         </mxCell>
         <mxCell id="c_estab" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#FBC02D;fontColor=#F57F17;rounded=0;" value="Establecimiento" vertex="1">
           <mxGeometry height="182" width="280" x="545" y="360" as="geometry" />
