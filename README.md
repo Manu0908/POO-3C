@@ -48,11 +48,11 @@ POO-3C/
 │   └── Sesion_11_Recuperacion_Parcial_01_EcoRide/
 │
 ├── 04_Proyecto_Final/                                 # Proyecto Integrador de Fin de Semestre
-│   ├── NexoLog/                                       # Código fuente en C# / .NET
-│   ├── Diagrama_UML_NexoLog.drawio                   # Diagrama oficial de clases en Draw.io
-│   ├── ESTRUCTURA_PROYECTO.md                         # Guía de arquitectura y sustentación oral
-│   └── PREGUNTAS_PROFESOR.md                          # Guía de preguntas para asesoría con el docente
+│   ├── NexoLog/                                       # Código fuente en C# / .NET 10
+│   ├── Diagrama_UML_NexoLog.drawio                   # Diagrama oficial de clases en Draw.io (sin rombos)
+│   └── Diagrama_UML_NexoLog.drawio.pdf               # Versión exportada en PDF del diagrama
 │
+├── Guia_Arquitectura_NexoLog.pdf                      # Guía unificada de arquitectura y decisiones de diseño
 ├── AGENTS.md                                          # Memoria operativa y marco normativo de agentes
 └── REGLAS_PROGRAMACION.md                             # Manifiesto portátil de reglas de estilo en C#
 ```

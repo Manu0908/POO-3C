@@ -162,9 +162,10 @@ public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
 * Cualquier operación de lectura, escritura o exportación sobre el sistema de archivos (JSON, XML, CSV o TXT) debe especificar de manera obligatoria y explícita la codificación `Encoding.UTF8`.
 
 ### 4.8. Política de Documentación del Repositorio
-* **Máximo dos archivos markdown explicativos en todo el proyecto:**
+* **Máximo dos documentos explicativos en todo el proyecto:**
   1. `README.md` en la raíz (presentación general, mapa del repositorio y guía de uso).
-  2. `ESTRUCTURA_PROYECTO.md` dentro de `04_Proyecto_Final` (guía de arquitectura, patrones y sustentación oral).
+  2. `Guia_Arquitectura_NexoLog.pdf` en la raíz (guía unificada de arquitectura, patrones, resiliencia y decisiones de diseño).
+* Toda documentación explicativa reside en la raíz; las subcarpetas de proyectos solo contienen código fuente y diagramas técnicos.
 * **Cero comentarios obvios en el código fuente:** El código debe ser autoexplicativo gracias al uso riguroso de nombres significativos en español o inglés técnico coherente. Solo se admiten comentarios breves cuando justifican una decisión de negocio no trivial o una restricción impuesta por el docente.
 
 ### 4.9. Reglas de Oro para Diagramas UML de Clases (Draw.io)
@@ -201,7 +202,7 @@ El repositorio mantiene una convención de nombres y numeración uniforme para f
   - `01_Ejemplos_Clase/`: Proyectos demostrativos de aula (`Sesion_03_Gimnasio`, `Sesion_05_Encapsulamiento_Cine`, `Sesion_07_Vehiculo`, `Sesion_10_Herencia_Empleados`, `Sesion_12_Polimorfismo_Hotel`).
   - `02_Actividades_y_Talleres/`: Talleres evaluados y tarjetas CRC (`Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`, `Sesion_16_Taller_Alquiler_Vehiculos`).
   - `03_Evaluaciones/`: Parciales y recuperaciones (`Sesion_08_Parcial_01`, `Sesion_11_Recuperacion_Parcial_01_EcoRide`).
-  - `04_Proyecto_Final/`: Código de producción del sistema `NexoLog` y su documento de sustentación `ESTRUCTURA_PROYECTO.md`.
+  - `04_Proyecto_Final/`: Código de producción del sistema `NexoLog` y sus diagramas Draw.io (`Diagrama_UML_NexoLog.drawio` y `.pdf`).
   - `InformesExportados/`: Destino por defecto de los archivos de reporte (`informes_nexolog.json`, `informes_nexolog.xml`).
 
 ### 5.2. Proyecto Final NexoLog S.A.S. - Especificaciones y Reglas Clave
