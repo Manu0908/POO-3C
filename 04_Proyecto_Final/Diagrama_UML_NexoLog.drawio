@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0">
   <diagram id="diagrama-uml-nexolog" name="Diagrama de Clases UML - NexoLog">
-    <mxGraphModel dx="1178" dy="729" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1414" dy="875" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -277,23 +277,23 @@
         <mxCell id="c_inc_m1" parent="c_inconsist" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ MostrarInformacion(): string" vertex="1">
           <mxGeometry height="24" width="280" y="146" as="geometry" />
         </mxCell>
-        <mxCell id="rel_emp_estab" edge="1" parent="1" source="c_empresa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=0;endArrow=none;strokeColor=#0288D1;strokeWidth=1.5;" target="c_estab">
+        <mxCell id="rel_emp_estab" edge="1" parent="1" source="c_empresa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=none;startFill=0;endArrow=none;strokeColor=#0288D1;strokeWidth=1.5;" target="c_estab">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="lbl_emp_estab_1" connectable="0" parent="rel_emp_estab" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#01579B;rounded=0;" value="1" vertex="1">
-          <mxGeometry relative="1" x="-0.8" y="12" as="geometry" />
+          <mxGeometry relative="1" x="-0.8095" y="12" as="geometry" />
         </mxCell>
         <mxCell id="lbl_emp_estab_n" connectable="0" parent="rel_emp_estab" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#01579B;rounded=0;" value="0..*" vertex="1">
-          <mxGeometry relative="1" x="0.8" y="12" as="geometry" />
+          <mxGeometry relative="1" x="0.8095" y="12" as="geometry" />
         </mxCell>
-        <mxCell id="rel_emp_inc" edge="1" parent="1" source="c_empresa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=0;endArrow=none;strokeColor=#E53935;strokeWidth=1.5;" target="c_inconsist">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="rel_emp_inc" edge="1" parent="1" source="c_empresa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=none;startFill=0;endArrow=none;strokeColor=#E53935;strokeWidth=1.5;" target="c_inconsist">
+          <mxGeometry relative="1" x="0.0112" as="geometry" />
         </mxCell>
         <mxCell id="lbl_emp_inc_1" connectable="0" parent="rel_emp_inc" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#B71C1C;rounded=0;" value="1" vertex="1">
-          <mxGeometry relative="1" x="-0.7" y="-12" as="geometry" />
+          <mxGeometry relative="1" x="-0.7079" y="-12" as="geometry" />
         </mxCell>
         <mxCell id="lbl_emp_inc_n" connectable="0" parent="rel_emp_inc" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#B71C1C;rounded=0;" value="0..*" vertex="1">
-          <mxGeometry relative="1" x="0.7" y="-12" as="geometry" />
+          <mxGeometry relative="1" x="0.7079" y="-12" as="geometry" />
         </mxCell>
         <mxCell id="rel_estab_desp" edge="1" parent="1" source="c_estab" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=none;startFill=0;endArrow=none;strokeColor=#FBC02D;strokeWidth=1.5;" target="c_despacho">
           <mxGeometry relative="1" x="0.0075" as="geometry" />
