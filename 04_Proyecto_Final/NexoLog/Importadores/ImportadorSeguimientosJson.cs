@@ -2,12 +2,12 @@ using System.Text;
 using System.Text.Json;
 using NexoLog.DTOs;
 
-namespace NexoLog.Lectores;
+namespace NexoLog.Importadores;
 
-// Lector resiliente para acontecimientos y eventos de seguimiento en formato JSON.
-public class LectorSeguimientosJson : ILectorArchivo<Acontecimiento>
+// Importador resiliente para acontecimientos y eventos de seguimiento en formato JSON.
+public class ImportadorSeguimientosJson : IImportadorArchivo<Acontecimiento>
 {
-    public List<Acontecimiento> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
+    public List<Acontecimiento> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
         List<Acontecimiento> acontecimientosValidos = new List<Acontecimiento>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);

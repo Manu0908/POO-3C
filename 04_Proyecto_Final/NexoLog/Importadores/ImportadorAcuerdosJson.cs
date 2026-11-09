@@ -2,12 +2,12 @@ using System.Text;
 using System.Text.Json;
 using NexoLog.DTOs;
 
-namespace NexoLog.Lectores;
+namespace NexoLog.Importadores;
 
-// Lector resiliente para el archivo de acuerdos comerciales en formato JSON.
-public class LectorAcuerdosJson : ILectorArchivo<AcuerdoDto>
+// Importador resiliente para el archivo de acuerdos comerciales en formato JSON.
+public class ImportadorAcuerdosJson : IImportadorArchivo<AcuerdoDto>
 {
-    public List<AcuerdoDto> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
+    public List<AcuerdoDto> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
         List<AcuerdoDto> acuerdosValidos = new List<AcuerdoDto>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);

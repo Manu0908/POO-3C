@@ -3,8 +3,8 @@ using System.Text;
 using NexoLog;
 using NexoLog.DTOs;
 using NexoLog.Exportadores;
+using NexoLog.Importadores;
 using NexoLog.Informes;
-using NexoLog.Lectores;
 
 Console.OutputEncoding = Encoding.UTF8;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -108,17 +108,17 @@ void CargarArchivos(Empresa sys, string ruta)
     string rutaNorte = Path.Combine(ruta, "seguimiento_norte.json");
     string rutaAndina = Path.Combine(ruta, "seguimiento_andina.xml");
 
-    ILectorArchivo<AcuerdoDto> lectorAcuerdos = CreadorLectores.CrearLectorAcuerdosJson();
-    ILectorArchivo<Despacho> lectorCaribe = CreadorLectores.CrearLectorPedidosJson();
-    ILectorArchivo<Despacho> lectorAndino = CreadorLectores.CrearLectorPedidosXml();
-    ILectorArchivo<Acontecimiento> lectorNorte = CreadorLectores.CrearLectorSeguimientosJson();
-    ILectorArchivo<Acontecimiento> lectorAndina = CreadorLectores.CrearLectorSeguimientosXml();
+    IImportadorArchivo<AcuerdoDto> importadorAcuerdos = CreadorImportadores.CrearImportadorAcuerdosJson();
+    IImportadorArchivo<Despacho> importadorCaribe = CreadorImportadores.CrearImportadorPedidosJson();
+    IImportadorArchivo<Despacho> importadorAndino = CreadorImportadores.CrearImportadorPedidosXml();
+    IImportadorArchivo<Acontecimiento> importadorNorte = CreadorImportadores.CrearImportadorSeguimientosJson();
+    IImportadorArchivo<Acontecimiento> importadorAndina = CreadorImportadores.CrearImportadorSeguimientosXml();
 
-    acuerdosCargados = lectorAcuerdos.Leer(rutaAcuerdos, inconsistenciasLectura);
-    pedidosCaribeCargados = lectorCaribe.Leer(rutaCaribe, inconsistenciasLectura);
-    pedidosAndinoCargados = lectorAndino.Leer(rutaAndino, inconsistenciasLectura);
-    seguimientosNorteCargados = lectorNorte.Leer(rutaNorte, inconsistenciasLectura);
-    seguimientosAndinaCargados = lectorAndina.Leer(rutaAndina, inconsistenciasLectura);
+    acuerdosCargados = importadorAcuerdos.Importar(rutaAcuerdos, inconsistenciasLectura);
+    pedidosCaribeCargados = importadorCaribe.Importar(rutaCaribe, inconsistenciasLectura);
+    pedidosAndinoCargados = importadorAndino.Importar(rutaAndino, inconsistenciasLectura);
+    seguimientosNorteCargados = importadorNorte.Importar(rutaNorte, inconsistenciasLectura);
+    seguimientosAndinaCargados = importadorAndina.Importar(rutaAndina, inconsistenciasLectura);
 
     foreach (RegistroInconsistencia inc in inconsistenciasLectura)
     {
@@ -282,7 +282,7 @@ void ExportarInformes(Empresa sys)
     string f = (Console.ReadLine() ?? string.Empty).Trim();
 
     string extension = f == "2" ? "xml" : "json";
-    IExportadorInforme exportador = f == "2" ? new ExportadorXml() : new ExportadorJson();
+    IExportadorInforme exportador = f == "2" ? CreadorExportadores.CrearExportadorXml() : CreadorExportadores.CrearExportadorJson();
 
     string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{extension}");
     Console.Write($"Ruta destino (ENTER para '{rutaDefecto}'): ");

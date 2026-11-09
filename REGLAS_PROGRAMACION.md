@@ -9,7 +9,7 @@
 
 1. **Cero Sobreingeniería:** Resuelve el problema con la arquitectura más simple y directa posible. No incorpores capas innecesarias, bibliotecas pesadas, contenedores de inyección de dependencias ni patrones empresariales complejos (CQRS, MediatR, Event Sourcing) a menos que se exijan explícitamente.
 2. **Código Defendible:** Cada clase, método, atributo y validación debe tener una justificación comprensible por un estudiante de pregrado frente a su profesor evaluador. Si una línea no puede justificarse verbalmente con soltura, esa línea no debe existir.
-3. **Nombres de Dominio Puro:** Las clases deben nombrarse por lo que representan en el mundo real o en el negocio. No incorpores sufijos de patrones de diseño en los nombres de las clases (usa `ITarifa` y `TarifaPorPeso` en lugar de `IEstrategiaCobro` o `TarifaPesoStrategy`; usa `CreadorLectores` en lugar de `LectorFactory`).
+3. **Nombres de Dominio Puro:** Las clases deben nombrarse por lo que representan en el mundo real o en el negocio. No incorpores sufijos de patrones de diseño en los nombres de las clases (usa `ITarifa` y `TarifaPorPeso` en lugar de `IEstrategiaCobro` o `TarifaPesoStrategy`; usa `CreadorImportadores` y `CreadorExportadores` en lugar de `ImportadorFactory` o `ExportadorFactory`).
 
 ---
 

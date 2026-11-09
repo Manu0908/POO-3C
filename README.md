@@ -65,7 +65,7 @@ Sistema de consola en C# / .NET para la integración y análisis de operaciones 
 * **Entidades del Negocio:** `Empresa`, `Establecimiento`, `Despacho`, `Paquete`, `Acontecimiento`, `RegistroInconsistencia`.
 * **Patrón Strategy (Tarifas):** Interfaz `ITarifa` con variantes `TarifaFija`, `TarifaPorPeso` y `TarifaPorDistancia`.
 * **Herencia y Polimorfismo (Modalidades):** Clase abstracta `ModalidadServicio` con subclases `ServicioEstandar` (72h), `ServicioExpres` (2h ruta + 24h entrega) y `ServicioProgramado` (franjas horarias).
-* **Patrón Factory (Lectores):** Fábrica `CreadorLectores` para desacoplar la ingesta de archivos JSON y XML con codificación estricta `Encoding.UTF8`.
+* **Patrón Factory Method (Importadores y Exportadores):** Fábricas `CreadorImportadores` y `CreadorExportadores` para desacoplar simétricamente la ingesta heterogénea y la exportación de informes en JSON y XML con codificación estricta `Encoding.UTF8`.
 * **Resiliencia:** Tolerancia a fallos parciales ante datos corruptos (paquetes inválidos, guías duplicadas) auditados en `InformeInconsistencias` sin detener el procesamiento.
 * **Exportación Polimórfica:** Generación de informes en JSON y XML bajo `InformesExportados/`.
 

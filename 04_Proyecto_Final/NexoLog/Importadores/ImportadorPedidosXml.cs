@@ -3,12 +3,12 @@ using System.Text;
 using System.Xml.Linq;
 using NexoLog.Servicios;
 
-namespace NexoLog.Lectores;
+namespace NexoLog.Importadores;
 
-// Lector resiliente para solicitudes de pedidos en formato XML.
-public class LectorPedidosXml : ILectorArchivo<Despacho>
+// Importador resiliente para solicitudes de pedidos en formato XML.
+public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
 {
-    public List<Despacho> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
+    public List<Despacho> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
         List<Despacho> despachosValidos = new List<Despacho>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);

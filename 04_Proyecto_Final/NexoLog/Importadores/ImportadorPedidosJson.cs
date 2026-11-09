@@ -4,12 +4,12 @@ using System.Text.Json;
 using NexoLog.DTOs;
 using NexoLog.Servicios;
 
-namespace NexoLog.Lectores;
+namespace NexoLog.Importadores;
 
-// Lector resiliente para pedidos y despachos en formato JSON.
-public class LectorPedidosJson : ILectorArchivo<Despacho>
+// Importador resiliente para pedidos y despachos en formato JSON.
+public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
 {
-    public List<Despacho> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
+    public List<Despacho> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
         List<Despacho> despachosValidos = new List<Despacho>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);

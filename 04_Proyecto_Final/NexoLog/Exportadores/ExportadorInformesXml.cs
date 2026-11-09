@@ -7,7 +7,7 @@ using NexoLog.Informes;
 namespace NexoLog.Exportadores;
 
 // Exportador de informes consolidados a formato XML con codificacion UTF-8.
-public class ExportadorXml : IExportadorInforme
+public class ExportadorInformesXml : IExportadorInforme
 {
     public void Exportar(InformeOperativo operativo, InformeFinanciero financiero, InformeInconsistencias inconsistencias, string rutaDestino)
     {

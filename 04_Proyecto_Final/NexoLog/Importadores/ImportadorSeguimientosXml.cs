@@ -2,12 +2,12 @@ using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
 
-namespace NexoLog.Lectores;
+namespace NexoLog.Importadores;
 
-// Lector resiliente para acontecimientos y eventos de seguimiento en formato XML.
-public class LectorSeguimientosXml : ILectorArchivo<Acontecimiento>
+// Importador resiliente para acontecimientos y eventos de seguimiento en formato XML.
+public class ImportadorSeguimientosXml : IImportadorArchivo<Acontecimiento>
 {
-    public List<Acontecimiento> Leer(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
+    public List<Acontecimiento> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
         List<Acontecimiento> acontecimientosValidos = new List<Acontecimiento>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);
