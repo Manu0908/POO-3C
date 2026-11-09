@@ -154,7 +154,7 @@
         <mxCell id="c_acont_m1" parent="c_acontecimiento" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ MostrarInformacion(): string" vertex="1">
           <mxGeometry height="24" width="240" y="124" as="geometry" />
         </mxCell>
-        <mxCell id="c_itarifa" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FB8C00;fontColor=#E65100;rounded=0;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&#xa;ITarifa" vertex="1">
+        <mxCell id="c_itarifa" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FB8C00;fontColor=#E65100;rounded=0;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&#10;ITarifa" vertex="1">
           <mxGeometry height="100" width="270" x="980" y="370" as="geometry" />
         </mxCell>
         <mxCell id="c_itarifa_line" parent="c_itarifa" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#FB8C00;rounded=0;" value="" vertex="1">
@@ -211,7 +211,7 @@
         <mxCell id="c_tdist_m2" parent="c_tdist" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ ObtenerTipoTarifa(): string" vertex="1">
           <mxGeometry height="22" width="270" y="78" as="geometry" />
         </mxCell>
-        <mxCell id="c_modalidad" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=34;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&#xa;ModalidadServicio" vertex="1">
+        <mxCell id="c_modalidad" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=34;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&#10;ModalidadServicio" vertex="1">
           <mxGeometry height="100" width="260" x="180" y="520" as="geometry" />
         </mxCell>
         <mxCell id="c_mod_a1" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- nombreModalidad: string" vertex="1">
@@ -381,52 +381,52 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="c_creador_importadores" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="CreadorImportadores" vertex="1">
-          <mxGeometry height="178" width="315" x="15" y="40" as="geometry" />
+          <mxGeometry height="180" width="245" x="15" y="40" as="geometry" />
         </mxCell>
         <mxCell id="c_creador_imp_line" parent="c_creador_importadores" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#00897B;rounded=0;" value="" vertex="1">
-          <mxGeometry height="8" width="315" y="28" as="geometry" />
+          <mxGeometry height="8" width="245" y="28" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m1" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ CrearImportadorAcuerdosJson(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="315" y="36" as="geometry" />
+        <mxCell id="c_creador_imp_m1" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorAcuerdosJson(): IImportadorArchivo" vertex="1">
+          <mxGeometry height="28" width="245" y="36" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m2" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ CrearImportadorPedidosJson(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="315" y="64" as="geometry" />
+        <mxCell id="c_creador_imp_m2" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorPedidosJson(): IImportadorArchivo" vertex="1">
+          <mxGeometry height="28" width="245" y="64" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m3" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ CrearImportadorPedidosXml(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="315" y="92" as="geometry" />
+        <mxCell id="c_creador_imp_m3" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorPedidosXml(): IImportadorArchivo" vertex="1">
+          <mxGeometry height="28" width="245" y="92" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m4" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ CrearImportadorSeguimientosJson(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="315" y="120" as="geometry" />
+        <mxCell id="c_creador_imp_m4" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorSeguimientosJson(): IImportadorArchivo" vertex="1">
+          <mxGeometry height="28" width="245" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m5" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ CrearImportadorSeguimientosXml(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="315" y="148" as="geometry" />
+        <mxCell id="c_creador_imp_m5" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorSeguimientosXml(): IImportadorArchivo" vertex="1">
+          <mxGeometry height="28" width="245" y="148" as="geometry" />
         </mxCell>
-        <mxCell id="c_iimportador_archivo" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;div&gt;IImportadorArchivo&amp;lt;T&amp;gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="130" x="340" y="40" as="geometry" />
+        <mxCell id="c_iimportador_archivo" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;fontSize=10.5;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;div&gt;IImportadorArchivo&amp;lt;T&amp;gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="205" x="275" y="40" as="geometry" />
         </mxCell>
         <mxCell id="c_iimportador_line" parent="c_iimportador_archivo" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#00897B;rounded=0;" value="" vertex="1">
-          <mxGeometry height="8" width="130" y="40" as="geometry" />
+          <mxGeometry height="8" width="205" y="40" as="geometry" />
         </mxCell>
         <mxCell id="c_iimportador_m1" parent="c_iimportador_archivo" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=10;rounded=0;" value="+ Importar(ruta, inc): List&amp;lt;T&amp;gt;" vertex="1">
-          <mxGeometry height="32" width="130" y="48" as="geometry" />
+          <mxGeometry height="32" width="205" y="48" as="geometry" />
         </mxCell>
-        <mxCell id="c_imp_ped_json" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="ImportadorPedidosJson" vertex="1">
-          <mxGeometry height="70" width="130" x="340" y="150" as="geometry" />
+        <mxCell id="c_imp_ped_json" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;fontSize=10.5;" value="ImportadorPedidosJson" vertex="1">
+          <mxGeometry height="70" width="205" x="275" y="150" as="geometry" />
         </mxCell>
         <mxCell id="c_imp_ped_line" parent="c_imp_ped_json" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#00897B;rounded=0;" value="" vertex="1">
-          <mxGeometry height="8" width="130" y="26" as="geometry" />
+          <mxGeometry height="8" width="205" y="26" as="geometry" />
         </mxCell>
         <mxCell id="c_imp_ped_m1" parent="c_imp_ped_json" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9.5;rounded=0;" value="+ Importar(): List&amp;lt;Despacho&amp;gt;" vertex="1">
-          <mxGeometry height="36" width="130" y="34" as="geometry" />
+          <mxGeometry height="36" width="205" y="34" as="geometry" />
         </mxCell>
-        <mxCell id="c_imp_seg_xml" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="ImportadorSeguimientosXml" vertex="1">
-          <mxGeometry height="70" width="130" x="340" y="250" as="geometry" />
+        <mxCell id="c_imp_seg_xml" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;fontSize=10.5;" value="ImportadorSeguimientosXml" vertex="1">
+          <mxGeometry height="70" width="205" x="275" y="250" as="geometry" />
         </mxCell>
         <mxCell id="c_imp_seg_line" parent="c_imp_seg_xml" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#00897B;rounded=0;" value="" vertex="1">
-          <mxGeometry height="8" width="130" y="26" as="geometry" />
+          <mxGeometry height="8" width="205" y="26" as="geometry" />
         </mxCell>
         <mxCell id="c_imp_seg_m1" parent="c_imp_seg_xml" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9.5;rounded=0;" value="+ Importar(): List&amp;lt;Acontecimiento&amp;gt;" vertex="1">
-          <mxGeometry height="36" width="130" y="34" as="geometry" />
+          <mxGeometry height="36" width="205" y="34" as="geometry" />
         </mxCell>
         <mxCell id="rel_creador_iimp" edge="1" parent="1" source="c_creador_importadores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#00897B;strokeWidth=1.5;" target="c_iimportador_archivo">
           <mxGeometry relative="1" as="geometry" />
@@ -434,11 +434,11 @@
         <mxCell id="rel_imp_ped_iimp" edge="1" parent="1" source="c_imp_ped_json" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#00897B;strokeWidth=1.5;" target="c_iimportador_archivo">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rel_imp_seg_iimp" edge="1" parent="1" source="c_imp_seg_xml" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#00897B;strokeWidth=1.5;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="c_iimportador_archivo">
+        <mxCell id="rel_imp_seg_iimp" edge="1" parent="1" source="c_imp_seg_xml" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#00897B;strokeWidth=1.5;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="c_iimportador_archivo">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="480" y="285" />
-              <mxPoint x="480" y="80" />
+              <mxPoint x="263" y="285" />
+              <mxPoint x="263" y="80" />
             </Array>
           </mxGeometry>
         </mxCell>

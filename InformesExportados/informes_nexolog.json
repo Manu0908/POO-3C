@@ -1,5 +1,5 @@
 ﻿{
-  "fechaGeneracion": "2026-11-08 19:18:38",
+  "fechaGeneracion": "2026-11-08 19:56:18",
   "sistema": "NexoLog S.A.S.",
   "operativo": {
     "TotalDespachos": 11,
@@ -135,119 +135,119 @@
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-1090",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.7639873-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1057768-05:00",
         "Motivo": "Paquete invalido en la guia 'NX-1090': El peso del paquete debe ser estrictamente mayor a 0 kg."
       },
       {
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-1091",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.765999-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1077844-05:00",
         "Motivo": "El despacho 'NX-1091' no contiene paquetes asociados."
       },
       {
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-3090",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.7660454-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1078281-05:00",
         "Motivo": "Modalidad invalida en la guia 'NX-3090': La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial."
       },
       {
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-3091",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.7660899-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1078708-05:00",
         "Motivo": "Identificador de paquete duplicado 'PAQ-DUP-01' dentro de la guia 'NX-3091'."
       },
       {
         "ArchivoOrigen": "pedidos_andino.xml",
         "IdentificadorReferencia": "NX-2090",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.7751358-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1168557-05:00",
         "Motivo": "Paquete invalido en la guia 'NX-2090': El peso del paquete debe ser estrictamente mayor a 0 kg."
       },
       {
         "ArchivoOrigen": "pedidos_andino.xml",
         "IdentificadorReferencia": "NX-2092",
         "Tipo": "DatoInvalido",
-        "FechaDeteccion": "2026-11-08T19:18:38.7751423-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1168626-05:00",
         "Motivo": "El despacho 'NX-2092' no contiene paquetes asociados."
       },
       {
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-1002",
         "Tipo": "Duplicado",
-        "FechaDeteccion": "2026-11-08T19:18:38.7839105-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1254537-05:00",
         "Motivo": "Despacho con guia 'NX-1002' duplicado identicamente en la fuente; se omite duplicado."
       },
       {
         "ArchivoOrigen": "pedidos_caribe.json",
         "IdentificadorReferencia": "NX-1001",
         "Tipo": "ConflictoIdentificacion",
-        "FechaDeteccion": "2026-11-08T19:18:38.7839159-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1254584-05:00",
         "Motivo": "Conflicto de identificacion: La guia 'NX-1001' ya existe con informacion contradictoria."
       },
       {
         "ArchivoOrigen": "pedidos_andino.xml",
         "IdentificadorReferencia": "NX-2001",
         "Tipo": "Duplicado",
-        "FechaDeteccion": "2026-11-08T19:18:38.7839244-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1254669-05:00",
         "Motivo": "Despacho con guia 'NX-2001' duplicado identicamente en la fuente; se omite duplicado."
       },
       {
         "ArchivoOrigen": "pedidos_andino.xml",
         "IdentificadorReferencia": "NX-2002",
         "Tipo": "ConflictoIdentificacion",
-        "FechaDeteccion": "2026-11-08T19:18:38.7839252-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1254676-05:00",
         "Motivo": "Conflicto de identificacion: La guia 'NX-2002' ya existe con informacion contradictoria."
       },
       {
         "ArchivoOrigen": "seguimiento_norte.json",
         "IdentificadorReferencia": "EVT-NORTE-101",
         "Tipo": "Duplicado",
-        "FechaDeteccion": "2026-11-08T19:18:38.7850431-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1265956-05:00",
         "Motivo": "Acontecimiento 'EVT-NORTE-101' duplicado identicamente en la guia 'NX-1001'."
       },
       {
         "ArchivoOrigen": "seguimiento_norte.json",
         "IdentificadorReferencia": "EVT-NORTE-100",
         "Tipo": "ConflictoIdentificacion",
-        "FechaDeteccion": "2026-11-08T19:18:38.7850447-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1265977-05:00",
         "Motivo": "Conflicto en acontecimiento 'EVT-NORTE-100' de la guia 'NX-1001': mismo ID con datos contradictorios."
       },
       {
         "ArchivoOrigen": "seguimiento_norte.json",
         "IdentificadorReferencia": "EVT-NORTE-902",
         "Tipo": "AcontecimientoIncompatible",
-        "FechaDeteccion": "2026-11-08T19:18:38.7882954-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1298596-05:00",
         "Motivo": "Incompatibilidad de secuencia en la guia 'NX-1001': El despacho ya se encuentra finalizado en estado 'Entregado'."
       },
       {
         "ArchivoOrigen": "seguimiento_norte.json",
         "IdentificadorReferencia": "EVT-NORTE-901",
         "Tipo": "ReferenciaInexistente",
-        "FechaDeteccion": "2026-11-08T19:18:38.78844-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1300061-05:00",
         "Motivo": "El acontecimiento 'EVT-NORTE-901' referencia a una guia inexistente: 'NX-9999'."
       },
       {
         "ArchivoOrigen": "seguimiento_andina.xml",
         "IdentificadorReferencia": "EVT-AND-902",
         "Tipo": "AcontecimientoIncompatible",
-        "FechaDeteccion": "2026-11-08T19:18:38.7884608-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1300263-05:00",
         "Motivo": "Incompatibilidad de secuencia en la guia 'NX-2001': El despacho ya se encuentra finalizado en estado 'Entregado'."
       },
       {
         "ArchivoOrigen": "seguimiento_andina.xml",
         "IdentificadorReferencia": "EVT-AND-401",
         "Tipo": "AcontecimientoIncompatible",
-        "FechaDeteccion": "2026-11-08T19:18:38.7884759-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1300423-05:00",
         "Motivo": "Incompatibilidad de secuencia en la guia 'NX-2004': No se puede registrar entrega si el despacho no esta en distribucion (estado actual: 'Pendiente')."
       },
       {
         "ArchivoOrigen": "seguimiento_andina.xml",
         "IdentificadorReferencia": "EVT-AND-901",
         "Tipo": "ReferenciaInexistente",
-        "FechaDeteccion": "2026-11-08T19:18:38.7884766-05:00",
+        "FechaDeteccion": "2026-11-08T19:56:18.1300431-05:00",
         "Motivo": "El acontecimiento 'EVT-AND-901' referencia a una guia inexistente: 'NX-7777'."
       }
     ]
