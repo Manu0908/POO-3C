@@ -1,3 +1,5 @@
+using NexoLog.DTOs;
+
 namespace NexoLog.Informes;
 
 // Informe consolidado de inconsistencias e infracciones detectadas.
@@ -6,7 +8,7 @@ public class InformeInconsistencias
     public int TotalInconsistencias { get; set; }
     public Dictionary<string, int> InconsistenciasPorTipo { get; set; } = new Dictionary<string, int>();
     public Dictionary<string, int> InconsistenciasPorArchivo { get; set; } = new Dictionary<string, int>();
-    public List<RegistroInconsistencia> Listado { get; set; } = new List<RegistroInconsistencia>();
+    public List<InconsistenciaDto> Listado { get; set; } = new List<InconsistenciaDto>();
 
     public static InformeInconsistencias Crear(IEnumerable<RegistroInconsistencia> inconsistencias)
     {
@@ -14,10 +16,11 @@ public class InformeInconsistencias
         List<RegistroInconsistencia> lista = inconsistencias.ToList();
 
         informe.TotalInconsistencias = lista.Count;
-        informe.Listado = lista;
 
         foreach (RegistroInconsistencia inc in lista)
         {
+            informe.Listado.Add(InconsistenciaDto.MapToDto(inc));
+
             string tipo = inc.Tipo ?? "Desconocido";
             if (!informe.InconsistenciasPorTipo.ContainsKey(tipo))
             {

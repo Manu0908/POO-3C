@@ -9,9 +9,9 @@ public class Empresa
     private Dictionary<string, Despacho> _despachosPorGuia;
     private List<RegistroInconsistencia> _inconsistencias;
 
-    public Dictionary<string, Establecimiento>.ValueCollection Establecimientos { get { return _establecimientos.Values; } }
-    public Dictionary<string, Despacho>.ValueCollection Despachos { get { return _despachosPorGuia.Values; } }
-    public List<RegistroInconsistencia> Inconsistencias { get { return _inconsistencias; } }
+    public List<Establecimiento> Establecimientos { get { return new List<Establecimiento>(_establecimientos.Values); } }
+    public List<Despacho> Despachos { get { return new List<Despacho>(_despachosPorGuia.Values); } }
+    public List<RegistroInconsistencia> Inconsistencias { get { return new List<RegistroInconsistencia>(_inconsistencias); } }
 
     public Empresa()
     {
@@ -25,6 +25,15 @@ public class Empresa
         _establecimientos.Clear();
         _despachosPorGuia.Clear();
         _inconsistencias.Clear();
+    }
+
+    public void RegistrarInconsistencia(RegistroInconsistencia inconsistencia)
+    {
+        if (inconsistencia == null)
+        {
+            throw new NexoLogException("No se puede registrar una inconsistencia nula.");
+        }
+        _inconsistencias.Add(inconsistencia);
     }
 
     public void RegistrarEstablecimiento(Establecimiento nuevoEstablecimiento)
@@ -60,7 +69,7 @@ public class Empresa
 
         if (_despachosPorGuia.TryGetValue(guia, out existente))
         {
-            bool esIdentico = existente.EsIdenticoA(despacho);
+            bool esIdentico = existente.TieneMismosDatosQue(despacho);
             string tipo = esIdentico ? RegistroInconsistencia.TipoDuplicado : RegistroInconsistencia.TipoConflictoIdentificacion;
             string motivo = esIdentico
                 ? $"Despacho con guia '{guia}' duplicado identicamente en la fuente; se omite duplicado."
@@ -110,11 +119,11 @@ public class Empresa
                 continue;
             }
 
-            ProcesarEventosDeGuia(despacho, par.Value, archivoOrigen);
+            RegistrarEventosEnDespacho(despacho, par.Value, archivoOrigen);
         }
     }
 
-    private void ProcesarEventosDeGuia(Despacho despacho, List<Acontecimiento> eventos, string archivoOrigen)
+    private void RegistrarEventosEnDespacho(Despacho despacho, List<Acontecimiento> eventos, string archivoOrigen)
     {
         Dictionary<string, Acontecimiento> vistos = new Dictionary<string, Acontecimiento>(StringComparer.OrdinalIgnoreCase);
         List<Acontecimiento> validos = new List<Acontecimiento>();
@@ -141,7 +150,7 @@ public class Empresa
         {
             try
             {
-                despacho.ProcesarAcontecimiento(evt);
+                despacho.RegistrarAcontecimiento(evt);
             }
             catch (NexoLogException ex)
             {

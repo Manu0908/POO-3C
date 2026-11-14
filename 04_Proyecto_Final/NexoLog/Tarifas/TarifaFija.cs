@@ -13,6 +13,8 @@ public class TarifaFija : ITarifa
     }
 
     // Propiedades publicas
+    public decimal ValorBase { get { return _valorFijo; } }
+
     public decimal ValorFijo
     {
         get { return _valorFijo; }

@@ -56,7 +56,7 @@ while (continuar)
     }
     else if (opcion == "2")
     {
-        IntegrarInformacion(sistema);
+        ConsolidarDatosEnEmpresa(sistema);
     }
     else if (opcion == "3")
     {
@@ -122,7 +122,7 @@ void CargarArchivos(Empresa sys, string ruta)
 
     foreach (RegistroInconsistencia inc in inconsistenciasLectura)
     {
-        sys.Inconsistencias.Add(inc);
+        sys.RegistrarInconsistencia(inc);
     }
 
     archivosCargados = true;
@@ -138,9 +138,9 @@ void CargarArchivos(Empresa sys, string ruta)
     Console.WriteLine("Archivos cargados exitosamente.");
 }
 
-void IntegrarInformacion(Empresa sys)
+void ConsolidarDatosEnEmpresa(Empresa sys)
 {
-    Console.WriteLine("--- Integracion de Informacion ---");
+    Console.WriteLine("--- Consolidacion de Informacion ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
@@ -151,7 +151,7 @@ void IntegrarInformacion(Empresa sys)
 
     foreach (RegistroInconsistencia inc in inconsistenciasLectura)
     {
-        sys.Inconsistencias.Add(inc);
+        sys.RegistrarInconsistencia(inc);
     }
 
     foreach (AcuerdoDto dto in acuerdosCargados)
@@ -260,7 +260,7 @@ void MostrarInformeInconsistencias(Empresa sys)
 
     Console.WriteLine("\nDetalle de inconsistencias:");
     int i = 1;
-    foreach (RegistroInconsistencia reg in inc.Listado)
+    foreach (InconsistenciaDto reg in inc.Listado)
     {
         Console.WriteLine($" {i}. [{reg.Tipo}] ({reg.ArchivoOrigen} | {reg.IdentificadorReferencia}): {reg.Motivo}");
         i++;

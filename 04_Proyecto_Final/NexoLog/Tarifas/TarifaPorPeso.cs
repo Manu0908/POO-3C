@@ -13,6 +13,8 @@ public class TarifaPorPeso : ITarifa
     }
 
     // Propiedades publicas
+    public decimal ValorBase { get { return _valorPorKilogramo; } }
+
     public decimal ValorPorKilogramo
     {
         get { return _valorPorKilogramo; }

@@ -4,14 +4,12 @@ namespace NexoLog;
 public class Paquete
 {
     // Campos privados con validacion
+    private string _idPaquete;
     private double _peso;
+    private decimal _valorDeclarado;
 
     // Constructor privado sin parametros para serializacion / reflexion
-    private Paquete()
-    {
-        IdPaquete = string.Empty;
-        Descripcion = string.Empty;
-    }
+    private Paquete() { }
 
     // Constructor horizontal
     public Paquete(string idPaquete, string descripcion, double peso, decimal valorDeclarado)
@@ -23,9 +21,33 @@ public class Paquete
     }
 
     // Propiedades publicas
-    public string IdPaquete { get; private set; }
     public string Descripcion { get; private set; }
-    public decimal ValorDeclarado { get; private set; }
+
+    public string IdPaquete
+    {
+        get { return _idPaquete; }
+        private set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El identificador del paquete es obligatorio.");
+            }
+            _idPaquete = value.Trim();
+        }
+    }
+
+    public decimal ValorDeclarado
+    {
+        get { return _valorDeclarado; }
+        private set
+        {
+            if (value < 0m)
+            {
+                throw new NexoLogException("El valor declarado del paquete no puede ser negativo.");
+            }
+            _valorDeclarado = value;
+        }
+    }
 
     public double Peso
     {

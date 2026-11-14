@@ -6,6 +6,8 @@ namespace NexoLog;
 public class Establecimiento
 {
     // Campos privados
+    private string _codigo;
+    private string _nombreComercial;
     private ITarifa _tarifaAcordada;
     private List<Despacho> _despachos;
 
@@ -13,12 +15,7 @@ public class Establecimiento
     public int CantidadDespachos { get { return _despachos.Count; } }
 
     // Constructor privado sin parametros para serializacion / reflexion
-    private Establecimiento()
-    {
-        Codigo = string.Empty;
-        NombreComercial = string.Empty;
-        _despachos = new List<Despacho>();
-    }
+    private Establecimiento() { }
 
     // Constructores horizontales
     public Establecimiento(string codigo, string nombreComercial)
@@ -34,10 +31,42 @@ public class Establecimiento
     }
 
     // Propiedades publicas
-    public string Codigo { get; private set; }
-    public string NombreComercial { get; private set; }
-    public ITarifa TarifaAcordada { get { return _tarifaAcordada; } set { _tarifaAcordada = value; } }
-    public List<Despacho> Despachos { get { return _despachos; } }
+    public string Codigo
+    {
+        get { return _codigo; }
+        private set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El codigo del establecimiento es obligatorio.");
+            }
+            _codigo = value.Trim();
+        }
+    }
+
+    public string NombreComercial
+    {
+        get { return _nombreComercial; }
+        private set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El nombre comercial del establecimiento es obligatorio.");
+            }
+            _nombreComercial = value.Trim();
+        }
+    }
+
+    public ITarifa TarifaAcordada
+    {
+        get { return _tarifaAcordada; }
+        private set { _tarifaAcordada = value; }
+    }
+
+    public List<Despacho> Despachos
+    {
+        get { return new List<Despacho>(_despachos); }
+    }
 
     // Metodos de negocio
     public void AsignarTarifa(ITarifa tarifa)

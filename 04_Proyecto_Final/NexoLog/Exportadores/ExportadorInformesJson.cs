@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using NexoLog.DTOs;
 using NexoLog.Informes;
 
 namespace NexoLog.Exportadores;
@@ -16,13 +17,13 @@ public class ExportadorInformesJson : IExportadorInforme
             Directory.CreateDirectory(directorio);
         }
 
-        var consolidado = new
+        InformeConsolidadoDto consolidado = new InformeConsolidadoDto
         {
-            fechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-            sistema = "NexoLog S.A.S.",
-            operativo = operativo,
-            financiero = financiero,
-            inconsistencias = inconsistencias
+            FechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            Sistema = "NexoLog S.A.S.",
+            Operativo = operativo,
+            Financiero = financiero,
+            Inconsistencias = inconsistencias
         };
 
         JsonSerializerOptions opciones = new JsonSerializerOptions

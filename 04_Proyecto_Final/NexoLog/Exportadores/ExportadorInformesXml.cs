@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using NexoLog.DTOs;
 using NexoLog.Informes;
 
 namespace NexoLog.Exportadores;
@@ -141,7 +142,7 @@ public class ExportadorInformesXml : IExportadorInforme
             elInconsistencias.Add(elPorArchivo);
 
             XElement elDetalle = new XElement("listadoDetallado");
-            foreach (RegistroInconsistencia reg in inconsistencias.Listado)
+            foreach (InconsistenciaDto reg in inconsistencias.Listado)
             {
                 elDetalle.Add(new XElement("registro",
                     new XAttribute("archivo", reg.ArchivoOrigen),

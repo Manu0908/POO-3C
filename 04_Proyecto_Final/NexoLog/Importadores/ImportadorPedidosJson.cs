@@ -62,7 +62,7 @@ public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
 
                 foreach (PedidoJsonDto solicitud in lote.Solicitudes)
                 {
-                    ProcesarSolicitud(solicitud, codigoEstablecimiento, nombreArchivo, despachosValidos, inconsistencias);
+                    AgregarPedidoSiEsValido(solicitud, codigoEstablecimiento, nombreArchivo, despachosValidos, inconsistencias);
                 }
             }
         }
@@ -79,7 +79,7 @@ public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
         return despachosValidos;
     }
 
-    private void ProcesarSolicitud(
+    private void AgregarPedidoSiEsValido(
         PedidoJsonDto solicitud,
         string codigoEstablecimiento,
         string nombreArchivo,

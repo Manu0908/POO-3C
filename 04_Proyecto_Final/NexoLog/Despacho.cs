@@ -23,17 +23,7 @@ public class Despacho
     public int CantidadPaquetes { get { return _paquetes.Count; } }
 
     // Constructor privado sin parametros para serializacion / reflexion
-    private Despacho()
-    {
-        _numeroGuia = string.Empty;
-        CodigoEstablecimiento = string.Empty;
-        Destinatario = string.Empty;
-        CiudadDestino = string.Empty;
-        Transportadora = string.Empty;
-        _estadoActual = EstadoPendiente;
-        _paquetes = new List<Paquete>();
-        _historial = new List<Acontecimiento>();
-    }
+    private Despacho() { }
 
     // Constructor horizontal
     public Despacho(string numeroGuia, string codigoEstablecimiento, string destinatario, string ciudadDestino, double distanciaKm, string transportadora)
@@ -54,10 +44,10 @@ public class Despacho
     public string Destinatario { get; private set; }
     public string CiudadDestino { get; private set; }
     public string Transportadora { get; private set; }
-    public string EstadoActual { get { return _estadoActual; } set { _estadoActual = value; } }
-    public ModalidadServicio Modalidad { get { return _modalidad; } set { _modalidad = value; } }
-    public List<Paquete> Paquetes { get { return _paquetes; } }
-    public List<Acontecimiento> Historial { get { return _historial; } }
+    public string EstadoActual { get { return _estadoActual; } private set { _estadoActual = value; } }
+    public ModalidadServicio Modalidad { get { return _modalidad; } private set { _modalidad = value; } }
+    public List<Paquete> Paquetes { get { return new List<Paquete>(_paquetes); } }
+    public List<Acontecimiento> Historial { get { return new List<Acontecimiento>(_historial); } }
 
     public string NumeroGuia
     {
@@ -133,38 +123,38 @@ public class Despacho
         return false;
     }
 
-    public void ProcesarAcontecimiento(Acontecimiento evt)
+    public void RegistrarAcontecimiento(Acontecimiento acontecimiento)
     {
-        if (evt == null)
+        if (acontecimiento == null)
         {
-            throw new NexoLogException("No se puede procesar un acontecimiento nulo.");
+            throw new NexoLogException("No se puede registrar un acontecimiento nulo.");
         }
 
-        ValidarNoFinalizado();
+        VerificarQueNoEsteFinalizado();
 
-        if (evt.Tipo == Acontecimiento.TipoRec)
+        if (acontecimiento.Tipo == Acontecimiento.TipoRec)
         {
-            ProcesarRecepcion(evt);
+            RegistrarRecepcion(acontecimiento);
         }
-        else if (evt.Tipo == Acontecimiento.TipoRut)
+        else if (acontecimiento.Tipo == Acontecimiento.TipoRut)
         {
-            ProcesarSalidaRuta(evt);
+            RegistrarSalidaARuta(acontecimiento);
         }
-        else if (evt.Tipo == Acontecimiento.TipoEnt)
+        else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
         {
-            ProcesarEntrega(evt);
+            RegistrarEntrega(acontecimiento);
         }
-        else if (evt.Tipo == Acontecimiento.TipoDev)
+        else if (acontecimiento.Tipo == Acontecimiento.TipoDev)
         {
-            ProcesarDevolucion(evt);
+            RegistrarDevolucion(acontecimiento);
         }
         else
         {
-            throw new NexoLogException($"Tipo de acontecimiento desconocido: '{evt.Tipo}'.");
+            throw new NexoLogException($"Tipo de acontecimiento desconocido: '{acontecimiento.Tipo}'.");
         }
     }
 
-    private void ValidarNoFinalizado()
+    private void VerificarQueNoEsteFinalizado()
     {
         if (_estadoActual.ToLower() == EstadoEntregado.ToLower() || _estadoActual.ToLower() == EstadoDevuelto.ToLower())
         {
@@ -172,7 +162,7 @@ public class Despacho
         }
     }
 
-    private void ProcesarRecepcion(Acontecimiento evt)
+    private void RegistrarRecepcion(Acontecimiento evt)
     {
         if (_estadoActual.ToLower() != EstadoPendiente.ToLower())
         {
@@ -190,7 +180,7 @@ public class Despacho
         _historial.Add(evt);
     }
 
-    private void ProcesarSalidaRuta(Acontecimiento evt)
+    private void RegistrarSalidaARuta(Acontecimiento evt)
     {
         if (_estadoActual.ToLower() != EstadoPendiente.ToLower())
         {
@@ -216,7 +206,7 @@ public class Despacho
         _historial.Add(evt);
     }
 
-    private void ProcesarEntrega(Acontecimiento evt)
+    private void RegistrarEntrega(Acontecimiento evt)
     {
         if (_estadoActual.ToLower() != EstadoEnDistribucion.ToLower())
         {
@@ -227,7 +217,7 @@ public class Despacho
         _historial.Add(evt);
     }
 
-    private void ProcesarDevolucion(Acontecimiento evt)
+    private void RegistrarDevolucion(Acontecimiento evt)
     {
         if (_estadoActual.ToLower() != EstadoEnDistribucion.ToLower())
         {
@@ -238,48 +228,43 @@ public class Despacho
         _historial.Add(evt);
     }
 
-    public void RegistrarAcontecimiento(Acontecimiento acontecimiento)
-    {
-        ProcesarAcontecimiento(acontecimiento);
-    }
-
     public string MostrarInformacion()
     {
         string modalidadNombre = _modalidad != null ? _modalidad.NombreModalidad : "Sin Asignar";
         return $"Guia: {NumeroGuia} | Modalidad: {modalidadNombre} | Destino: {CiudadDestino} ({Destinatario}) | Distancia: {DistanciaKm:F1} km | Estado: {EstadoActual} | Paquetes: {CantidadPaquetes} ({CalcularPesoTotal():F2} kg)";
     }
 
-    public bool EsIdenticoA(Despacho candidato)
+    public bool TieneMismosDatosQue(Despacho otroDespacho)
     {
-        if (candidato == null)
+        if (otroDespacho == null)
         {
             return false;
         }
-        if (CodigoEstablecimiento.ToLower() != candidato.CodigoEstablecimiento.ToLower())
+        if (CodigoEstablecimiento.ToLower() != otroDespacho.CodigoEstablecimiento.ToLower())
         {
             return false;
         }
-        if (Destinatario.ToLower() != candidato.Destinatario.ToLower())
+        if (Destinatario.ToLower() != otroDespacho.Destinatario.ToLower())
         {
             return false;
         }
-        if (CiudadDestino.ToLower() != candidato.CiudadDestino.ToLower())
+        if (CiudadDestino.ToLower() != otroDespacho.CiudadDestino.ToLower())
         {
             return false;
         }
-        if (Math.Abs(DistanciaKm - candidato.DistanciaKm) > 0.001)
+        if (Math.Abs(DistanciaKm - otroDespacho.DistanciaKm) > 0.001)
         {
             return false;
         }
-        if (Transportadora.ToLower() != candidato.Transportadora.ToLower())
+        if (Transportadora.ToLower() != otroDespacho.Transportadora.ToLower())
         {
             return false;
         }
-        if (CantidadPaquetes != candidato.CantidadPaquetes)
+        if (CantidadPaquetes != otroDespacho.CantidadPaquetes)
         {
             return false;
         }
-        if (Math.Abs(CalcularPesoTotal() - candidato.CalcularPesoTotal()) > 0.001)
+        if (Math.Abs(CalcularPesoTotal() - otroDespacho.CalcularPesoTotal()) > 0.001)
         {
             return false;
         }

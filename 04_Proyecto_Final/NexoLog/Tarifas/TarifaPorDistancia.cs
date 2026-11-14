@@ -13,6 +13,8 @@ public class TarifaPorDistancia : ITarifa
     }
 
     // Propiedades publicas
+    public decimal ValorBase { get { return _valorPorKilometro; } }
+
     public decimal ValorPorKilometro
     {
         get { return _valorPorKilometro; }

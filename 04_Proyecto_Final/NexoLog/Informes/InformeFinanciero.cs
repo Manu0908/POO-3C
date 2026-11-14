@@ -40,19 +40,7 @@ public class InformeFinanciero
             string nombreTarifa = est.TarifaAcordada != null ? est.TarifaAcordada.ObtenerTipoTarifa() : "Sin Tarifa Asignada";
             item.ModalidadTarifa = nombreTarifa;
 
-            decimal tarifaBase = 0m;
-            if (est.TarifaAcordada is TarifaPorPeso tPeso)
-            {
-                tarifaBase = tPeso.ValorPorKilogramo;
-            }
-            else if (est.TarifaAcordada is TarifaPorDistancia tDist)
-            {
-                tarifaBase = tDist.ValorPorKilometro;
-            }
-            else if (est.TarifaAcordada is TarifaFija tFija)
-            {
-                tarifaBase = tFija.ValorFijo;
-            }
+            decimal tarifaBase = est.TarifaAcordada != null ? est.TarifaAcordada.ValorBase : 0m;
 
             item.TarifaBase = tarifaBase;
             item.DespachosTotales = est.CantidadDespachos;

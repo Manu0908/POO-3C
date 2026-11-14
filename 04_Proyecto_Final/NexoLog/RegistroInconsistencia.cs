@@ -14,13 +14,7 @@ public class RegistroInconsistencia
     private string _motivo;
 
     // Constructor privado sin parametros para serializacion / reflexion
-    private RegistroInconsistencia()
-    {
-        ArchivoOrigen = string.Empty;
-        IdentificadorReferencia = string.Empty;
-        Tipo = string.Empty;
-        _motivo = string.Empty;
-    }
+    private RegistroInconsistencia() { }
 
     // Constructor horizontal
     public RegistroInconsistencia(string archivoOrigen, string identificadorReferencia, string tipo, string motivo, DateTime fechaDeteccion)
