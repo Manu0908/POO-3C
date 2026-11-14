@@ -9,6 +9,8 @@ namespace NexoLog.Exportadores;
 
 public class ExportadorInformesXml : IExportadorInforme
 {
+    public string Extension { get { return "xml"; } }
+
     public void Exportar(InformeOperativo operativo, InformeFinanciero financiero, InformeInconsistencias inconsistencias, string rutaDestino)
     {
         string directorio = Path.GetDirectoryName(rutaDestino);

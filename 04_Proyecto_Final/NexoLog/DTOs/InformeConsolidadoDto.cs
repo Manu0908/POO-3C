@@ -19,4 +19,16 @@ public class InformeConsolidadoDto
 
     [JsonPropertyName("inconsistencias")]
     public InformeInconsistencias Inconsistencias { get; set; }
+
+    public static InformeConsolidadoDto MapToDto(InformeOperativo operativo, InformeFinanciero financiero, InformeInconsistencias inconsistencias)
+    {
+        return new InformeConsolidadoDto
+        {
+            FechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            Sistema = "NexoLog S.A.S.",
+            Operativo = operativo,
+            Financiero = financiero,
+            Inconsistencias = inconsistencias
+        };
+    }
 }

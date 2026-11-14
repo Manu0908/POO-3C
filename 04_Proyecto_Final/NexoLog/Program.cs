@@ -50,38 +50,33 @@ while (continuar)
     }
     Console.WriteLine();
 
-    if (opcion == "1")
+    switch (opcion)
     {
-        CargarArchivos(sistema, carpetaDatos);
-    }
-    else if (opcion == "2")
-    {
-        ConsolidarDatosEnEmpresa(sistema);
-    }
-    else if (opcion == "3")
-    {
-        MostrarInformeOperativo(sistema);
-    }
-    else if (opcion == "4")
-    {
-        MostrarInformeFinanciero(sistema);
-    }
-    else if (opcion == "5")
-    {
-        MostrarInformeInconsistencias(sistema);
-    }
-    else if (opcion == "6")
-    {
-        ExportarInformes(sistema);
-    }
-    else if (opcion == "0")
-    {
-        Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
-        continuar = false;
-    }
-    else
-    {
-        Console.WriteLine("Opcion invalida. Intente nuevamente.");
+        case "1":
+            CargarArchivos(sistema, carpetaDatos);
+            break;
+        case "2":
+            ConsolidarDatosEnEmpresa(sistema);
+            break;
+        case "3":
+            MostrarInformeOperativo(sistema);
+            break;
+        case "4":
+            MostrarInformeFinanciero(sistema);
+            break;
+        case "5":
+            MostrarInformeInconsistencias(sistema);
+            break;
+        case "6":
+            ExportarInformes(sistema);
+            break;
+        case "0":
+            Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
+            continuar = false;
+            break;
+        default:
+            Console.WriteLine("Opcion invalida. Intente nuevamente.");
+            break;
     }
 }
 
@@ -108,11 +103,11 @@ void CargarArchivos(Empresa sys, string ruta)
     string rutaNorte = Path.Combine(ruta, "seguimiento_norte.json");
     string rutaAndina = Path.Combine(ruta, "seguimiento_andina.xml");
 
-    IImportadorArchivo<AcuerdoDto> importadorAcuerdos = CreadorImportadores.CrearImportadorAcuerdosJson();
-    IImportadorArchivo<Despacho> importadorCaribe = CreadorImportadores.CrearImportadorPedidosJson();
-    IImportadorArchivo<Despacho> importadorAndino = CreadorImportadores.CrearImportadorPedidosXml();
-    IImportadorArchivo<Acontecimiento> importadorNorte = CreadorImportadores.CrearImportadorSeguimientosJson();
-    IImportadorArchivo<Acontecimiento> importadorAndina = CreadorImportadores.CrearImportadorSeguimientosXml();
+    IImportadorArchivo<AcuerdoDto> importadorAcuerdos = ImportadorFactory.CrearAcuerdos("json");
+    IImportadorArchivo<Despacho> importadorCaribe = ImportadorFactory.CrearPedidos("json");
+    IImportadorArchivo<Despacho> importadorAndino = ImportadorFactory.CrearPedidos("xml");
+    IImportadorArchivo<Acontecimiento> importadorNorte = ImportadorFactory.CrearSeguimientos("json");
+    IImportadorArchivo<Acontecimiento> importadorAndina = ImportadorFactory.CrearSeguimientos("xml");
 
     acuerdosCargados = importadorAcuerdos.Importar(rutaAcuerdos, inconsistenciasLectura);
     pedidosCaribeCargados = importadorCaribe.Importar(rutaCaribe, inconsistenciasLectura);
@@ -281,8 +276,8 @@ void ExportarInformes(Empresa sys)
     Console.Write("Seleccione formato [1 o 2]: ");
     string f = (Console.ReadLine() ?? string.Empty).Trim();
 
-    string extension = f == "2" ? "xml" : "json";
-    IExportadorInforme exportador = f == "2" ? CreadorExportadores.CrearExportadorXml() : CreadorExportadores.CrearExportadorJson();
+    IExportadorInforme exportador = ExportadorFactory.Crear(f);
+    string extension = exportador.Extension;
 
     string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{extension}");
     Console.Write($"Ruta destino (ENTER para '{rutaDefecto}'): ");

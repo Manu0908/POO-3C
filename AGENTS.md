@@ -23,7 +23,7 @@ Este documento es la **única fuente de verdad** normativa, arquitectónica y es
 ### 2.1. Declaraciones, Tipos y Estructuras de Control
 * **Declaraciones explícitas e individuales (cero `var`):** cada variable lleva su tipo explícito en su propia línea independiente. Queda prohibido agrupar (`double a, b;`) y prohibido usar `var`.
 * **Cero `enum` (usar constantes):** estados y tipos fijos públicos se modelan con `public const string PascalCase` (ej. `Despacho.EstadoPendiente`); constantes internas de clase/estrategia usan `private const <tipo> _camelCase` (`_precioPorPagina`, `_porcentajeDescuento`).
-* **Cero `switch`:** toda bifurcación condicional usa estructuras tradicionales `if / else if / else`.
+* **Uso de `switch` y bifurcaciones:** se permite el uso de `switch` tradicional (con `case`, `break`, `default`) o switch expression en fábricas, mapeadores, menús de consola y despacho de tipos fijos/constantes; para bifurcaciones condicionales complejas o de negocio se continúa usando `if / else if / else`.
 * **Cero `TimeSpan` complejo:** modelar franjas horarias sencillas con tipos primitivos (`int _horaInicio`, `int _horaFin` o texto simple).
 * **Comparaciones simples de cadenas:** preferir `==` o `.ToLower() == ...` en lugar de formas verbosas cuando no se requiera comparación cultural especial.
 
@@ -103,8 +103,8 @@ public class Despacho
   - **Prohibidos los tipos anónimos (`new { ... }`)**.
 * **Sesión 19 — `Strategy + Factory Method`:**
   - Estrategias detrás de interfaces con nombres de dominio puro (`ITarifa`, `IImportadorArchivo<T>`, `IExportadorInforme`) sin sufijos artificiales (`Strategy`).
-  - Creación centralizada en fábricas estáticas simétricas (`CreadorImportadores`, `CreadorExportadores`) o método estático `Crear(dto)` en clase abstracta base, evitando `if` dispersos en `Program.cs`.
-  - *Precedencia sobre láminas cortas:* aunque algunos ejemplos rápidos de diapositiva abrevien con `var` o `switch` expresión, en el repositorio rigen siempre tipos explícitos e `if / else if / else` (como en `ParcialA` y `ParcialB`).
+  - Creación centralizada en fábricas estáticas simétricas (`ImportadorFactory`, `ExportadorFactory`) o método estático `Crear(...)` en clase abstracta base (`ModalidadServicio.Crear(...)`), evitando lógica de instanciación dispersa en `Program.cs` o en la ingesta.
+  - *Reglas de sintaxis en fábricas y patrones:* se permite `switch` tradicional o switch expressions para la selección de estrategias, modalidades y formatos, manteniendo de forma estricta tipos explícitos (cero `var`), cero comentarios y retorno directo de la instancia correspondiente.
 * **Dominio puro y rechazo a clases anémicas:** `Empresa` coordina colecciones del negocio sin lectura de disco ni cálculos extensos de informes (tampoco renombrarla a `SistemaLogistico` o `PipelineProcessor`). Registros históricos sin comportamiento divergente (`Acontecimiento`) no se dividen en subclases vacías; `Despacho` gobierna su máquina de estados.
 * **Excepciones y UTF-8:** usar excepciones de dominio heredando de `Exception` cuando la regla o el enunciado las exija (`NexoLogException`, o `Excepciones.cs` en parciales) y `ArgumentException`/`Exception` en ejercicios sencillos; especificar siempre `Encoding.UTF8` explícito en consola y archivos.
 
@@ -114,7 +114,7 @@ public class Despacho
 
 * **Cero rombos:** el docente no usa rombos de agregación ni composición (Sesión 15 diap. 4, 6 y 7). Toda relación estructural se dibuja con líneas de asociación simples y multiplicidades explícitas (`1`, `0..*`, `1..*`), herencia con triángulo cerrado vacío y realización con línea discontinua y triángulo vacío.
 * **Cero prefijo `_`, cero `= valor` y cero `{override}`:** visibilidad privada solo con `-` en camelCase (`- codigo: string`); sin valores fijos asignados (`= 2000`) ni etiquetas `{override}` redundantes.
-* **Orientación vertical, simetría y fidelidad 1:1:** interfaces y clases padre siempre **arriba** y sus implementaciones/hijas **abajo**; fábricas (`CreadorImportadores`, `CreadorExportadores`) a un costado con dependencia discontinua (`«use»`) y simetría entre entrada y salida. **Regla de Sesión 15 diap. 14:** no agregar cajas, factorías vacías ni clases puente (`AcuerdoComercial`) que no existan en C#.
+* **Orientación vertical, simetría y fidelidad 1:1:** interfaces y clases padre siempre **arriba** y sus implementaciones/hijas **abajo**; fábricas (`ImportadorFactory`, `ExportadorFactory`) a un costado con dependencia discontinua (`«use»`) y simetría entre entrada y salida. **Regla de Sesión 15 diap. 14:** no agregar cajas, factorías vacías ni clases puente (`AcuerdoComercial`) que no existan en C#.
 
 ---
 
@@ -145,4 +145,4 @@ public class Despacho
 * **SLA y facturación:**
   - Porcentaje SLA = `(Entregados a Tiempo / Total Entregados) × 100` (`4 / 6 = 66.67%`). Pendientes, en distribución y devueltos se excluyen del denominador.
   - Solo los despachos con estado final `Entregado` habilitan cobro (`Gran Total Facturado: $104.450`); un entregado fuera de tiempo sigue siendo facturable, aunque incumple SLA.
-* **Resiliencia y exportación polimórfica:** datos corruptos (incluyendo valor declarado negativo de `NX-2091`) generan `RegistroInconsistencia` sin abortar la ejecución (`18` inconsistencias auditadas) y se exportan vía `InconsistenciaDto` + `InformeConsolidadoDto` con `CreadorImportadores` / `CreadorExportadores` bajo `InformesExportados/` en `Encoding.UTF8`.
+* **Resiliencia y exportación polimórfica:** datos corruptos (incluyendo valor declarado negativo de `NX-2091`) generan `RegistroInconsistencia` sin abortar la ejecución (`18` inconsistencias auditadas) y se exportan vía `InconsistenciaDto` + `InformeConsolidadoDto` con `ImportadorFactory` / `ExportadorFactory` bajo `InformesExportados/` en `Encoding.UTF8`.

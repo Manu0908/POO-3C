@@ -45,52 +45,19 @@ public class ImportadorSeguimientosJson : IImportadorArchivo<Acontecimiento>
 
             foreach (AcontecimientoJsonDto evtDto in listaEventos)
             {
-                string idEvt = evtDto.IdAcontecimiento;
-                string guia = evtDto.NumeroGuia;
-
-                if (string.IsNullOrWhiteSpace(idEvt) || string.IsNullOrWhiteSpace(guia))
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        "EVENTO_INCOMPLETO",
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        "Se detecto un acontecimiento sin identificador o sin numero de guia.",
-                        DateTime.Now));
-                    continue;
-                }
-
-                string tipoLimpio = (evtDto.Tipo ?? string.Empty).Trim().ToUpperInvariant();
-                if (tipoLimpio != Acontecimiento.TipoRec &&
-                    tipoLimpio != Acontecimiento.TipoRut &&
-                    tipoLimpio != Acontecimiento.TipoEnt &&
-                    tipoLimpio != Acontecimiento.TipoDev)
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        idEvt,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"Tipo de acontecimiento desconocido '{evtDto.Tipo}' en el evento '{idEvt}'.",
-                        DateTime.Now));
-                    continue;
-                }
-
                 try
                 {
-                    Acontecimiento nuevoAcontecimiento = new Acontecimiento(
-                        idEvt,
-                        guia,
-                        tipoLimpio,
-                        evtDto.FechaHora);
-
+                    Acontecimiento nuevoAcontecimiento = evtDto.MapToDomain();
                     acontecimientosValidos.Add(nuevoAcontecimiento);
                 }
                 catch (NexoLogException ex)
                 {
+                    string referencia = string.IsNullOrWhiteSpace(evtDto.IdAcontecimiento) ? "EVENTO_INCOMPLETO" : evtDto.IdAcontecimiento;
                     inconsistencias.Add(new RegistroInconsistencia(
                         nombreArchivo,
-                        idEvt,
+                        referencia,
                         RegistroInconsistencia.TipoDatoInvalido,
-                        $"Error al crear acontecimiento '{idEvt}': {ex.Message}",
+                        ex.Message,
                         DateTime.Now));
                 }
             }

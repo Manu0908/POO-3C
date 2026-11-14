@@ -23,20 +23,17 @@ public class AcuerdoDto
     public ITarifa CrearTarifa()
     {
         string tipo = (TipoTarifa ?? string.Empty).Trim().ToUpperInvariant();
-        if (tipo == "PESO")
+        switch (tipo)
         {
-            return new TarifaPorPeso(TarifaBase);
+            case "PESO":
+                return new TarifaPorPeso(TarifaBase);
+            case "DISTANCIA":
+                return new TarifaPorDistancia(TarifaBase);
+            case "FIJA":
+                return new TarifaFija(TarifaBase);
+            default:
+                throw new NexoLogException($"Modalidad de tarifa desconocida '{TipoTarifa}' para el comercio {CodigoComercio}.");
         }
-        if (tipo == "DISTANCIA")
-        {
-            return new TarifaPorDistancia(TarifaBase);
-        }
-        if (tipo == "FIJA")
-        {
-            return new TarifaFija(TarifaBase);
-        }
-
-        throw new NexoLogException($"Modalidad de tarifa desconocida '{TipoTarifa}' para el comercio {CodigoComercio}.");
     }
 
     public Establecimiento MapToDomain()

@@ -69,7 +69,7 @@ Sistema de consola en C# / .NET 10 para la integración y análisis resiliente d
 * **DTOs y Mappers (Sesión 17):** Capa `DTOs/` para deserialización desacoplada (`MapToDomain`) y exportación de reportes sin exponer el dominio (`InconsistenciaDto`, `InformeConsolidadoDto` con `MapToDto`).
 * **Patrón Strategy (Tarifas e I/O):** Interfaz `ITarifa` (`ValorBase` polimórfico y `CalcularTarifa`) con `TarifaFija`, `TarifaPorPeso` y `TarifaPorDistancia`; además contratos simétricos `IImportadorArchivo<T>` e `IExportadorInforme`.
 * **Herencia y Polimorfismo (Modalidades SLA):** Clase abstracta `ModalidadServicio` con `ServicioEstandar`, `ServicioExpres` y `ServicioProgramado`.
-* **Patrón Factory Method:** Fábricas simétricas `CreadorImportadores` y `CreadorExportadores` para instanciar lectores y exportadores JSON/XML con codificación estricta `Encoding.UTF8`.
+* **Patrón Factory Method:** Fábricas simétricas `ImportadorFactory` y `ExportadorFactory` para instanciar lectores y exportadores JSON/XML con codificación estricta `Encoding.UTF8`.
 * **Informes y Resiliencia:** Tolerancia a fallos parciales ante insumos corruptos consolidados en `InformeOperativo`, `InformeFinanciero` e `InformeInconsistencias`, exportados bajo `InformesExportados/`.
 
 ### Compilación y ejecución

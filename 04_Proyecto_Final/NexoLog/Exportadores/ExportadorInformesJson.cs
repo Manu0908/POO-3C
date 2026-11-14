@@ -8,6 +8,8 @@ namespace NexoLog.Exportadores;
 
 public class ExportadorInformesJson : IExportadorInforme
 {
+    public string Extension { get { return "json"; } }
+
     public void Exportar(InformeOperativo operativo, InformeFinanciero financiero, InformeInconsistencias inconsistencias, string rutaDestino)
     {
         string directorio = Path.GetDirectoryName(rutaDestino);
@@ -16,14 +18,7 @@ public class ExportadorInformesJson : IExportadorInforme
             Directory.CreateDirectory(directorio);
         }
 
-        InformeConsolidadoDto consolidado = new InformeConsolidadoDto
-        {
-            FechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-            Sistema = "NexoLog S.A.S.",
-            Operativo = operativo,
-            Financiero = financiero,
-            Inconsistencias = inconsistencias
-        };
+        InformeConsolidadoDto consolidado = InformeConsolidadoDto.MapToDto(operativo, financiero, inconsistencias);
 
         JsonSerializerOptions opciones = new JsonSerializerOptions
         {

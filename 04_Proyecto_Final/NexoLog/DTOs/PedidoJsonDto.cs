@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text.Json.Serialization;
 using NexoLog.Servicios;
 
@@ -48,7 +47,12 @@ public class PedidoJsonDto
             throw new NexoLogException($"El despacho '{NumeroGuia}' no contiene paquetes asociados.");
         }
 
-        ModalidadServicio modalidadConstruida = ConstruirModalidad();
+        ModalidadServicio modalidadConstruida = ModalidadServicio.Crear(
+            Modalidad,
+            FechaProgramada,
+            HoraInicio,
+            HoraFin,
+            NumeroGuia);
 
         Despacho nuevoDespacho;
         try
@@ -94,54 +98,5 @@ public class PedidoJsonDto
         }
 
         return nuevoDespacho;
-    }
-
-    private ModalidadServicio ConstruirModalidad()
-    {
-        string modalidadTexto = (Modalidad ?? string.Empty).Trim().ToUpperInvariant();
-        if (modalidadTexto == "ESTANDAR" || modalidadTexto == "ESTÁNDAR")
-        {
-            return new ServicioEstandar();
-        }
-
-        if (modalidadTexto == "EXPRES" || modalidadTexto == "EXPRÉS")
-        {
-            return new ServicioExpres();
-        }
-
-        if (modalidadTexto == "PROGRAMADO")
-        {
-            DateTime fechaProg;
-            if (!DateTime.TryParse(FechaProgramada, CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaProg))
-            {
-                throw new NexoLogException($"Fecha programada invalida '{FechaProgramada}' en la guia '{NumeroGuia}'.");
-            }
-
-            string parteIni = (HoraInicio ?? string.Empty).Split(':')[0].Trim();
-            string parteFin = (HoraFin ?? string.Empty).Split(':')[0].Trim();
-
-            int horaIni;
-            if (!int.TryParse(parteIni, out horaIni))
-            {
-                throw new NexoLogException($"Hora inicial programada invalida '{HoraInicio}' en la guia '{NumeroGuia}'.");
-            }
-
-            int horaFin;
-            if (!int.TryParse(parteFin, out horaFin))
-            {
-                throw new NexoLogException($"Hora final programada invalida '{HoraFin}' en la guia '{NumeroGuia}'.");
-            }
-
-            try
-            {
-                return new ServicioProgramado(fechaProg, horaIni, horaFin);
-            }
-            catch (NexoLogException ex)
-            {
-                throw new NexoLogException($"Modalidad invalida en la guia '{NumeroGuia}': {ex.Message}");
-            }
-        }
-
-        throw new NexoLogException($"Modalidad de servicio desconocida '{Modalidad}' en la guia '{NumeroGuia}'.");
     }
 }

@@ -17,15 +17,15 @@ public class ServicioExpres : ModalidadServicio
 
         foreach (Acontecimiento acontecimiento in despacho.Historial)
         {
-            if (acontecimiento.Tipo.ToLower() == Acontecimiento.TipoRec.ToLower() && eventoRec == null)
+            if (acontecimiento.Tipo == Acontecimiento.TipoRec && eventoRec == null)
             {
                 eventoRec = acontecimiento;
             }
-            else if (acontecimiento.Tipo.ToLower() == Acontecimiento.TipoRut.ToLower() && eventoRut == null)
+            else if (acontecimiento.Tipo == Acontecimiento.TipoRut && eventoRut == null)
             {
                 eventoRut = acontecimiento;
             }
-            else if (acontecimiento.Tipo.ToLower() == Acontecimiento.TipoEnt.ToLower())
+            else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
             {
                 eventoEnt = acontecimiento;
             }

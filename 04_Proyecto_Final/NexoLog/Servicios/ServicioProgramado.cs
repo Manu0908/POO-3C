@@ -33,11 +33,11 @@ public class ServicioProgramado : ModalidadServicio
 
         foreach (Acontecimiento acontecimiento in despacho.Historial)
         {
-            if (acontecimiento.Tipo.ToLower() == Acontecimiento.TipoRut.ToLower() && eventoRut == null)
+            if (acontecimiento.Tipo == Acontecimiento.TipoRut && eventoRut == null)
             {
                 eventoRut = acontecimiento;
             }
-            else if (acontecimiento.Tipo.ToLower() == Acontecimiento.TipoEnt.ToLower())
+            else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
             {
                 eventoEnt = acontecimiento;
             }

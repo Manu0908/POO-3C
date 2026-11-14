@@ -212,7 +212,7 @@
           <mxGeometry height="22" width="270" y="78" as="geometry" />
         </mxCell>
         <mxCell id="c_modalidad" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=34;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="&amp;lt;&amp;lt;abstract&amp;gt;&amp;gt;&#10;ModalidadServicio" vertex="1">
-          <mxGeometry height="100" width="260" x="180" y="520" as="geometry" />
+          <mxGeometry height="126" width="260" x="180" y="520" as="geometry" />
         </mxCell>
         <mxCell id="c_mod_a1" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- nombreModalidad: string" vertex="1">
           <mxGeometry height="22" width="260" y="34" as="geometry" />
@@ -222,6 +222,9 @@
         </mxCell>
         <mxCell id="c_mod_m1" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2;rounded=0;" value="+ {abstract} EvaluarCumplimiento(despacho: Despacho): bool" vertex="1">
           <mxGeometry height="36" width="260" y="64" as="geometry" />
+        </mxCell>
+        <mxCell id="c_mod_m2" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=8.5;rounded=0;" value="+ Crear(modalidad, fecha, hIni, hFin, guia): ModalidadServicio" vertex="1">
+          <mxGeometry height="26" width="260" y="100" as="geometry" />
         </mxCell>
         <mxCell id="c_mestandar" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="ServicioEstandar" vertex="1">
           <mxGeometry height="70" width="200" x="50" y="690" as="geometry" />
@@ -380,26 +383,20 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c_creador_importadores" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="CreadorImportadores" vertex="1">
-          <mxGeometry height="176" width="245" x="240" y="30" as="geometry" />
+        <mxCell id="c_creador_importadores" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;" value="ImportadorFactory" vertex="1">
+          <mxGeometry height="120" width="245" x="240" y="30" as="geometry" />
         </mxCell>
         <mxCell id="c_creador_imp_line" parent="c_creador_importadores" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#00897B;rounded=0;" value="" vertex="1">
           <mxGeometry height="8" width="245" y="28" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m1" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorAcuerdosJson(): IImportadorArchivo" vertex="1">
+        <mxCell id="c_creador_imp_m1" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearAcuerdos(formato: string): IImportadorArchivo" vertex="1">
           <mxGeometry height="28" width="245" y="36" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m2" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorPedidosJson(): IImportadorArchivo" vertex="1">
+        <mxCell id="c_creador_imp_m2" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearPedidos(formato: string): IImportadorArchivo" vertex="1">
           <mxGeometry height="28" width="245" y="64" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_imp_m3" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorPedidosXml(): IImportadorArchivo" vertex="1">
+        <mxCell id="c_creador_imp_m3" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearSeguimientos(formato: string): IImportadorArchivo" vertex="1">
           <mxGeometry height="28" width="245" y="92" as="geometry" />
-        </mxCell>
-        <mxCell id="c_creador_imp_m4" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorSeguimientosJson(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="245" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="c_creador_imp_m5" parent="c_creador_importadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9;rounded=0;" value="+ CrearImportadorSeguimientosXml(): IImportadorArchivo" vertex="1">
-          <mxGeometry height="28" width="245" y="148" as="geometry" />
         </mxCell>
         <mxCell id="c_iimportador_archivo" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E0F2F1;strokeColor=#00897B;fontColor=#004D40;rounded=0;fontSize=10.5;" value="&amp;lt;&amp;lt;interface&amp;gt;&amp;gt;&lt;div&gt;IImportadorArchivo&amp;lt;T&amp;gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="80" width="205" x="20" y="80" as="geometry" />
@@ -445,17 +442,14 @@
         <mxCell id="rel_imp_seg_iimp" edge="1" parent="1" source="c_imp_seg_xml" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#00897B;strokeWidth=1.5;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="c_iimportador_archivo">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_exportadores" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3F51B5;fontColor=#1A237E;rounded=0;" value="CreadorExportadores" vertex="1">
-          <mxGeometry height="88" width="280" x="940" y="702" as="geometry" />
+        <mxCell id="c_creador_exportadores" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3F51B5;fontColor=#1A237E;rounded=0;" value="ExportadorFactory" vertex="1">
+          <mxGeometry height="64" width="280" x="940" y="702" as="geometry" />
         </mxCell>
         <mxCell id="c_creador_exp_line" parent="c_creador_exportadores" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#3F51B5;rounded=0;" value="" vertex="1">
           <mxGeometry height="8" width="280" y="28" as="geometry" />
         </mxCell>
-        <mxCell id="c_creador_exp_m1" parent="c_creador_exportadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ CrearExportadorJson(): IExportadorInforme" vertex="1">
-          <mxGeometry height="26" width="280" y="36" as="geometry" />
-        </mxCell>
-        <mxCell id="c_creador_exp_m2" parent="c_creador_exportadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ CrearExportadorXml(): IExportadorInforme" vertex="1">
-          <mxGeometry height="26" width="280" y="62" as="geometry" />
+        <mxCell id="c_creador_exp_m1" parent="c_creador_exportadores" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ Crear(formato: string): IExportadorInforme" vertex="1">
+          <mxGeometry height="28" width="280" y="36" as="geometry" />
         </mxCell>
         <mxCell id="rel_creador_iexp" edge="1" parent="1" source="c_creador_exportadores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#3F51B5;strokeWidth=1.5;" target="c_iexportador">
           <mxGeometry relative="1" as="geometry" />
@@ -500,6 +494,21 @@
               <mxPoint x="1550" y="996" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="c_informe_consolidado_dto" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3F51B5;fontColor=#1A237E;rounded=0;" value="InformeConsolidadoDto" vertex="1">
+          <mxGeometry height="96" width="360" x="1160" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="c_inf_cons_a1" parent="c_informe_consolidado_dto" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- fechaGeneracion: string&#10;- sistema: string" vertex="1">
+          <mxGeometry height="34" width="360" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c_inf_cons_line" parent="c_informe_consolidado_dto" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#3F51B5;rounded=0;" value="" vertex="1">
+          <mxGeometry height="8" width="360" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c_inf_cons_m1" parent="c_informe_consolidado_dto" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=9.5;rounded=0;" value="+ MapToDto(op, fin, inc): InformeConsolidadoDto" vertex="1">
+          <mxGeometry height="28" width="360" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_exp_json_dto" edge="1" parent="1" source="c_exp_json" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#3F51B5;strokeWidth=1.5;" target="c_informe_consolidado_dto">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

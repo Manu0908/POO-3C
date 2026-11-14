@@ -45,45 +45,25 @@ public class InformeOperativo
         List<Despacho> listaDespachos = despachos.ToList();
 
         informe.TotalDespachos = listaDespachos.Count;
-        int entregados = 0;
-        int devueltos = 0;
-        int pendientes = 0;
-        int enDistribucion = 0;
         int totalPaquetes = 0;
         double pesoTotal = 0.0;
-        int cumplidos = 0;
-        int incumplidos = 0;
 
         foreach (Despacho d in listaDespachos)
         {
             totalPaquetes += d.CantidadPaquetes;
             pesoTotal += d.CalcularPesoTotal();
-
-            if (d.EstadoActual.ToLower() == Despacho.EstadoEntregado.ToLower())
-            {
-                entregados++;
-                if (d.EvaluarCumplimiento())
-                {
-                    cumplidos++;
-                }
-                else
-                {
-                    incumplidos++;
-                }
-            }
-            else if (d.EstadoActual.ToLower() == Despacho.EstadoDevuelto.ToLower())
-            {
-                devueltos++;
-            }
-            else if (d.EstadoActual.ToLower() == Despacho.EstadoEnDistribucion.ToLower())
-            {
-                enDistribucion++;
-            }
-            else
-            {
-                pendientes++;
-            }
         }
+
+        int entregados;
+        int devueltos;
+        int pendientes;
+        int enDistribucion;
+        int cumplidos;
+        int incumplidos;
+
+        ContarEstadosYCumplimiento(listaDespachos,
+            out entregados, out devueltos, out pendientes, out enDistribucion,
+            out cumplidos, out incumplidos);
 
         informe.TotalEntregados = entregados;
         informe.TotalDevueltos = devueltos;
@@ -102,40 +82,16 @@ public class InformeOperativo
             com.NombreComercio = est.NombreComercial;
             com.TotalDespachos = est.CantidadDespachos;
 
-            int entC = 0;
-            int devC = 0;
-            int penC = 0;
-            int distC = 0;
-            int cumpC = 0;
-            int incumpC = 0;
+            int entC;
+            int devC;
+            int penC;
+            int distC;
+            int cumpC;
+            int incumpC;
 
-            foreach (Despacho d in est.Despachos)
-            {
-                if (d.EstadoActual.ToLower() == Despacho.EstadoEntregado.ToLower())
-                {
-                    entC++;
-                    if (d.EvaluarCumplimiento())
-                    {
-                        cumpC++;
-                    }
-                    else
-                    {
-                        incumpC++;
-                    }
-                }
-                else if (d.EstadoActual.ToLower() == Despacho.EstadoDevuelto.ToLower())
-                {
-                    devC++;
-                }
-                else if (d.EstadoActual.ToLower() == Despacho.EstadoEnDistribucion.ToLower())
-                {
-                    distC++;
-                }
-                else
-                {
-                    penC++;
-                }
-            }
+            ContarEstadosYCumplimiento(est.Despachos,
+                out entC, out devC, out penC, out distC,
+                out cumpC, out incumpC);
 
             com.Entregados = entC;
             com.Devueltos = devC;
@@ -165,25 +121,16 @@ public class InformeOperativo
             mod.Modalidad = grupo.Key;
             mod.TotalDespachos = grupo.Value.Count;
 
-            int entM = 0;
-            int cumpM = 0;
-            int incumpM = 0;
+            int entM;
+            int devM;
+            int penM;
+            int distM;
+            int cumpM;
+            int incumpM;
 
-            foreach (Despacho d in grupo.Value)
-            {
-                if (d.EstadoActual.ToLower() == Despacho.EstadoEntregado.ToLower())
-                {
-                    entM++;
-                    if (d.EvaluarCumplimiento())
-                    {
-                        cumpM++;
-                    }
-                    else
-                    {
-                        incumpM++;
-                    }
-                }
-            }
+            ContarEstadosYCumplimiento(grupo.Value,
+                out entM, out devM, out penM, out distM,
+                out cumpM, out incumpM);
 
             mod.Entregados = entM;
             mod.CumplidosSLA = cumpM;
@@ -194,5 +141,49 @@ public class InformeOperativo
         }
 
         return informe;
+    }
+
+    private static void ContarEstadosYCumplimiento(
+        IEnumerable<Despacho> despachos,
+        out int entregados,
+        out int devueltos,
+        out int pendientes,
+        out int enDistribucion,
+        out int cumplidos,
+        out int incumplidos)
+    {
+        entregados = 0;
+        devueltos = 0;
+        pendientes = 0;
+        enDistribucion = 0;
+        cumplidos = 0;
+        incumplidos = 0;
+
+        foreach (Despacho d in despachos)
+        {
+            switch (d.EstadoActual)
+            {
+                case Despacho.EstadoEntregado:
+                    entregados++;
+                    if (d.EvaluarCumplimiento())
+                    {
+                        cumplidos++;
+                    }
+                    else
+                    {
+                        incumplidos++;
+                    }
+                    break;
+                case Despacho.EstadoDevuelto:
+                    devueltos++;
+                    break;
+                case Despacho.EstadoEnDistribucion:
+                    enDistribucion++;
+                    break;
+                default:
+                    pendientes++;
+                    break;
+            }
+        }
     }
 }

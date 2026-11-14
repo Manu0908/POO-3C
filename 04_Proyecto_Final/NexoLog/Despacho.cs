@@ -103,12 +103,12 @@ public class Despacho
 
     public bool EsFacturable()
     {
-        return _estadoActual.ToLower() == EstadoEntregado.ToLower();
+        return _estadoActual == EstadoEntregado;
     }
 
     public bool EvaluarCumplimiento()
     {
-        if (_modalidad != null && _estadoActual.ToLower() == EstadoEntregado.ToLower())
+        if (_modalidad != null && _estadoActual == EstadoEntregado)
         {
             return _modalidad.EvaluarCumplimiento(this);
         }
@@ -124,31 +124,28 @@ public class Despacho
 
         VerificarQueNoEsteFinalizado();
 
-        if (acontecimiento.Tipo == Acontecimiento.TipoRec)
+        switch (acontecimiento.Tipo)
         {
-            RegistrarRecepcion(acontecimiento);
-        }
-        else if (acontecimiento.Tipo == Acontecimiento.TipoRut)
-        {
-            RegistrarSalidaARuta(acontecimiento);
-        }
-        else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
-        {
-            RegistrarEntrega(acontecimiento);
-        }
-        else if (acontecimiento.Tipo == Acontecimiento.TipoDev)
-        {
-            RegistrarDevolucion(acontecimiento);
-        }
-        else
-        {
-            throw new NexoLogException($"Tipo de acontecimiento desconocido: '{acontecimiento.Tipo}'.");
+            case Acontecimiento.TipoRec:
+                RegistrarRecepcion(acontecimiento);
+                break;
+            case Acontecimiento.TipoRut:
+                RegistrarSalidaARuta(acontecimiento);
+                break;
+            case Acontecimiento.TipoEnt:
+                RegistrarEntrega(acontecimiento);
+                break;
+            case Acontecimiento.TipoDev:
+                RegistrarDevolucion(acontecimiento);
+                break;
+            default:
+                throw new NexoLogException($"Tipo de acontecimiento desconocido: '{acontecimiento.Tipo}'.");
         }
     }
 
     private void VerificarQueNoEsteFinalizado()
     {
-        if (_estadoActual.ToLower() == EstadoEntregado.ToLower() || _estadoActual.ToLower() == EstadoDevuelto.ToLower())
+        if (_estadoActual == EstadoEntregado || _estadoActual == EstadoDevuelto)
         {
             throw new NexoLogException($"El despacho ya se encuentra finalizado en estado '{_estadoActual}'.");
         }
@@ -156,7 +153,7 @@ public class Despacho
 
     private void RegistrarRecepcion(Acontecimiento evt)
     {
-        if (_estadoActual.ToLower() != EstadoPendiente.ToLower())
+        if (_estadoActual != EstadoPendiente)
         {
             throw new NexoLogException($"No se puede registrar recepcion en estado '{_estadoActual}'.");
         }
@@ -174,7 +171,7 @@ public class Despacho
 
     private void RegistrarSalidaARuta(Acontecimiento evt)
     {
-        if (_estadoActual.ToLower() != EstadoPendiente.ToLower())
+        if (_estadoActual != EstadoPendiente)
         {
             throw new NexoLogException($"No se puede pasar a ruta desde el estado '{_estadoActual}'.");
         }
@@ -200,7 +197,7 @@ public class Despacho
 
     private void RegistrarEntrega(Acontecimiento evt)
     {
-        if (_estadoActual.ToLower() != EstadoEnDistribucion.ToLower())
+        if (_estadoActual != EstadoEnDistribucion)
         {
             throw new NexoLogException($"No se puede registrar entrega si el despacho no esta en distribucion (estado actual: '{_estadoActual}').");
         }
@@ -211,7 +208,7 @@ public class Despacho
 
     private void RegistrarDevolucion(Acontecimiento evt)
     {
-        if (_estadoActual.ToLower() != EstadoEnDistribucion.ToLower())
+        if (_estadoActual != EstadoEnDistribucion)
         {
             throw new NexoLogException($"No se puede registrar devolucion si el despacho no esta en distribucion (estado actual: '{_estadoActual}').");
         }

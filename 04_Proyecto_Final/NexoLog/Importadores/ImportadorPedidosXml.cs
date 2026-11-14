@@ -116,13 +116,33 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
         string transportadora = (string)elSol.Element("transportadora") ?? string.Empty;
         string distanciaKmTexto = (string)elSol.Element("distanciaKm") ?? "0";
 
-        if (!double.TryParse(distanciaKmTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out double distanciaKm) || distanciaKm <= 0)
+        double distanciaKm;
+        if (!double.TryParse(distanciaKmTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out distanciaKm) || distanciaKm <= 0)
         {
             throw new NexoLogException($"Distancia en km invalida '{distanciaKmTexto}' en la guia '{numeroGuia}'.");
         }
 
         List<Paquete> paquetesConstruidos = ExtraerPaquetesDesdeXml(elSol, numeroGuia);
-        ModalidadServicio modalidadConstruida = ConstruirModalidadDesdeXml(elSol, numeroGuia);
+
+        string modalidadTexto = (string)elSol.Attribute("modalidad") ?? string.Empty;
+        XElement elProg = elSol.Element("programacion");
+        string fechaProgTexto = string.Empty;
+        string horaIniTexto = string.Empty;
+        string horaFinTexto = string.Empty;
+
+        if (elProg != null)
+        {
+            fechaProgTexto = (string)elProg.Attribute("fecha") ?? string.Empty;
+            horaIniTexto = (string)elProg.Attribute("horaInicio") ?? string.Empty;
+            horaFinTexto = (string)elProg.Attribute("horaFin") ?? string.Empty;
+        }
+
+        ModalidadServicio modalidadConstruida = ModalidadServicio.Crear(
+            modalidadTexto,
+            fechaProgTexto,
+            horaIniTexto,
+            horaFinTexto,
+            numeroGuia);
 
         Despacho nuevoDespacho = new Despacho(
             numeroGuia,
@@ -172,12 +192,14 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
                 throw new NexoLogException($"Identificador de paquete duplicado '{idPaquete}' en la guia '{numeroGuia}'.");
             }
 
-            if (!double.TryParse(pesoTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out double peso))
+            double peso;
+            if (!double.TryParse(pesoTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out peso))
             {
                 throw new NexoLogException($"Peso invalido '{pesoTexto}' para el paquete '{idPaquete}' en la guia '{numeroGuia}'.");
             }
 
-            if (!decimal.TryParse(valorTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorDeclarado))
+            decimal valorDeclarado;
+            if (!decimal.TryParse(valorTexto, NumberStyles.Any, CultureInfo.InvariantCulture, out valorDeclarado))
             {
                 throw new NexoLogException($"Valor declarado invalido '{valorTexto}' para el paquete '{idPaquete}' en la guia '{numeroGuia}'.");
             }
@@ -188,55 +210,5 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
         }
 
         return paquetesConstruidos;
-    }
-
-    private ModalidadServicio ConstruirModalidadDesdeXml(XElement elSol, string numeroGuia)
-    {
-        string modalidadTexto = ((string)elSol.Attribute("modalidad") ?? string.Empty).Trim().ToUpperInvariant();
-
-        if (modalidadTexto == "ESTANDAR" || modalidadTexto == "ESTÁNDAR")
-        {
-            return new ServicioEstandar();
-        }
-        if (modalidadTexto == "EXPRES" || modalidadTexto == "EXPRÉS")
-        {
-            return new ServicioExpres();
-        }
-        if (modalidadTexto == "PROGRAMADO")
-        {
-            XElement elProg = elSol.Element("programacion");
-            if (elProg == null)
-            {
-                throw new NexoLogException($"La guia '{numeroGuia}' con modalidad PROGRAMADO carece de etiqueta <programacion>.");
-            }
-
-            string fechaProgTexto = (string)elProg.Attribute("fecha") ?? string.Empty;
-            string horaIniTexto = (string)elProg.Attribute("horaInicio") ?? string.Empty;
-            string horaFinTexto = (string)elProg.Attribute("horaFin") ?? string.Empty;
-
-            if (!DateTime.TryParse(fechaProgTexto, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaProg))
-            {
-                throw new NexoLogException($"Fecha programada XML invalida '{fechaProgTexto}' en la guia '{numeroGuia}'.");
-            }
-
-            int horaIni;
-            int horaFin;
-            string parteIni = (horaIniTexto ?? string.Empty).Split(':')[0].Trim();
-            string parteFin = (horaFinTexto ?? string.Empty).Split(':')[0].Trim();
-
-            if (!int.TryParse(parteIni, out horaIni))
-            {
-                throw new NexoLogException($"Hora inicial XML invalida '{horaIniTexto}' en la guia '{numeroGuia}'.");
-            }
-
-            if (!int.TryParse(parteFin, out horaFin))
-            {
-                throw new NexoLogException($"Hora final XML invalida '{horaFinTexto}' en la guia '{numeroGuia}'.");
-            }
-
-            return new ServicioProgramado(fechaProg, horaIni, horaFin);
-        }
-
-        throw new NexoLogException($"Modalidad XML desconocida '{modalidadTexto}' en la guia '{numeroGuia}'.");
     }
 }
