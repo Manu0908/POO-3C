@@ -4,7 +4,6 @@ using NexoLog.DTOs;
 
 namespace NexoLog.Importadores;
 
-// Importador resiliente para el archivo de acuerdos comerciales en formato JSON.
 public class ImportadorAcuerdosJson : IImportadorArchivo<AcuerdoDto>
 {
     public List<AcuerdoDto> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)

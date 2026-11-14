@@ -1,6 +1,5 @@
 namespace NexoLog.Informes;
 
-// Resumen operativo agrupado por comercio remitente.
 public class ResumenComercioOperativo
 {
     public string CodigoComercio { get; set; } = string.Empty;
@@ -15,7 +14,6 @@ public class ResumenComercioOperativo
     public double PorcentajeCumplimiento { get; set; }
 }
 
-// Resumen operativo agrupado por modalidad de servicio.
 public class ResumenModalidadOperativo
 {
     public string Modalidad { get; set; } = string.Empty;
@@ -26,7 +24,6 @@ public class ResumenModalidadOperativo
     public double PorcentajeCumplimiento { get; set; }
 }
 
-// Informe consolidado con metricas operativas y niveles de servicio SLA.
 public class InformeOperativo
 {
     public int TotalDespachos { get; set; }

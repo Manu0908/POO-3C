@@ -1,18 +1,14 @@
 namespace NexoLog.Tarifas;
 
-// Tarifa comercial fija por despacho entregado.
 public class TarifaFija : ITarifa
 {
-    // Campos privados
     private decimal _valorFijo;
 
-    // Constructor horizontal
     public TarifaFija(decimal valorFijo)
     {
         ValorFijo = valorFijo;
     }
 
-    // Propiedades publicas
     public decimal ValorBase { get { return _valorFijo; } }
 
     public decimal ValorFijo
@@ -28,7 +24,6 @@ public class TarifaFija : ITarifa
         }
     }
 
-    // Metodos
     public decimal CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)

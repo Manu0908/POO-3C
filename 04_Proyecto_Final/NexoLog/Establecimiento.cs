@@ -2,22 +2,17 @@ using NexoLog.Tarifas;
 
 namespace NexoLog;
 
-// Representa un comercio o punto remitente de despachos.
 public class Establecimiento
 {
-    // Campos privados
     private string _codigo;
     private string _nombreComercial;
     private ITarifa _tarifaAcordada;
     private List<Despacho> _despachos;
 
-    // Propiedades calculadas / derivadas
     public int CantidadDespachos { get { return _despachos.Count; } }
 
-    // Constructor privado sin parametros para serializacion / reflexion
     private Establecimiento() { }
 
-    // Constructores horizontales
     public Establecimiento(string codigo, string nombreComercial)
     {
         Codigo = codigo;
@@ -30,7 +25,6 @@ public class Establecimiento
         _tarifaAcordada = tarifaAcordada;
     }
 
-    // Propiedades publicas
     public string Codigo
     {
         get { return _codigo; }
@@ -68,7 +62,6 @@ public class Establecimiento
         get { return new List<Despacho>(_despachos); }
     }
 
-    // Metodos de negocio
     public void AsignarTarifa(ITarifa tarifa)
     {
         _tarifaAcordada = tarifa;

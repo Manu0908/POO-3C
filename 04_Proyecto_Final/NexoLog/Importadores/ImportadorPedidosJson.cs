@@ -6,7 +6,6 @@ using NexoLog.Servicios;
 
 namespace NexoLog.Importadores;
 
-// Importador resiliente para pedidos y despachos en formato JSON.
 public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
 {
     public List<Despacho> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
@@ -115,4 +114,3 @@ public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
         }
     }
 }
-

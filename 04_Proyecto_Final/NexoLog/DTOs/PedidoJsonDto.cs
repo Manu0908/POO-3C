@@ -4,7 +4,6 @@ using NexoLog.Servicios;
 
 namespace NexoLog.DTOs;
 
-// DTO para deserializar solicitudes de despacho desde JSON.
 public class PedidoJsonDto
 {
     [JsonPropertyName("numeroGuia")]

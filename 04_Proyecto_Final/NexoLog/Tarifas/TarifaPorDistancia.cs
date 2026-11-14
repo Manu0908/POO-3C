@@ -1,18 +1,14 @@
 namespace NexoLog.Tarifas;
 
-// Tarifa comercial calculada segun la distancia recorrida en kilometros.
 public class TarifaPorDistancia : ITarifa
 {
-    // Campos privados
     private decimal _valorPorKilometro;
 
-    // Constructor horizontal
     public TarifaPorDistancia(decimal valorPorKilometro)
     {
         ValorPorKilometro = valorPorKilometro;
     }
 
-    // Propiedades publicas
     public decimal ValorBase { get { return _valorPorKilometro; } }
 
     public decimal ValorPorKilometro
@@ -28,7 +24,6 @@ public class TarifaPorDistancia : ITarifa
         }
     }
 
-    // Metodos
     public decimal CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)

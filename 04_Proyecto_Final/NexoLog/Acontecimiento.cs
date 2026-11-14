@@ -1,22 +1,17 @@
 namespace NexoLog;
 
-// Representa un evento o hito registrado en el seguimiento de un despacho.
 public class Acontecimiento
 {
-    // Constantes
     public const string TipoRec = "REC";
     public const string TipoRut = "RUT";
     public const string TipoEnt = "ENT";
     public const string TipoDev = "DEV";
 
-    // Campos privados con validacion
     private string _idAcontecimiento;
     private string _numeroGuia;
 
-    // Constructor privado sin parametros para serializacion / reflexion
     private Acontecimiento() { }
 
-    // Constructor horizontal
     public Acontecimiento(string idAcontecimiento, string numeroGuia, string tipo, DateTime fechaHora)
     {
         IdAcontecimiento = idAcontecimiento;
@@ -25,7 +20,6 @@ public class Acontecimiento
         FechaHora = fechaHora;
     }
 
-    // Propiedades publicas
     public string Tipo { get; private set; }
     public DateTime FechaHora { get; private set; }
 
@@ -55,7 +49,6 @@ public class Acontecimiento
         }
     }
 
-    // Metodos
     public string MostrarInformacion()
     {
         return $"[{FechaHora:yyyy-MM-dd HH:mm:ss}] Guia: {NumeroGuia} | Tipo: {Tipo} | ID: {IdAcontecimiento}";

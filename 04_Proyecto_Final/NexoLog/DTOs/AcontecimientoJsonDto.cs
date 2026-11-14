@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.DTOs;
 
-// DTO para deserializar acontecimientos de seguimiento desde JSON.
 public class AcontecimientoJsonDto
 {
     [JsonPropertyName("idAcontecimiento")]

@@ -3,7 +3,6 @@ using NexoLog.Informes;
 
 namespace NexoLog.DTOs;
 
-// DTO explicito para serializar el paquete consolidado de informes en formato JSON.
 public class InformeConsolidadoDto
 {
     [JsonPropertyName("fechaGeneracion")]

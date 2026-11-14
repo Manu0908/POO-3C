@@ -3,7 +3,6 @@ using NexoLog.Tarifas;
 
 namespace NexoLog.DTOs;
 
-// DTO para deserializar acuerdos comerciales desde JSON.
 public class AcuerdoDto
 {
     [JsonPropertyName("codigoComercio")]

@@ -2,7 +2,6 @@ using NexoLog.Informes;
 
 namespace NexoLog;
 
-// Entidad raiz de dominio que coordina y encapsula las operaciones logisticas de NexoLog.
 public class Empresa
 {
     private Dictionary<string, Establecimiento> _establecimientos;

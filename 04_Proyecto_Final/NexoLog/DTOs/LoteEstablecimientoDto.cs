@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.DTOs;
 
-// DTO para deserializar un lote de solicitudes de un comercio desde JSON.
 public class LoteEstablecimientoDto
 {
     [JsonPropertyName("codigoEstablecimiento")]

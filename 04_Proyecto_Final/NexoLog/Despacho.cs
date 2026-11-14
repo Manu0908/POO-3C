@@ -2,16 +2,13 @@ using NexoLog.Servicios;
 
 namespace NexoLog;
 
-// Representa una orden de despacho o envio logistico.
 public class Despacho
 {
-    // Constantes de estado
     public const string EstadoPendiente = "Pendiente";
     public const string EstadoEnDistribucion = "EnDistribucion";
     public const string EstadoEntregado = "Entregado";
     public const string EstadoDevuelto = "Devuelto";
 
-    // Campos privados con validacion y colecciones
     private string _numeroGuia;
     private double _distanciaKm;
     private string _estadoActual;
@@ -19,13 +16,10 @@ public class Despacho
     private List<Paquete> _paquetes;
     private List<Acontecimiento> _historial;
 
-    // Propiedades calculadas / derivadas
     public int CantidadPaquetes { get { return _paquetes.Count; } }
 
-    // Constructor privado sin parametros para serializacion / reflexion
     private Despacho() { }
 
-    // Constructor horizontal
     public Despacho(string numeroGuia, string codigoEstablecimiento, string destinatario, string ciudadDestino, double distanciaKm, string transportadora)
     {
         NumeroGuia = numeroGuia;
@@ -39,7 +33,6 @@ public class Despacho
         _historial = new List<Acontecimiento>();
     }
 
-    // Propiedades publicas
     public string CodigoEstablecimiento { get; private set; }
     public string Destinatario { get; private set; }
     public string CiudadDestino { get; private set; }
@@ -75,7 +68,6 @@ public class Despacho
         }
     }
 
-    // Metodos de negocio
     public void AsignarModalidad(ModalidadServicio modalidad)
     {
         _modalidad = modalidad;

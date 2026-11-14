@@ -1,12 +1,9 @@
 namespace NexoLog.Servicios;
 
-// Modalidad Estandar: la entrega (ENT) debe ocurrir dentro de las 72 horas desde la recepcion (REC).
 public class ServicioEstandar : ModalidadServicio
 {
-    // Constructor horizontal
     public ServicioEstandar() : base("Estándar") { }
 
-    // Evaluacion de SLA
     public override bool EvaluarCumplimiento(Despacho despacho)
     {
         if (despacho == null)

@@ -4,7 +4,6 @@ using System.Xml.Linq;
 
 namespace NexoLog.Importadores;
 
-// Importador resiliente para acontecimientos y eventos de seguimiento en formato XML.
 public class ImportadorSeguimientosXml : IImportadorArchivo<Acontecimiento>
 {
     public List<Acontecimiento> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)

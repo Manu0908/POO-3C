@@ -1,6 +1,5 @@
 namespace NexoLog.DTOs;
 
-// DTO de salida para transportar y serializar registros de inconsistencia sin exponer el dominio.
 public class InconsistenciaDto
 {
     public string ArchivoOrigen { get; set; } = string.Empty;

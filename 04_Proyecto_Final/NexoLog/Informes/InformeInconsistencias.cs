@@ -2,7 +2,6 @@ using NexoLog.DTOs;
 
 namespace NexoLog.Informes;
 
-// Informe consolidado de inconsistencias e infracciones detectadas.
 public class InformeInconsistencias
 {
     public int TotalInconsistencias { get; set; }

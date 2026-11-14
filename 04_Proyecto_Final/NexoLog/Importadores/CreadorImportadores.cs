@@ -2,7 +2,6 @@ using NexoLog.DTOs;
 
 namespace NexoLog.Importadores;
 
-// Creador centralizado de instancias de importadores de archivo.
 public static class CreadorImportadores
 {
     public static IImportadorArchivo<AcuerdoDto> CrearImportadorAcuerdosJson()

@@ -1,17 +1,13 @@
 namespace NexoLog;
 
-// Representa una unidad fisica de carga asociada a un despacho.
 public class Paquete
 {
-    // Campos privados con validacion
     private string _idPaquete;
     private double _peso;
     private decimal _valorDeclarado;
 
-    // Constructor privado sin parametros para serializacion / reflexion
     private Paquete() { }
 
-    // Constructor horizontal
     public Paquete(string idPaquete, string descripcion, double peso, decimal valorDeclarado)
     {
         IdPaquete = idPaquete;
@@ -20,7 +16,6 @@ public class Paquete
         ValorDeclarado = valorDeclarado;
     }
 
-    // Propiedades publicas
     public string Descripcion { get; private set; }
 
     public string IdPaquete
@@ -62,7 +57,6 @@ public class Paquete
         }
     }
 
-    // Metodos
     public string MostrarInformacion()
     {
         return $"Paquete [{IdPaquete}] - {Descripcion} | Peso: {Peso:F2} kg | Declarado: ${ValorDeclarado:N2}";

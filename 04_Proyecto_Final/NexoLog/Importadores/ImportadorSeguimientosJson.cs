@@ -4,7 +4,6 @@ using NexoLog.DTOs;
 
 namespace NexoLog.Importadores;
 
-// Importador resiliente para acontecimientos y eventos de seguimiento en formato JSON.
 public class ImportadorSeguimientosJson : IImportadorArchivo<Acontecimiento>
 {
     public List<Acontecimiento> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)

@@ -7,7 +7,6 @@ using NexoLog.Informes;
 
 namespace NexoLog.Exportadores;
 
-// Exportador de informes consolidados a formato XML con codificacion UTF-8.
 public class ExportadorInformesXml : IExportadorInforme
 {
     public void Exportar(InformeOperativo operativo, InformeFinanciero financiero, InformeInconsistencias inconsistencias, string rutaDestino)
@@ -23,7 +22,6 @@ public class ExportadorInformesXml : IExportadorInforme
             new XAttribute("sistema", "NexoLog S.A.S.")
         );
 
-        // Seccion Operativa
         if (operativo != null)
         {
             XElement elOperativo = new XElement("informeOperativo",
@@ -76,7 +74,6 @@ public class ExportadorInformesXml : IExportadorInforme
             raiz.Add(elOperativo);
         }
 
-        // Seccion Financiera
         if (financiero != null)
         {
             XElement elFinanciero = new XElement("informeFinanciero",
@@ -114,7 +111,6 @@ public class ExportadorInformesXml : IExportadorInforme
             raiz.Add(elFinanciero);
         }
 
-        // Seccion Inconsistencias
         if (inconsistencias != null)
         {
             XElement elInconsistencias = new XElement("informeInconsistencias",

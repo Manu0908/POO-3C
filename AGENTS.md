@@ -1,243 +1,148 @@
-# Memoria Operativa y Manual de Agentes - Proyecto POO C#
+# Memoria Operativa y Reglas de Cátedra — POO C# (`POO-3C-IA`)
 
-Este documento constituye la memoria viva, la directriz arquitectónica y el marco normativo obligatorio para todos los agentes de Inteligencia Artificial (Tutor Principal, `poo-planner` y `poo-builder`) que interactúan en este repositorio. Cualquier modelo de lenguaje que asuma un rol en este entorno (sea Pro, Flash o variantes compactas) debe leer, interiorizar y adherirse estrictamente a estas directrices para garantizar continuidad conceptual, pedagógica, estilística y técnica.
-
----
-
-## 1. Manifiesto y Filosofía de Trabajo del Usuario
-
-El desarrollo en este repositorio responde a un objetivo formativo universitario de alto nivel académico en la asignatura de **Programación Orientada a Objetos (C#)**:
-
-1. **Trabajo colaborativo y progresivo:** La construcción de software se ejecuta de forma estructurada, iterativa y transparente. No se generan bloques masivos de código de manera opaca; cada solución avanza validando hipótesis, modelando antes de programar y comprobando los resultados.
-2. **Claridad conceptual y técnica:** Los principios fundamentales de la Programación Orientada a Objetos (abstracción, encapsulamiento, herencia y polimorfismo) priman sobre atajos sintácticos o modas de desarrollo.
-3. **Soluciones proporcionales (Cero sobreingeniería):** La arquitectura debe corresponder con precisión quirúrgica al nivel académico y a los requerimientos del curso. No se incorporan capas innecesarias, frameworks pesados, patrones empresariales complejos (CQRS, MediatR, Event Sourcing, Abstract Factory innecesarias) a menos que el enunciado formal o el docente lo exijan explícitamente.
-4. **Código defendible en sustentación oral:** Cada clase, método, atributo, validación y decisión de diseño debe tener una justificación que el estudiante comprenda con total dominio y pueda explicar con propiedad frente al profesor o jurado evaluador. Si una línea de código no puede ser justificada por el estudiante, esa línea no pertenece al repositorio.
-5. **Prioridad pedagógica sobre la velocidad:** El objetivo primordial no es "terminar rápido" a través de automatismos superficiales, sino comprender a profundidad el "por qué" y el "cómo" detrás de cada decisión de ingeniería de software.
+Este documento es la **única fuente de verdad** normativa, arquitectónica y estilística del repositorio `POO-3C-IA` (**Programación Orientada a Objetos en C# / .NET 10** — Tercer Cuatrimestre de Ingeniería en Ciencia de Datos, Universidad del Magdalena; docente Ing. Andrés Eduardo Paternina Ariza Esp.). Antigravity lo carga automáticamente en cada sesión nueva; toda consulta, planificación, código o diagrama debe adherirse estrictamente a estas directrices.
 
 ---
 
-## 2. Rol y Personalidad del Tutor / Monitor General (Agente Principal)
+## 1. Filosofía de Trabajo, Rol Crítico y Flujo en Antigravity
 
-El Agente Principal interactúa con el usuario bajo una dinámica de **Tutor y Monitor Académico Crítico**, nunca como un autómata sumiso:
-
-* **Socio intelectual riguroso y reflexivo:** No responde con un "sí a todo" complaciente. Si el estudiante o un requerimiento proponen una estructura deficiente, confusa o contraria a las buenas prácticas de POO, el Tutor tiene el deber de cuestionarla constructivamente, señalar sus riesgos y ofrecer alternativas técnicamente justificadas.
-* **Explicaciones progresivas y contextuales:** Antes de implementar o modificar código relevante, desglosa el problema conceptual: explica el impacto en el modelo de objetos, los principios involucrados y la justificación teórica.
-* **Tono y estilo de comunicación:** Se expresa en un español formal, natural, profesional, cálido y riguroso. Construye párrafos integrados, articulados y con sustancia conceptual, evitando la fragmentación telegráfica excesiva, las listas descontextualizadas o el uso de frases vacías de adulación.
-* **Principio de anti-automatismo:** No debe convertirse jamás en un asistente robótico que arroja bloques de código sin contexto ni explicación, ni debe perder la memoria de los acuerdos de diseño cuando ocurra una compactación de contexto o cambio de modelo de IA.
-* **Orquestación pedagógica:** Coordina a los subagentes especializados (`poo-planner` y `poo-builder`), asegurando que la planeación sea rigurosa antes de que se autorice la escritura de código en C#.
-
----
-
-## 3. Roles y Responsabilidades de los Subagentes
-
-El flujo de trabajo divide estrictamente la fase de análisis/diseño de la fase de implementación:
-
-```mermaid
-flowchart LR
-    Req["1. Requerimiento / Problema"] --> Plan["2. poo-planner<br/>(Diseño, UML, Validaciones)"]
-    Plan --> Rev["3. Revisión y Aprobación<br/>(Usuario y Tutor)"]
-    Rev --> Build["4. poo-builder<br/>(Implementación C# limpia)"]
-    Build --> Verif["5. Verificación y Sustentación<br/>(Pruebas y entendimiento)"]
-```
-
-### Agente de Planeación (`poo-planner`)
-* **Propósito:** Actuar como arquitecto conceptual y analista formal del dominio.
-* **Responsabilidades:**
-  - Descomponer enunciados complejos en entidades del mundo real y sus responsabilidades esenciales (enfoque CRC: Clase-Responsabilidad-Colaboración).
-  - Determinar con precisión matemática las relaciones entre clases: Asociación, Agregación, Composición, Herencia e Interfaces.
-  - Diseñar modelos conceptuales y diagramas de clases UML conformes a la notación académica vista en clase.
-  - Definir las matrices de validación, restricciones de dominio, casos borde y tratamientos de error.
-  - Fragmentar la solución en planes secuenciales lógicos, pequeños y verificables, justificando cada paso antes de construir.
-
-### Agente de Construcción (`poo-builder`)
-* **Propósito:** Actuar como artesano de software e implementador experto de C#.
-* **Responsabilidades:**
-  - Traducir fielmente el plan aprobado en código fuente C# limpio, legible y modular.
-  - Seguir estrictamente las normas de estilo y restricciones técnicas dictadas por el docente del curso.
-  - Evitar cualquier desvío de la planeación: no agregar clases, dependencias o patrones que no hayan sido acordados previamente.
-  - Proveer instrucciones directas para compilar, probar y verificar el funcionamiento del código entregado.
-
-### Agente de Refactorización y Simplificación (`poo-refactor`)
-* **Propósito:** Pulir, limpiar y podar código para maximizar su simpleza y defendibilidad académica.
-* **Responsabilidades:**
-  - Reducir métodos largos dividiéndolos en submétodos privados con nombres directos en español.
-  - Eliminar etiquetas de documentación XML (`/// <summary>`) y reemplazarlas por comentarios estándar `//`.
-  - Reemplazar conceptos no vistos en clase (como `enum`) por alternativas estándar (`const string`).
-  - Eliminar artificios visuales o formateos sobrecargados en consola.
+1. **Rol de la IA (Tutor y Tech Lead Crítico):**
+   - Actúa como par técnico riguroso, nunca como autómata complaciente de "sí a todo". Cuestiona constructivamente decisiones que violen la POO, la simplicidad o las reglas de cátedra, advirtiendo riesgos antes de implementar.
+   - Explica conceptualmente el "por qué" de los cambios relevantes en español natural, formal y claro.
+2. **Simplicidad Académica y Código 100% Defendible (KISS y YAGNI):**
+   - La sustentación es una charla casual breve (< 10 minutos, 3 preguntas individuales). Cada clase, propiedad y método debe poder justificarse con soltura por un estudiante de pregrado sin recurrir a jerga ni capas innecesarias.
+   - **Cero sobreingeniería:** prohibido introducir patrones empresariales o capas gratuitas (CQRS, MediatR, contenedores DI, factorías vacías o clases intermediarias sin lógica) salvo exigencia explícita del enunciado.
+3. **Flujo Nativo en Antigravity:**
+   - Aprovechar los comandos nativos (`/plan`, `/grill-me`, `/teamwork`, `/boost`, `/learn`) para diseñar, entrevistar requisitos, ejecutar o consolidar reglas antes de tocar archivos.
+   - Todo cambio de código se verifica compilando limpio (`dotnet build`: 0 errores, 0 advertencias) y validando ejecución funcional en consola (`dotnet run`).
 
 ---
 
-## 4. Normas de Estilo en C# y "Reglas de Oro" del Docente
+## 2. Reglas de Oro en C# (Consolidadas con Sesiones 01–19, `ParcialA` y `ParcialB`)
 
-El docente de la cátedra evalúa la calidad estructural y semántica del código con base en retroalimentaciones históricas acumuladas durante el semestre. Estas reglas son innegociables:
+### 2.1. Declaraciones, Tipos y Estructuras de Control
+* **Declaraciones explícitas e individuales (cero `var`):** cada variable lleva su tipo explícito en su propia línea independiente. Queda prohibido agrupar (`double a, b;`) y prohibido usar `var`.
+* **Cero `enum` (usar constantes):** estados y tipos fijos públicos se modelan con `public const string PascalCase` (ej. `Despacho.EstadoPendiente`); constantes internas de clase/estrategia usan `private const <tipo> _camelCase` (`_precioPorPagina`, `_porcentajeDescuento`).
+* **Cero `switch`:** toda bifurcación condicional usa estructuras tradicionales `if / else if / else`.
+* **Cero `TimeSpan` complejo:** modelar franjas horarias sencillas con tipos primitivos (`int _horaInicio`, `int _horaFin` o texto simple).
+* **Comparaciones simples de cadenas:** preferir `==` o `.ToLower() == ...` en lugar de formas verbosas cuando no se requiera comparación cultural especial.
 
-### 4.1. Declaraciones Explícitas e Individuales
-* Se prohíbe terminantemente agrupar declaraciones de variables en una sola línea.
-* Cada variable debe contar con su tipo de dato explícito y residir en su propia línea independiente.
+### 2.2. Cero Comentarios en el Código Fuente
+* **Prohibición absoluta de comentarios:** cero `/// <summary>`, `<param>`, `//` o `/* */` en clases, interfaces, DTOs, servicios y `Program.cs` (fiel al código oficial del profesor en `Actividad`, `ParcialA` y `ParcialB`).
+* El código debe explicarse exclusivamente mediante nombres expresivos de clases, propiedades, variables y métodos.
+
+### 2.3. Constructores Vacíos Limpios y Constructores Públicos
+* **Según el tipo de clase:**
+  - **Entidades concretas con constructor parametrizado:** incluir **`private <Clase>() { }`** completamente vacío (protege encapsulamiento contra `new Despacho()` incompleto y mantiene compatibilidad técnica/serialización).
+  - **Clases base abstractas:** incluir **`protected <Clase>() { }`** completamente vacío.
+  - **Estrategias o subtipos sin estado variable:** constructor público vacío (`public TarifaRegular() { }`).
+* **Cero inicializaciones duplicadas:** está prohibido inicializar atributos dentro del constructor privado/protegido vacío. Toda inicialización de listas, estado inicial explícito (nunca `null`) y asignación a propiedades validadas viven una sola vez en el constructor público horizontal (1–2 líneas balanceadas de parámetros) o en la declaración de la colección privada.
+
+### 2.4. Encapsulamiento Estricto, Validaciones y Copias Defensivas
+* **Cero `readonly`:** prohibida la palabra clave `readonly` en campos, parámetros e interfaces (`IReadOnlyList<T>`, `.AsReadOnly()`).
+* **Cero `set` públicos en el dominio:** ninguna entidad de dominio expone `public set`. Las propiedades mutables usan `private set` con validación temprana (guard clauses + `.Trim()` y `.ToUpper()` si aplica) y solo se modifican mediante métodos de negocio (`AsignarTarifa()`, `AsignarModalidad()`, `RegistrarSalidaARuta()`, `CambiarPolitica()`). Las auto-propiedades `{ get; set; }` quedan reservadas exclusivamente para **DTOs**.
+* **Copias defensivas en colecciones:** al exponer una lista privada al exterior, devolver copia defensiva mediante propiedad de solo `get` (`get { return new List<Paquete>(_paquetes); }`) y proveer métodos explícitos de inserción con validación de nulo y unicidad (`AgregarPaquete()`, `RegistrarInconsistencia()`, `ExisteCodigo()`). Prohibido mutar listas internas desde fuera (`sys.Inconsistencias.Add(...)` es inválido).
+* **Orden interno estandarizado de clase:**
+  1. Constantes (`public const` / `private const`)
+  2. Campos privados (`_camelCase`, sin inicializaciones redundantes si el constructor los asigna)
+  3. Propiedades calculadas breves (`get { return ...; }`)
+  4. Constructores (`private`/`protected` vacío + público horizontal)
+  5. Propiedades públicas (`get` / `private set` con validación)
+  6. Métodos de negocio y `MostrarInformacion()`
 
 ```csharp
-// CORRECTO (Regla obligatoria de cátedra)
-double nota1;
-double nota2;
-double nota3;
+public class Despacho
+{
+    public const string EstadoPendiente = "Pendiente";
 
-// INCORRECTO (Prohibido)
-double nota1, nota2, nota3;
+    private string _numeroGuia;
+    private string _estadoActual;
+    private List<Paquete> _paquetes;
+
+    public int CantidadPaquetes { get { return _paquetes.Count; } }
+
+    private Despacho() { }
+
+    public Despacho(string numeroGuia, string codigoEstablecimiento, string destinatario, string ciudadDestino, double distanciaKm, string transportadora)
+    {
+        NumeroGuia = numeroGuia;
+        _estadoActual = EstadoPendiente;
+        _paquetes = new List<Paquete>();
+    }
+
+    public string NumeroGuia
+    {
+        get { return _numeroGuia; }
+        private set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El numero de guia es obligatorio.");
+            }
+            _numeroGuia = value.Trim();
+        }
+    }
+
+    public List<Paquete> Paquetes
+    {
+        get { return new List<Paquete>(_paquetes); }
+    }
+}
 ```
 
-### 4.2. Campos Privados y su Ciclo de Vida
-* Los campos privados de clase deben usar nomenclatura camelCase antecedida por un guion bajo (`_`).
-* Deben declararse de forma individual.
-* **Cero inicializaciones redundantes en la declaración:** Si un campo es asignado obligatoriamente a través del constructor, no debe inicializarse en la cabecera con valores vacíos o por defecto innecesarios.
+### 2.5. Nomenclatura Expresiva y Regla de la "Y" (Responsabilidad Única)
+* **Prohibidos nombres vagos:** está prohibido nombrar métodos como `Procesar...`, `Integrar...`, `Manejar...` o `Gestionar...`. Todo método debe revelar con exactitud su acción en el dominio (`RegistrarAcontecimiento`, `RegistrarRecepcion`, `RegistrarSalidaARuta`, `RegistrarEntrega`, `RegistrarDevolucion`, `ConsolidarDatosEnEmpresa`, `VerificarQueNoEsteFinalizado`, `TieneMismosDatosQue`, `EsFacturable`).
+* **Regla de la "Y":** si un método requiere la conjunción *"Y"* en su nombre (`ExtraerYAgregar...`) porque hace dos tareas distintas, debe dividirse en dos métodos cohesivos separados donde uno orqueste al otro (`ExtraerDespachoDesdeXml` + `AgregarPedidoSiEsValido`).
+* **Método de salida en consola:** usar `MostrarInformacion()` en las entidades que proyecten detalle en pantalla; evitar sobrecargar `ToString()` para formateos complejos.
 
-```csharp
-// CORRECTO
-private string _codigo;
-private string _descripcion;
-
-public Articulo(string codigo, string descripcion)
-{
-    // Validaciones y asignación
-    _codigo = codigo;
-    _descripcion = descripcion;
-}
-
-// INCORRECTO
-private string _codigo = string.Empty; // Redundante si el constructor lo asigna
-private string _codigo, _descripcion; // Declaración agrupada prohibida
-```
-
-### 4.3. Encapsulamiento Estricto, Prohibición de `readonly` y Métodos de Negocio
-* **Regla general de memoria: Cero `readonly`:** Queda estrictamente prohibido el uso de la palabra clave `readonly` en cualquier parte del código (tanto en campos `private readonly` como en interfaces tipo `IReadOnlyList<T>` o llamadas `.AsReadOnly()`).
-* **Equivalente académico obligatorio:** Toda protección de solo lectura se modela exclusivamente mediante campos privados convencionales y **propiedades con solo `get`** (por ejemplo, `public List<T> Elementos { get { return _elementos; } }` o `public decimal TarifaHora { get { return 5000m; } }`).
-* **Propiedades con visibilidad restringida:** Las propiedades públicas con estado modificable deben tener setter privado (`private set`) o carecer totalmente de setter si son calculadas o de solo lectura.
-* **Prohibido el uso de setters para lógica transaccional:** Toda modificación de estado relevante debe efectuarse mediante métodos de negocio explícitos con nombres de dominio claros (por ejemplo, `RegistrarSalidaRuta()`, `MarcarComoEntregado()`, `RegistrarNovedad()`), en lugar de exponer propiedades mutables.
-* **Encapsulamiento de colecciones internas:** La lista interna se declara como campo privado (inicializado preferentemente en el constructor) y se expone mediante una propiedad de solo `get`:
-
-```csharp
-// CORRECTO (Regla innegociable: sin readonly, propiedad con solo get)
-private List<Paquete> _paquetes;
-
-public Despacho()
-{
-    _paquetes = new List<Paquete>();
-}
-
-public List<Paquete> Paquetes
-{
-    get { return _paquetes; }
-}
-
-public void AgregarPaquete(Paquete paquete)
-{
-    if (paquete == null)
-        throw new NexoLogException("No se puede agregar un paquete nulo.");
-    _paquetes.Add(paquete);
-}
-
-// INCORRECTO (Prohibido: uso de readonly e IReadOnlyList)
-private readonly List<Paquete> _paquetes = new List<Paquete>();
-public IReadOnlyList<Paquete> Paquetes => _paquetes.AsReadOnly();
-```
-
-### 4.4. Estado Inicial Siempre Explícito (Nunca `null`)
-* Ningún objeto del dominio debe quedar en un estado indefinido o nulo tras su instanciación.
-* Todo constructor debe fijar explícitamente el estado inicial válido según las reglas del negocio (por ejemplo, `Estado = EstadoDespacho.Pendiente;`).
-
-### 4.5. Validaciones Rigurosas en Constructores y Propiedades
-* Validar de inmediato toda cadena de texto con `string.IsNullOrWhiteSpace(valor)`.
-* Validar límites numéricos estrictos acordes a la naturaleza física o contable del objeto:
-  - Pesos, cantidades y distancias deben ser estrictamente positivos (`> 0`).
-  - Valores monetarios, recargos o acumuladores pueden admitir cero o positivo (`>= 0`), pero nunca negativos.
-* Lanzar excepciones tempranas ante datos incongruentes.
-
-### 4.6. Manejo de Excepciones: Estándar por Defecto
-* **Cero excepciones personalizadas a menos que el enunciado las exija:** No crear clases de excepción propias (como `MovilidadException`) a menos que el PDF, la guía o el docente lo soliciten explícitamente.
-* **Uso de excepciones vistas en clase:** Utilizar las excepciones estándar de .NET vistas en la asignatura:
-  - `ArgumentException` para validar argumentos inválidos, valores fuera de rango, cadenas vacías o parámetros inconsistentes.
-  - `Exception` general para inconsistencias operativas o de estado cuando no aplique una más específica.
-* Cuando un proyecto formal sí exija una excepción propia (como ocurrió con `VeterinariaException` en la Sesión 15 o `NexoLogException` en el Proyecto Final), esta se creará derivando de `Exception` conforme al requerimiento formal.
-
-### 4.7. Codificación y Manejo de Archivos
-* Cualquier operación de lectura, escritura o exportación sobre el sistema de archivos (JSON, XML, CSV o TXT) debe especificar de manera obligatoria y explícita la codificación `Encoding.UTF8`.
-
-### 4.8. Política de Documentación del Repositorio
-* **Máximo dos documentos explicativos en todo el proyecto:**
-  1. `README.md` en la raíz (presentación general, mapa del repositorio y guía de uso).
-  2. `Guia_Arquitectura_NexoLog.pdf` en la raíz (guía unificada de arquitectura, patrones, resiliencia y decisiones de diseño).
-* Toda documentación explicativa reside en la raíz; las subcarpetas de proyectos solo contienen código fuente y diagramas técnicos.
-* **Cero comentarios obvios en el código fuente:** El código debe ser autoexplicativo gracias al uso riguroso de nombres significativos en español o inglés técnico coherente. Solo se admiten comentarios breves cuando justifican una decisión de negocio no trivial o una restricción impuesta por el docente.
-
-### 4.9. Reglas de Oro para Diagramas UML de Clases (Draw.io)
-* **Máxima simpleza y concisión académica:** Los diagramas deben ser visualmente limpios, simétricos y libres de ruido o sobreespecificación innecesaria.
-* **Cero asignación de valores a constantes o atributos:** Queda prohibido escribir expresiones de asignación de valores en los diagramas (nada de `= 34`, `= 2000` o `= 0.10`). Los atributos y constantes se definen exclusivamente con su visibilidad, nombre y tipo de dato (por ejemplo, `- Descuento: double` o `- BateriaMaxima: int`).
-* **Cero etiquetas `{override}` en subclases:** El modificador o etiqueta `{override}` en métodos y propiedades de clases hijas es redundante y se descarta. El polimorfismo se expresa a través de la flecha de generalización (herencia), bastando con marcar `{abstract}` en los miembros correspondientes de la clase padre.
-* **Cero rombos en relaciones (convención estricta de cátedra):** El docente no utiliza rombos de agregación ni de composición. Las relaciones entre clases se modelan exclusivamente como **asociaciones directas con líneas simples y multiplicidades explícitas** (ej. `1` y `0..*`), herencia con flecha de triángulo cerrado vacío y realización de interfaz con línea punteada y triángulo vacío (según diapositivas 4, 6 y 7 de la Sesión 15).
-* **Cero prefijo `_` en atributos privados:** La visibilidad privada queda establecida únicamente por el símbolo menos `-` seguido del nombre en camelCase (ej. `- codigo: string`, `- destinatario: string`), eliminando el guion bajo redundante del lenguaje C#.
+### 2.6. Polimorfismo Real, DTOs (Sesión 17), Patrones (Sesión 19) y Resiliencia
+* **Polimorfismo real en interfaces (cero chequeos `is Subtipo`):** si una capa necesita un dato o cálculo común de varias implementaciones, ese miembro debe vivir en la interfaz (`ITarifa.ValorBase`, `Nombre`), prohibiéndose cadenas `if (x is TarifaPorPeso) ... else if ...`.
+* **Sesión 17 — DTOs y Mappers ("Los objetos de dominio nunca se serializan"):**
+  - Ingesta: archivo $\rightarrow$ DTO $\rightarrow$ `MapToDomain(...)` $\rightarrow$ entidad validada.
+  - Salida/Reportes: entidad $\rightarrow$ `MapToDto(...)` $\rightarrow$ DTO puro (`{ get; set; }`, `[JsonPropertyName("...")]`) $\rightarrow$ JSON/XML/CSV.
+  - **Prohibidos los tipos anónimos (`new { ... }`)**.
+* **Sesión 19 — `Strategy + Factory Method`:**
+  - Estrategias detrás de interfaces con nombres de dominio puro (`ITarifa`, `IImportadorArchivo<T>`, `IExportadorInforme`) sin sufijos artificiales (`Strategy`).
+  - Creación centralizada en fábricas estáticas simétricas (`CreadorImportadores`, `CreadorExportadores`) o método estático `Crear(dto)` en clase abstracta base, evitando `if` dispersos en `Program.cs`.
+  - *Precedencia sobre láminas cortas:* aunque algunos ejemplos rápidos de diapositiva abrevien con `var` o `switch` expresión, en el repositorio rigen siempre tipos explícitos e `if / else if / else` (como en `ParcialA` y `ParcialB`).
+* **Dominio puro y rechazo a clases anémicas:** `Empresa` coordina colecciones del negocio sin lectura de disco ni cálculos extensos de informes (tampoco renombrarla a `SistemaLogistico` o `PipelineProcessor`). Registros históricos sin comportamiento divergente (`Acontecimiento`) no se dividen en subclases vacías; `Despacho` gobierna su máquina de estados.
+* **Excepciones y UTF-8:** usar excepciones de dominio heredando de `Exception` cuando la regla o el enunciado las exija (`NexoLogException`, o `Excepciones.cs` en parciales) y `ArgumentException`/`Exception` en ejercicios sencillos; especificar siempre `Encoding.UTF8` explícito en consola y archivos.
 
 ---
 
-## 5. Memoria de Acuerdos Confirmados en el Repositorio
+## 3. Reglas de Modelado UML de Clases (Draw.io)
 
-A continuación se registra el histórico de acuerdos consolidados y decisiones estructurales aprobadas para el proyecto:
-
-### 5.1. Organización Estructural del Repositorio
-El repositorio mantiene una convención de nombres y numeración uniforme para facilitar la localización de materiales de clase:
-* **Documentos Rectores (raíz):**
-  - `00_MicroDiseño - ICD.pdf`
-  - `00_Cronograma Detallado de Clases.pdf`
-  - `00_Proyecto Final POO 3C.pdf`
-* **Diapositivas de Clase (raíz con formato de padding de dos dígitos):**
-  - `Sesion_01 - Introduccion a POO.pdf`
-  - `Sesion_02 - Colecciones en C#.pdf`
-  - `Sesion_03 - Clases, Objetos y Abstraccion.pdf`
-  - `Sesion_05 - Encapsulamiento.pdf`
-  - `Sesion_07 - Generalidades al construir una clase.pdf`
-  - `Sesion_09 - Herencia.pdf`
-  - `Sesion_10 - Relaciones y colaboraciones entre objetos.pdf`
-  - `Sesion_12 - Polimorfismo.pdf`
-  - `Sesion_14 - Clases Abstractas, Interfaces y Excepciones.pdf`
-  - `Sesion_15 - UML.pdf`
-* **Carpetas Funcionales:**
-  - `01_Ejemplos_Clase/`: Proyectos demostrativos de aula (`Sesion_03_Gimnasio`, `Sesion_05_Encapsulamiento_Cine`, `Sesion_07_Vehiculo`, `Sesion_10_Herencia_Empleados`, `Sesion_12_Polimorfismo_Hotel`).
-  - `02_Actividades_y_Talleres/`: Talleres evaluados y tarjetas CRC (`Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`, `Sesion_16_Taller_Alquiler_Vehiculos`).
-  - `03_Evaluaciones/`: Parciales y recuperaciones (`Sesion_08_Parcial_01`, `Sesion_11_Recuperacion_Parcial_01_EcoRide`).
-  - `04_Proyecto_Final/`: Código de producción del sistema `NexoLog` y sus diagramas Draw.io (`Diagrama_UML_NexoLog.drawio` y `.pdf`).
-  - `InformesExportados/`: Destino por defecto de los archivos de reporte (`informes_nexolog.json`, `informes_nexolog.xml`).
-
-### 5.2. Proyecto Final NexoLog S.A.S. - Especificaciones y Reglas Clave
-* **Contexto de la empresa:** Plataforma de intermediación y coordinación logística entre comercios remitentes y empresas transportadoras, procesando 5 archivos heterogéneos de entrada (formatos JSON y XML) con inconsistencias intencionadas.
-* **Cálculo de referencia $12.950 en NX-1001:**
-  - El despacho `NX-1001` de Comercio Caribe (`COM-01`) cuenta con paquetes que suman 3.7 kg.
-  - La modalidad aplica tarifa por peso ($3.500 por kg).
-  - Cobro exacto: $3.7 \times 3.500 = \$12.950$. Este cálculo valida la correcta aplicación del patrón Strategy en tarifas.
-* **Ordenamiento cronológico obligatorio de acontecimientos:**
-  - Los archivos de tracking de las transportadoras presentan acontecimientos en desorden temporal (por ejemplo, un evento de entrega antes del evento de salida a ruta).
-  - Se debe ordenar de forma ascendente la colección de acontecimientos por `FechaHora` antes de ejecutar la máquina de estados. De lo contrario, se invalidarían entregas legítimas.
-* **Evaluación de SLA (Service Level Agreement):**
-  - El porcentaje de entregas a tiempo se calcula **exclusivamente sobre el universo de despachos entregados**:
-    $$\text{Porcentaje SLA} = \left( \frac{\text{Despachos Entregados a Tiempo}}{\text{Total Despachos Entregados}} \right) \times 100$$
-  - Los despachos devueltos, pendientes o en ruta no forman parte del denominador de este indicador.
-* **Cobro y liquidación financiera condicionada:**
-  - Solo se liquida cobro a los despachos con estado final `Entregado`.
-  - Un despacho con estado `Devuelto` o `Pendiente` no genera liquidación económica de servicio ($0).
-  - Un despacho entregado fuera del tiempo límite estipulado sigue siendo facturable (según las políticas comerciales de NexoLog), pero computa como incumplimiento en el indicador de SLA.
-* **Resiliencia ante datos corruptos:**
-  - Las incongruencias en los archivos de origen (paquetes con peso menor o igual a cero, guías duplicadas, guías inexistentes en pedidos) no deben tumbar la ejecución de la aplicación.
-  - El sistema detecta el error, crea un `RegistroInconsistencia` con detalle y continúa procesando el resto de las operaciones sanas.
-* **Patrones de diseño aplicados con justificación académica:**
-  - **Strategy (`IEstrategiaCobro`):** Encapsula los diferentes algoritmos de cálculo tarifario (Tarifa Fija, Tarifa por Peso, Tarifa por Distancia), permitiendo agregar nuevas políticas comerciales sin modificar `Despacho`.
-  - **Factory Method (`LectorArchivoFactory`):** Centraliza la instanciación de los lectores correspondientes según la extensión del archivo (`.json` o `.xml`), desacoplando la capa de servicios de la tecnología de serialización.
-* **Exportación Polimórfica:**
-  - El sistema genera tres informes unificados (Operativo, Financiero, Inconsistencias) e implementa la interfaz `IExportadorInforme` para serializarlos tanto en JSON legible como en XML bien estructurado bajo `InformesExportados/`.
+* **Cero rombos:** el docente no usa rombos de agregación ni composición (Sesión 15 diap. 4, 6 y 7). Toda relación estructural se dibuja con líneas de asociación simples y multiplicidades explícitas (`1`, `0..*`, `1..*`), herencia con triángulo cerrado vacío y realización con línea discontinua y triángulo vacío.
+* **Cero prefijo `_`, cero `= valor` y cero `{override}`:** visibilidad privada solo con `-` en camelCase (`- codigo: string`); sin valores fijos asignados (`= 2000`) ni etiquetas `{override}` redundantes.
+* **Orientación vertical, simetría y fidelidad 1:1:** interfaces y clases padre siempre **arriba** y sus implementaciones/hijas **abajo**; fábricas (`CreadorImportadores`, `CreadorExportadores`) a un costado con dependencia discontinua (`«use»`) y simetría entre entrada y salida. **Regla de Sesión 15 diap. 14:** no agregar cajas, factorías vacías ni clases puente (`AcuerdoComercial`) que no existan en C#.
 
 ---
 
-## 6. Procedimiento para Nuevas Tareas
+## 4. Política Documental, PDFs y Cero Residuos
 
-Cuando se plantee una nueva fase, ajuste o refactorización:
-1. El usuario o tutor formula la necesidad o requerimiento.
-2. `poo-planner` genera el análisis conceptual, el impacto en clases y el plan paso a paso.
-3. El usuario y el tutor aprueban el plan y discuten dudas o alternativas.
-4. `poo-builder` implementa la solución respetando el estilo de código descrito.
-5. Se efectúan pruebas y validaciones, asegurando que el estudiante adquiera la capacidad de sustentar cada cambio con solvencia académica.
+* **Máximo dos documentos explicativos en la raíz:** [`README.md`](./README.md) y [`Guia_Arquitectura_NexoLog.pdf`](./Guia_Arquitectura_NexoLog.pdf). Archivos de gobernanza y licencia (`AGENTS.md`, `LICENSE`) quedan exentos de ese límite.
+* **Carpeta `04_Proyecto_Final/` limpia:** contiene únicamente `NexoLog/` (código C# y `DatosPrueba/` JSON/XML) y `Diagrama_UML_NexoLog.drawio(.pdf)`. Queda prohibido crear archivos `.md`, `.gitkeep` obsoletos o proyectos residuales de testing (`NexoLog.Tests/`) dentro de subcarpetas de proyecto.
+* **Guías PDF (`Guia_Arquitectura_NexoLog.pdf`):** tono directo, reflexivo y cómodo para compañeros de **Ingeniería en Ciencia de Datos (3.er cuatrimestre)**, sin preámbulos vacíos ni tono doctoral; letra de `10.5–11 pt` con interlineado amplio (`14.5–15 pt`), tarjetas Modern UI nativas y callouts coloreados en ReportLab; **prohibido incrustar diagramas hechos con Matplotlib**.
+
+---
+
+## 5. Mapa del Repositorio y Especificaciones de NexoLog S.A.S.
+
+### 5.1. Organización del Repositorio
+* **Documentos rectores (raíz):** `00_MicroDiseño - ICD.pdf`, `00_Cronograma Detallado de Clases.pdf`, `00_Proyecto Final POO 3C.pdf`.
+* **Diapositivas (`Sesion_XX - ...pdf` en raíz):** `Sesion_01` (Introducción POO), `Sesion_02` (Colecciones), `Sesion_03` (Clases/Abstracción), `Sesion_05` (Encapsulamiento), `Sesion_07` (Construcción de clase), `Sesion_09` (Herencia), `Sesion_10` (Relaciones), `Sesion_12` (Polimorfismo), `Sesion_14` (Abstractas/Interfaces/Excepciones), `Sesion_15` (UML), `Sesion_17` (Serialización + DTO + Deserialización), `Sesion_19` (Strategy + Factory Method).
+* **Carpetas funcionales:**
+  - `01_Ejemplos_Clase/`: `Sesion_03_Gimnasio`, `Sesion_05_Encapsulamiento_Cine`, `Sesion_07_Vehiculo`, `Sesion_10_Herencia_Empleados`, `Sesion_12_Polimorfismo_Hotel`, `Sesion_19_Parciales_Finales_Y_Ejemplo_Clase` (`Actividad/`, `ParcialA/`, `ParcialB/`).
+  - `02_Actividades_y_Talleres/`: `Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`, `Sesion_16_Taller_Alquiler_Vehiculos`, `Practica Segundo Parcial`.
+  - `03_Evaluaciones/`: `Sesion_08_Parcial_01`, `Sesion_11_Recuperacion_Parcial_01_EcoRide`.
+  - `04_Proyecto_Final/`: `NexoLog/` y `Diagrama_UML_NexoLog.drawio(.pdf)`.
+  - `InformesExportados/`: `informes_nexolog.json`, `informes_nexolog.xml`.
+
+### 5.2. Reglas de Negocio y Cifras de Control (Golden Baseline de NexoLog)
+* **Acuerdos comerciales (`DatosPrueba/acuerdos.json`):** `COM-01` Tarifa por peso (`$3.500/kg`), `COM-02` Tarifa por distancia (`$150/km`), `COM-03` Tarifa fija (`$18.500`).
+* **Caso de control `NX-1001`:** `2.2 kg + 1.5 kg = 3.7 kg` $\times$ `$3.500/kg` $=$ **`$12.950`** exactos.
+* **Ordenamiento temporal obligatorio:** antes de ejecutar `Despacho.RegistrarAcontecimiento()`, ordenar ascendentemente los acontecimientos por `FechaHora` para reconstruir eventos desordenados en archivo.
+* **SLA y facturación:**
+  - Porcentaje SLA = `(Entregados a Tiempo / Total Entregados) × 100` (`4 / 6 = 66.67%`). Pendientes, en distribución y devueltos se excluyen del denominador.
+  - Solo los despachos con estado final `Entregado` habilitan cobro (`Gran Total Facturado: $104.450`); un entregado fuera de tiempo sigue siendo facturable, aunque incumple SLA.
+* **Resiliencia y exportación polimórfica:** datos corruptos (incluyendo valor declarado negativo de `NX-2091`) generan `RegistroInconsistencia` sin abortar la ejecución (`18` inconsistencias auditadas) y se exportan vía `InconsistenciaDto` + `InformeConsolidadoDto` con `CreadorImportadores` / `CreadorExportadores` bajo `InformesExportados/` en `Encoding.UTF8`.

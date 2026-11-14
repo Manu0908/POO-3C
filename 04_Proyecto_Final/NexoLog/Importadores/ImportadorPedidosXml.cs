@@ -5,7 +5,6 @@ using NexoLog.Servicios;
 
 namespace NexoLog.Importadores;
 
-// Importador resiliente para solicitudes de pedidos en formato XML.
 public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
 {
     public List<Despacho> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)

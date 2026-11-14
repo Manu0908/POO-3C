@@ -1,18 +1,14 @@
 namespace NexoLog.Tarifas;
 
-// Tarifa comercial calculada segun el peso acumulado en kilogramos.
 public class TarifaPorPeso : ITarifa
 {
-    // Campos privados
     private decimal _valorPorKilogramo;
 
-    // Constructor horizontal
     public TarifaPorPeso(decimal valorPorKilogramo)
     {
         ValorPorKilogramo = valorPorKilogramo;
     }
 
-    // Propiedades publicas
     public decimal ValorBase { get { return _valorPorKilogramo; } }
 
     public decimal ValorPorKilogramo
@@ -28,7 +24,6 @@ public class TarifaPorPeso : ITarifa
         }
     }
 
-    // Metodos
     public decimal CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)

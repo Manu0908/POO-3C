@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.DTOs;
 
-// DTO para deserializar paquetes individuales desde JSON.
 public class PaqueteJsonDto
 {
     [JsonPropertyName("idPaquete")]

@@ -1,12 +1,9 @@
 namespace NexoLog.Servicios;
 
-// Modalidad Expres: salida a ruta (RUT) <= 2 horas desde REC y entrega (ENT) <= 24 horas desde REC.
 public class ServicioExpres : ModalidadServicio
 {
-    // Constructor horizontal
     public ServicioExpres() : base("Exprés") { }
 
-    // Evaluacion de SLA
     public override bool EvaluarCumplimiento(Despacho despacho)
     {
         if (despacho == null)
