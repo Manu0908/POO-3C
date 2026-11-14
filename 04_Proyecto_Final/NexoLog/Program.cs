@@ -276,7 +276,17 @@ void ExportarInformes(Empresa sys)
     Console.Write("Seleccione formato [1 o 2]: ");
     string f = (Console.ReadLine() ?? string.Empty).Trim();
 
-    IExportadorInforme exportador = ExportadorFactory.Crear(f);
+    IExportadorInforme exportador;
+    try
+    {
+        exportador = ExportadorFactory.Crear(f);
+    }
+    catch (NexoLogException ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+        return;
+    }
+
     string extension = exportador.Extension;
 
     string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{extension}");

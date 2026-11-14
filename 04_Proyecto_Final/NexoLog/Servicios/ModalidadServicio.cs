@@ -45,13 +45,13 @@ public abstract class ModalidadServicio
                 string parteFin = (horaFin ?? string.Empty).Split(':')[0].Trim();
 
                 int horaInicial;
-                if (!int.TryParse(parteIni, out horaInicial))
+                if (!int.TryParse(parteIni, out horaInicial) || horaInicial < 0 || horaInicial > 23)
                 {
                     throw new NexoLogException($"Hora inicial programada invalida '{horaInicio}' en la guia '{numeroGuia}'.");
                 }
 
                 int horaFinal;
-                if (!int.TryParse(parteFin, out horaFinal))
+                if (!int.TryParse(parteFin, out horaFinal) || horaFinal < 0 || horaFinal > 24)
                 {
                     throw new NexoLogException($"Hora final programada invalida '{horaFin}' en la guia '{numeroGuia}'.");
                 }
