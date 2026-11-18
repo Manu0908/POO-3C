@@ -40,30 +40,34 @@ while (continuar)
     }
     Console.WriteLine();
 
-    switch (opcion)
+    if (opcion == "1")
     {
-        case "1":
-            CargarArchivos(sistema, carpetaDatos);
-            break;
-        case "2":
-            VerInformeOperativo(sistema);
-            break;
-        case "3":
-            VerInformeFinanciero(sistema);
-            break;
-        case "4":
-            VerInformeInconsistencias(sistema);
-            break;
-        case "5":
-            ExportarInformes(sistema);
-            break;
-        case "0":
-            Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
-            continuar = false;
-            break;
-        default:
-            Console.WriteLine("Opcion invalida. Intente nuevamente.");
-            break;
+        CargarArchivos(sistema, carpetaDatos);
+    }
+    else if (opcion == "2")
+    {
+        VerInformeOperativo(sistema);
+    }
+    else if (opcion == "3")
+    {
+        VerInformeFinanciero(sistema);
+    }
+    else if (opcion == "4")
+    {
+        VerInformeInconsistencias(sistema);
+    }
+    else if (opcion == "5")
+    {
+        ExportarInformes(sistema);
+    }
+    else if (opcion == "0")
+    {
+        Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
+        continuar = false;
+    }
+    else
+    {
+        Console.WriteLine("Opcion invalida. Intente nuevamente.");
     }
 }
 
