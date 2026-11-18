@@ -17,17 +17,17 @@ public class ImportadorSeguimientosXml : IImportadorArchivo<Acontecimiento>
             string contenidoXml = File.ReadAllText(rutaArchivo, Encoding.UTF8);
             XDocument documento = XDocument.Parse(contenidoXml);
 
-            foreach (XElement elEvt in documento.Root.Elements("acontecimiento"))
+            foreach (XElement elEvt in documento.Root.Elements("Novedad"))
             {
-                string idEvt = (string)elEvt.Attribute("id") ?? "EVENTO_XML_INCOMPLETO";
+                string idEvt = (string)elEvt.Element("Id") ?? "EVENTO_XML_INCOMPLETO";
                 try
                 {
                     AcontecimientoDto dto = new AcontecimientoDto
                     {
-                        IdAcontecimiento = (string)elEvt.Attribute("id") ?? string.Empty,
-                        NumeroGuia = (string)elEvt.Attribute("guia") ?? string.Empty,
-                        Tipo = (string)elEvt.Attribute("tipo") ?? string.Empty,
-                        FechaHora = DateTime.Parse((string)elEvt.Attribute("fechaHora") ?? string.Empty, CultureInfo.InvariantCulture)
+                        IdAcontecimiento = (string)elEvt.Element("Id") ?? string.Empty,
+                        NumeroGuia = (string)elEvt.Element("Guia") ?? string.Empty,
+                        Tipo = (string)elEvt.Element("Tipo") ?? string.Empty,
+                        FechaHora = DateTime.Parse((string)elEvt.Element("Fecha") ?? string.Empty, CultureInfo.InvariantCulture)
                     };
                     acontecimientosValidos.Add(dto.MapToDomain());
                 }

@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace NexoLog.Servicios;
 
 public abstract class ModalidadServicio
@@ -15,7 +13,7 @@ public abstract class ModalidadServicio
         return NombreModalidad;
     }
 
-    public static ModalidadServicio Crear(string modalidad, string fechaProgramada, string horaInicio, string horaFin, string numeroGuia)
+    public static ModalidadServicio Crear(string modalidad, DateTime? inicio, DateTime? fin, string numeroGuia)
     {
         string tipo = (modalidad ?? string.Empty).Trim().ToUpper();
         return tipo switch
@@ -24,34 +22,18 @@ public abstract class ModalidadServicio
             "ESTÁNDAR" => new ServicioEstandar(),
             "EXPRES" => new ServicioExpres(),
             "EXPRÉS" => new ServicioExpres(),
-            "PROGRAMADO" => CrearProgramado(fechaProgramada, horaInicio, horaFin, numeroGuia),
+            "PROGRAMADO" => CrearProgramado(inicio, fin, numeroGuia),
             _ => throw new NexoLogException($"Modalidad de servicio desconocida '{modalidad}' en la guia '{numeroGuia}'.")
         };
     }
 
-    private static ModalidadServicio CrearProgramado(string fechaProgramada, string horaInicio, string horaFin, string numeroGuia)
+    private static ModalidadServicio CrearProgramado(DateTime? inicio, DateTime? fin, string numeroGuia)
     {
-        DateTime fechaProg;
-        if (!DateTime.TryParse(fechaProgramada, CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaProg))
+        if (!inicio.HasValue || !fin.HasValue)
         {
-            throw new NexoLogException($"Fecha programada invalida '{fechaProgramada}' en la guia '{numeroGuia}'.");
+            throw new NexoLogException($"Falta la programacion de inicio o fin en la guia '{numeroGuia}'.");
         }
 
-        string parteIni = (horaInicio ?? string.Empty).Split(':')[0].Trim();
-        string parteFin = (horaFin ?? string.Empty).Split(':')[0].Trim();
-
-        int horaInicial;
-        if (!int.TryParse(parteIni, out horaInicial) || horaInicial < 0 || horaInicial > 23)
-        {
-            throw new NexoLogException($"Hora inicial programada invalida '{horaInicio}' en la guia '{numeroGuia}'.");
-        }
-
-        int horaFinal;
-        if (!int.TryParse(parteFin, out horaFinal) || horaFinal < 0 || horaFinal > 24)
-        {
-            throw new NexoLogException($"Hora final programada invalida '{horaFin}' en la guia '{numeroGuia}'.");
-        }
-
-        return new ServicioProgramado(fechaProg, horaInicial, horaFinal);
+        return new ServicioProgramado(inicio.Value, fin.Value);
     }
 }

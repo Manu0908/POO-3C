@@ -1,50 +1,225 @@
-<?xml version="1.0" encoding="utf-8"?>
-<seguimiento transportadora="Transportadora Andina">
-  <acontecimiento id="EVT-AND-100" guia="NX-2001" tipo="REC" fechaHora="2026-11-03T07:30:00">
-    <observacion>Recepción de paquetes agrícolas en Tunja</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-101" guia="NX-2001" tipo="RUT" fechaHora="2026-11-03T11:00:00">
-    <observacion>Salida de camión a distribución local</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-102" guia="NX-2001" tipo="ENT" fechaHora="2026-11-04T15:30:00">
-    <observacion>Entrega exitosa a Alejandro Morales (32h tras REC, cumple compromiso estandar)</observacion>
-  </acontecimiento>
-
-  <acontecimiento id="EVT-AND-200" guia="NX-2002" tipo="REC" fechaHora="2026-11-04T08:00:00">
-    <observacion>Recepción de instrumental de laboratorio en terminal Duitama</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-201" guia="NX-2002" tipo="RUT" fechaHora="2026-11-04T11:30:00">
-    <observacion>Salida tardía a ruta exprés (3h 30m tras REC, supera límite de 2h de inicio exprés)</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-202" guia="NX-2002" tipo="ENT" fechaHora="2026-11-04T20:00:00">
-    <observacion>Entrega completada a Camila Rojas (12h tras REC, cumple plazo total pero con inicio tardío)</observacion>
-  </acontecimiento>
-
-  <acontecimiento id="EVT-AND-300" guia="NX-2003" tipo="REC" fechaHora="2026-11-06T15:00:00">
-    <observacion>Recepción de paquete programado en terminal Sogamoso</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-301" guia="NX-2003" tipo="RUT" fechaHora="2026-11-07T07:15:00">
-    <observacion>Salida en ruta el día convenido de entrega</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-302" guia="NX-2003" tipo="DEV" fechaHora="2026-11-07T09:30:00">
-    <observacion>Destinatario no presente en la franja pactada; producto devuelto a bodega</observacion>
-  </acontecimiento>
-
-  <!-- INCONSISTENCIA EXPLICADA EN ENUNCIADO: Entrega (ENT) sin previa salida a distribución (RUT) -->
-  <acontecimiento id="EVT-AND-400" guia="NX-2004" tipo="REC" fechaHora="2026-11-05T09:00:00">
-    <observacion>Recepción de mercancía artesanal en centro de despacho</observacion>
-  </acontecimiento>
-  <acontecimiento id="EVT-AND-401" guia="NX-2004" tipo="ENT" fechaHora="2026-11-05T14:00:00">
-    <observacion>INCONSISTENCIA: Entrega registrada directamente sin haber tenido evento RUT de salida a distribución</observacion>
-  </acontecimiento>
-
-  <!-- INCONSISTENCIA ADICIONAL: Guía inexistente en el sistema -->
-  <acontecimiento id="EVT-AND-901" guia="NX-7777" tipo="REC" fechaHora="2026-11-05T10:00:00">
-    <observacion>INCONSISTENCIA: Acontecimiento referido a guía desconocida</observacion>
-  </acontecimiento>
-
-  <!-- INCONSISTENCIA ADICIONAL: Acontecimiento posterior a la finalización de entrega de NX-2001 -->
-  <acontecimiento id="EVT-AND-902" guia="NX-2001" tipo="DEV" fechaHora="2026-11-05T12:00:00">
-    <observacion>INCONSISTENCIA: Se intenta registrar una devolución en un despacho ya finalizado como ENT</observacion>
-  </acontecimiento>
-</seguimiento>
+<?xml version='1.0' encoding='utf-8'?>
+<Seguimientos>
+  <Novedad>
+    <Id>AN-001</Id>
+    <Guia>NX-1002</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-10T09:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-002</Id>
+    <Guia>NX-1002</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-13T09:20:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-003</Id>
+    <Guia>NX-1002</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-13T10:15:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-025</Id>
+    <Guia>NX-1018</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-17T07:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-009</Id>
+    <Guia>NX-1006</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-14T12:30:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-012</Id>
+    <Guia>NX-1008</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-12T16:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-016</Id>
+    <Guia>NX-1012</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-12T10:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-004</Id>
+    <Guia>NX-1004</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-10T08:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-033</Id>
+    <Guia>NX-1023</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-19T07:30:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-014</Id>
+    <Guia>NX-1010</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-15T13:20:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-901</Id>
+    <Guia>NX-1012</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-12T11:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-017</Id>
+    <Guia>NX-1014</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-14T11:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-010</Id>
+    <Guia>NX-1008</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-11T12:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-029</Id>
+    <Guia>NX-1021</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-16T07:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-028</Id>
+    <Guia>NX-1020</Guia>
+    <Tipo>RETORNO</Tipo>
+    <Fecha>2026-11-16T12:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-015</Id>
+    <Guia>NX-1010</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-15T15:30:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-021</Id>
+    <Guia>NX-1016</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-14T09:45:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-020</Id>
+    <Guia>NX-1016</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-14T08:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-008</Id>
+    <Guia>NX-1006</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-14T09:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-902</Id>
+    <Guia>NX-1021</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-17T12:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-013</Id>
+    <Guia>NX-1010</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-13T08:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-031</Id>
+    <Guia>NX-1021</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-18T16:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-003</Id>
+    <Guia>NX-1002</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-13T10:15:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-011</Id>
+    <Guia>NX-1008</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-11T13:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-022</Id>
+    <Guia>NX-1016</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-15T07:59:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-900</Id>
+    <Guia>NX-9998</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-18T07:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-018</Id>
+    <Guia>NX-1014</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-16T07:30:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-024</Id>
+    <Guia>NX-1018</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-15T08:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-005</Id>
+    <Guia>NX-1004</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-10T09:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-006</Id>
+    <Guia>NX-1004</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-13T09:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-019</Id>
+    <Guia>NX-1014</Guia>
+    <Tipo>ENTREGA</Tipo>
+    <Fecha>2026-11-16T07:55:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-023</Id>
+    <Guia>NX-1018</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-15T07:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-007</Id>
+    <Guia>NX-1006</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-11T08:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-026</Id>
+    <Guia>NX-1020</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-15T10:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-027</Id>
+    <Guia>NX-1020</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-15T11:00:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-030</Id>
+    <Guia>NX-1021</Guia>
+    <Tipo>RUTA</Tipo>
+    <Fecha>2026-11-18T14:40:00-05:00</Fecha>
+  </Novedad>
+  <Novedad>
+    <Id>AN-032</Id>
+    <Guia>NX-1023</Guia>
+    <Tipo>INGRESO</Tipo>
+    <Fecha>2026-11-17T08:00:00-05:00</Fecha>
+  </Novedad>
+</Seguimientos>

@@ -223,7 +223,7 @@
         <mxCell id="c_mod_m1" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=2;rounded=0;" value="+ {abstract} EvaluarCumplimiento(despacho: Despacho): bool" vertex="1">
           <mxGeometry height="36" width="260" y="64" as="geometry" />
         </mxCell>
-        <mxCell id="c_mod_m2" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=8.5;rounded=0;" value="+ Crear(modalidad, fecha, hIni, hFin, guia): ModalidadServicio" vertex="1">
+        <mxCell id="c_mod_m2" parent="c_modalidad" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=8.5;rounded=0;" value="+ Crear(modalidad, inicio, fin, guia): ModalidadServicio" vertex="1">
           <mxGeometry height="26" width="260" y="100" as="geometry" />
         </mxCell>
         <mxCell id="c_mestandar" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="ServicioEstandar" vertex="1">
@@ -239,22 +239,19 @@
           <mxGeometry height="44" width="200" y="26" as="geometry" />
         </mxCell>
         <mxCell id="c_mprog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontColor=#880E4F;rounded=0;" value="ServicioProgramado" vertex="1">
-          <mxGeometry height="130" width="200" x="50" y="890" as="geometry" />
+          <mxGeometry height="110" width="200" x="50" y="890" as="geometry" />
         </mxCell>
-        <mxCell id="c_mprog_a1" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- fechaProgramada: DateTime" vertex="1">
+        <mxCell id="c_mprog_a1" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- inicio: DateTime" vertex="1">
           <mxGeometry height="20" width="200" y="26" as="geometry" />
         </mxCell>
-        <mxCell id="c_mprog_a2" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- horaInicio: int" vertex="1">
+        <mxCell id="c_mprog_a2" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- fin: DateTime" vertex="1">
           <mxGeometry height="20" width="200" y="46" as="geometry" />
         </mxCell>
-        <mxCell id="c_mprog_a3" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="- horaFin: int" vertex="1">
-          <mxGeometry height="20" width="200" y="66" as="geometry" />
-        </mxCell>
         <mxCell id="c_mprog_line" parent="c_mprog" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;strokeColor=#E91E63;rounded=0;" value="" vertex="1">
-          <mxGeometry height="8" width="200" y="86" as="geometry" />
+          <mxGeometry height="8" width="200" y="66" as="geometry" />
         </mxCell>
         <mxCell id="c_mprog_m1" parent="c_mprog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;portConstraint=eastwest;whiteSpace=wrap;html=1;rounded=0;" value="+ EvaluarCumplimiento(despacho: Despacho): bool" vertex="1">
-          <mxGeometry height="36" width="200" y="94" as="geometry" />
+          <mxGeometry height="36" width="200" y="74" as="geometry" />
         </mxCell>
         <mxCell id="c_inconsist" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#E53935;fontColor=#B71C1C;rounded=0;" value="RegistroInconsistencia" vertex="1">
           <mxGeometry height="170" width="280" x="960" y="80" as="geometry" />

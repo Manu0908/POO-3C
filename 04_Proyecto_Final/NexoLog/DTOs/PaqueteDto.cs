@@ -4,16 +4,16 @@ namespace NexoLog.DTOs;
 
 public class PaqueteDto
 {
-    [JsonPropertyName("idPaquete")]
+    [JsonPropertyName("codigo")]
     public string IdPaquete { get; set; } = string.Empty;
 
     [JsonPropertyName("descripcion")]
     public string Descripcion { get; set; } = string.Empty;
 
-    [JsonPropertyName("peso")]
+    [JsonPropertyName("pesoKg")]
     public double Peso { get; set; }
 
-    [JsonPropertyName("valorDeclarado")]
+    [JsonPropertyName("valor")]
     public decimal ValorDeclarado { get; set; }
 
     public Paquete MapToDomain()

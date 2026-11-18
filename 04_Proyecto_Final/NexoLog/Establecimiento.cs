@@ -67,6 +67,14 @@ public class Establecimiento
         _tarifaAcordada = tarifa;
     }
 
+    public void ActualizarNombreComercial(string nombreComercial)
+    {
+        if (!string.IsNullOrWhiteSpace(nombreComercial))
+        {
+            NombreComercial = nombreComercial;
+        }
+    }
+
     public void AgregarDespacho(Despacho despacho)
     {
         if (despacho == null)

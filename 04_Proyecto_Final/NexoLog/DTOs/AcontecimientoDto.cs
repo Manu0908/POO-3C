@@ -4,20 +4,17 @@ namespace NexoLog.DTOs;
 
 public class AcontecimientoDto
 {
-    [JsonPropertyName("idAcontecimiento")]
+    [JsonPropertyName("id")]
     public string IdAcontecimiento { get; set; } = string.Empty;
 
-    [JsonPropertyName("numeroGuia")]
+    [JsonPropertyName("guia")]
     public string NumeroGuia { get; set; } = string.Empty;
 
-    [JsonPropertyName("tipo")]
+    [JsonPropertyName("codigo")]
     public string Tipo { get; set; } = string.Empty;
 
-    [JsonPropertyName("fechaHora")]
+    [JsonPropertyName("fecha")]
     public DateTime FechaHora { get; set; }
-
-    [JsonPropertyName("observacion")]
-    public string Observacion { get; set; } = string.Empty;
 
     public Acontecimiento MapToDomain()
     {

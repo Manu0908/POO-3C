@@ -130,7 +130,7 @@ public class Despacho
 
 ### 5.1. Organización del Repositorio
 * **Documentos rectores (raíz):** `00_MicroDiseño - ICD.pdf`, `00_Cronograma Detallado de Clases.pdf`, `00_Proyecto Final POO 3C.pdf`.
-* **Diapositivas (`Sesion_XX - ...pdf` en raíz):** `Sesion_01` (Introducción POO), `Sesion_02` (Colecciones), `Sesion_03` (Clases/Abstracción), `Sesion_05` (Encapsulamiento), `Sesion_07` (Construcción de clase), `Sesion_09` (Herencia), `Sesion_10` (Relaciones), `Sesion_12` (Polimorfismo), `Sesion_14` (Abstractas/Interfaces/Excepciones), `Sesion_15` (UML), `Sesion_17` (Serialización + DTO + Deserialización), `Sesion_19` (Strategy + Factory Method).
+* **Diapositivas (`Sesion_XX - ...pdf` en raíz):** `Sesion_01` (Introducción POO), `Sesion_02` (Colecciones), `Sesion_03` (Clases/Abstracción), `Sesion_05` (Encapsulamiento), `Sesion_07` (Construcción de clase), `Sesion_09` (Herencia), `Sesion_10` (Relaciones), `Sesion_12` (Polimorfismo), `Sesion_14` (Abstractas/Interfaces/Excepciones), `Sesion_15` (UML), `Sesion_17` (Serialización + DTO + Deserialización), `Sesion_19` (Strategy + Factory Method), `Sesion_21` (Pruebas Unitarias).
 * **Carpetas funcionales:**
   - `01_Ejemplos_Clase/`: `Sesion_03_Gimnasio`, `Sesion_05_Encapsulamiento_Cine`, `Sesion_07_Vehiculo`, `Sesion_10_Herencia_Empleados`, `Sesion_12_Polimorfismo_Hotel`, `Sesion_19_Parciales_Finales_Y_Ejemplo_Clase` (`Actividad/`, `ParcialA/`, `ParcialB/`).
   - `02_Actividades_y_Talleres/`: `Sesion_04_Taller_Cine_CRC`, `Sesion_06_Actividad_MoviCar`, `Sesion_13_Actividad_ClasesAbstractas`, `Sesion_15_Taller_Veterinaria_UML`, `Sesion_16_Taller_Alquiler_Vehiculos`, `Practica Segundo Parcial`.
@@ -138,11 +138,11 @@ public class Despacho
   - `04_Proyecto_Final/`: `NexoLog/` y `Diagrama_UML_NexoLog.drawio(.pdf)`.
   - `InformesExportados/`: `informes_nexolog.json`, `informes_nexolog.xml`.
 
-### 5.2. Reglas de Negocio y Cifras de Control (Golden Baseline de NexoLog)
-* **Acuerdos comerciales (`DatosPrueba/acuerdos.json`):** `COM-01` Tarifa por peso (`$3.500/kg`), `COM-02` Tarifa por distancia (`$150/km`), `COM-03` Tarifa fija (`$18.500`).
-* **Caso de control `NX-1001`:** `2.2 kg + 1.5 kg = 3.7 kg` $\times$ `$3.500/kg` $=$ **`$12.950`** exactos.
+### 5.2. Reglas de Negocio y Cifras de Control (Golden Baseline de NexoLog — Datos Oficiales)
+* **Acuerdos comerciales (`DatosPrueba/acuerdos.json`):** `COM-01` Tarifa por peso (`$3.500/kg`), `COM-02` Tarifa fija (`$18.000`), `COM-03` Tarifa por distancia (`$1.200/km`).
+* **Caso de control `NX-1001`:** `2.5 kg + 1.2 kg = 3.7 kg` $\times$ `$3.500/kg` $=$ **`$12.950`** exactos.
 * **Ordenamiento temporal obligatorio:** antes de ejecutar `Despacho.AgregarAcontecimiento()`, ordenar ascendentemente los acontecimientos por `FechaHora` para reconstruir eventos desordenados en archivo.
 * **SLA y facturación:**
-  - Porcentaje SLA = `(Entregados a Tiempo / Total Entregados) × 100` (`4 / 6 = 66.67%`). Pendientes, en distribución y devueltos se excluyen del denominador.
-  - Solo los despachos con estado final `Entregado` habilitan cobro (`Gran Total Facturado: $104.450`); un entregado fuera de tiempo sigue siendo facturable, aunque incumple SLA.
-* **Resiliencia y exportación polimórfica:** datos corruptos (incluyendo valor declarado negativo de `NX-2091`) generan `RegistroInconsistencia` sin abortar la ejecución (`18` inconsistencias auditadas) y se exportan vía `InconsistenciaDto` + `InformeConsolidadoDto` con `ImportadorFactory` / `ExportadorFactory` bajo `InformesExportados/` en `Encoding.UTF8`.
+  - Porcentaje SLA = `(Entregados a Tiempo / Total Entregados) × 100` (`9 / 17 = 52.94%`). Pendientes (`1`), en distribución (`2`) y devueltos (`4`) se excluyen del denominador.
+  - Solo los despachos con estado final `Entregado` (`17`) habilitan cobro (`Gran Total Facturado: $285.800` — `COM-01: $77.000`, `COM-02: $90.000`, `COM-03: $118.800`); un entregado fuera de tiempo sigue siendo facturable, aunque incumple SLA.
+* **Resiliencia y exportación polimórfica:** datos corruptos, duplicados y secuencias incompatibles generan `RegistroInconsistencia` sin abortar la ejecución (`24` despachos válidos, `29` paquetes, `71.50 kg`, `18` inconsistencias auditadas) y se exportan vía `InconsistenciaDto` + `InformeConsolidadoDto` con `ImportadorFactory` / `ExportadorFactory` bajo `InformesExportados/` en `Encoding.UTF8`.

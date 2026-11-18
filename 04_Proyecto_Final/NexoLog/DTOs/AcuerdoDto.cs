@@ -5,20 +5,14 @@ namespace NexoLog.DTOs;
 
 public class AcuerdoDto
 {
-    [JsonPropertyName("codigoComercio")]
+    [JsonPropertyName("comercio")]
     public string CodigoComercio { get; set; } = string.Empty;
 
-    [JsonPropertyName("nombreComercio")]
-    public string NombreComercio { get; set; } = string.Empty;
-
-    [JsonPropertyName("tipoTarifa")]
+    [JsonPropertyName("tarifa")]
     public string TipoTarifa { get; set; } = string.Empty;
 
-    [JsonPropertyName("tarifaBase")]
+    [JsonPropertyName("valor")]
     public decimal TarifaBase { get; set; }
-
-    [JsonPropertyName("descripcion")]
-    public string Descripcion { get; set; } = string.Empty;
 
     public ITarifa CrearTarifa()
     {
@@ -35,6 +29,7 @@ public class AcuerdoDto
     public Establecimiento MapToDomain()
     {
         ITarifa tarifa = CrearTarifa();
-        return new Establecimiento(CodigoComercio, NombreComercio, tarifa);
+        string nombreInicial = string.IsNullOrWhiteSpace(CodigoComercio) ? string.Empty : $"Comercio {CodigoComercio.Trim()}";
+        return new Establecimiento(CodigoComercio, nombreInicial, tarifa);
     }
 }

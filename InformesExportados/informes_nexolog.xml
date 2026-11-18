@@ -1,82 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <InformeConsolidadoDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <FechaGeneracion>2026-11-18 00:28:57</FechaGeneracion>
+  <FechaGeneracion>2026-11-18 12:22:24</FechaGeneracion>
   <Sistema>NexoLog S.A.S.</Sistema>
-  <TotalDespachos>10</TotalDespachos>
-  <TotalEntregados>6</TotalEntregados>
-  <TotalDevueltos>2</TotalDevueltos>
+  <TotalDespachos>24</TotalDespachos>
+  <TotalEntregados>17</TotalEntregados>
+  <TotalDevueltos>4</TotalDevueltos>
   <TotalPendientes>1</TotalPendientes>
-  <TotalEnDistribucion>1</TotalEnDistribucion>
-  <TotalPaquetes>13</TotalPaquetes>
-  <PesoTotalKg>34.8</PesoTotalKg>
-  <CumplidosSLA>4</CumplidosSLA>
-  <IncumplidosSLA>2</IncumplidosSLA>
-  <PorcentajeCumplimientoSobreEntregados>66.66666666666667</PorcentajeCumplimientoSobreEntregados>
-  <GranTotalFacturado>104450.00</GranTotalFacturado>
+  <TotalEnDistribucion>2</TotalEnDistribucion>
+  <TotalPaquetes>29</TotalPaquetes>
+  <PesoTotalKg>71.5</PesoTotalKg>
+  <CumplidosSLA>9</CumplidosSLA>
+  <IncumplidosSLA>8</IncumplidosSLA>
+  <PorcentajeCumplimientoSobreEntregados>52.94117647058823</PorcentajeCumplimientoSobreEntregados>
+  <GranTotalFacturado>285800.0</GranTotalFacturado>
   <DespachosEntregadosNoValorados>0</DespachosEntregadosNoValorados>
   <TotalInconsistencias>18</TotalInconsistencias>
   <DesgloseComerciosOperativo>
     <ComercioOperativoDto>
       <CodigoComercio>COM-01</CodigoComercio>
       <NombreComercio>Comercio Caribe</NombreComercio>
-      <TotalDespachos>3</TotalDespachos>
-      <Entregados>3</Entregados>
-      <Devueltos>0</Devueltos>
+      <TotalDespachos>8</TotalDespachos>
+      <Entregados>7</Entregados>
+      <Devueltos>1</Devueltos>
       <Pendientes>0</Pendientes>
       <EnDistribucion>0</EnDistribucion>
-      <CumplidosSLA>3</CumplidosSLA>
-      <IncumplidosSLA>0</IncumplidosSLA>
-      <PorcentajeCumplimiento>100</PorcentajeCumplimiento>
+      <CumplidosSLA>4</CumplidosSLA>
+      <IncumplidosSLA>3</IncumplidosSLA>
+      <PorcentajeCumplimiento>57.142857142857146</PorcentajeCumplimiento>
     </ComercioOperativoDto>
     <ComercioOperativoDto>
       <CodigoComercio>COM-02</CodigoComercio>
       <NombreComercio>Comercio Andino</NombreComercio>
-      <TotalDespachos>4</TotalDespachos>
-      <Entregados>2</Entregados>
+      <TotalDespachos>8</TotalDespachos>
+      <Entregados>5</Entregados>
       <Devueltos>1</Devueltos>
-      <Pendientes>1</Pendientes>
-      <EnDistribucion>0</EnDistribucion>
-      <CumplidosSLA>1</CumplidosSLA>
-      <IncumplidosSLA>1</IncumplidosSLA>
-      <PorcentajeCumplimiento>50</PorcentajeCumplimiento>
+      <Pendientes>0</Pendientes>
+      <EnDistribucion>2</EnDistribucion>
+      <CumplidosSLA>2</CumplidosSLA>
+      <IncumplidosSLA>3</IncumplidosSLA>
+      <PorcentajeCumplimiento>40</PorcentajeCumplimiento>
     </ComercioOperativoDto>
     <ComercioOperativoDto>
       <CodigoComercio>COM-03</CodigoComercio>
       <NombreComercio>Comercio Sierra</NombreComercio>
-      <TotalDespachos>3</TotalDespachos>
-      <Entregados>1</Entregados>
-      <Devueltos>1</Devueltos>
-      <Pendientes>0</Pendientes>
-      <EnDistribucion>1</EnDistribucion>
-      <CumplidosSLA>0</CumplidosSLA>
-      <IncumplidosSLA>1</IncumplidosSLA>
-      <PorcentajeCumplimiento>0</PorcentajeCumplimiento>
+      <TotalDespachos>8</TotalDespachos>
+      <Entregados>5</Entregados>
+      <Devueltos>2</Devueltos>
+      <Pendientes>1</Pendientes>
+      <EnDistribucion>0</EnDistribucion>
+      <CumplidosSLA>3</CumplidosSLA>
+      <IncumplidosSLA>2</IncumplidosSLA>
+      <PorcentajeCumplimiento>60</PorcentajeCumplimiento>
     </ComercioOperativoDto>
   </DesgloseComerciosOperativo>
   <DesgloseModalidades>
     <ModalidadOperativoDto>
       <Modalidad>Exprés</Modalidad>
-      <TotalDespachos>3</TotalDespachos>
-      <Entregados>2</Entregados>
-      <CumplidosSLA>1</CumplidosSLA>
-      <IncumplidosSLA>1</IncumplidosSLA>
+      <TotalDespachos>8</TotalDespachos>
+      <Entregados>6</Entregados>
+      <CumplidosSLA>3</CumplidosSLA>
+      <IncumplidosSLA>3</IncumplidosSLA>
       <PorcentajeCumplimiento>50</PorcentajeCumplimiento>
     </ModalidadOperativoDto>
     <ModalidadOperativoDto>
       <Modalidad>Estándar</Modalidad>
-      <TotalDespachos>4</TotalDespachos>
-      <Entregados>3</Entregados>
-      <CumplidosSLA>2</CumplidosSLA>
-      <IncumplidosSLA>1</IncumplidosSLA>
-      <PorcentajeCumplimiento>66.66666666666667</PorcentajeCumplimiento>
+      <TotalDespachos>9</TotalDespachos>
+      <Entregados>5</Entregados>
+      <CumplidosSLA>3</CumplidosSLA>
+      <IncumplidosSLA>2</IncumplidosSLA>
+      <PorcentajeCumplimiento>60</PorcentajeCumplimiento>
     </ModalidadOperativoDto>
     <ModalidadOperativoDto>
       <Modalidad>Programado</Modalidad>
-      <TotalDespachos>3</TotalDespachos>
-      <Entregados>1</Entregados>
-      <CumplidosSLA>1</CumplidosSLA>
-      <IncumplidosSLA>0</IncumplidosSLA>
-      <PorcentajeCumplimiento>100</PorcentajeCumplimiento>
+      <TotalDespachos>7</TotalDespachos>
+      <Entregados>6</Entregados>
+      <CumplidosSLA>3</CumplidosSLA>
+      <IncumplidosSLA>3</IncumplidosSLA>
+      <PorcentajeCumplimiento>50</PorcentajeCumplimiento>
     </ModalidadOperativoDto>
   </DesgloseModalidades>
   <DesgloseComerciosFinanciero>
@@ -84,52 +84,52 @@
       <CodigoComercio>COM-01</CodigoComercio>
       <NombreComercio>Comercio Caribe</NombreComercio>
       <ModalidadTarifa>Tarifa por Peso</ModalidadTarifa>
-      <TarifaBase>3500.0</TarifaBase>
-      <DespachosTotales>3</DespachosTotales>
-      <DespachosFacturables>3</DespachosFacturables>
-      <TotalFacturado>35700.00</TotalFacturado>
+      <TarifaBase>3500</TarifaBase>
+      <DespachosTotales>8</DespachosTotales>
+      <DespachosFacturables>7</DespachosFacturables>
+      <TotalFacturado>77000.0</TotalFacturado>
     </ComercioFinancieroDto>
     <ComercioFinancieroDto>
       <CodigoComercio>COM-02</CodigoComercio>
       <NombreComercio>Comercio Andino</NombreComercio>
-      <ModalidadTarifa>Tarifa por Distancia</ModalidadTarifa>
-      <TarifaBase>150.0</TarifaBase>
-      <DespachosTotales>4</DespachosTotales>
-      <DespachosFacturables>2</DespachosFacturables>
-      <TotalFacturado>50250.0</TotalFacturado>
+      <ModalidadTarifa>Tarifa Fija</ModalidadTarifa>
+      <TarifaBase>18000</TarifaBase>
+      <DespachosTotales>8</DespachosTotales>
+      <DespachosFacturables>5</DespachosFacturables>
+      <TotalFacturado>90000</TotalFacturado>
     </ComercioFinancieroDto>
     <ComercioFinancieroDto>
       <CodigoComercio>COM-03</CodigoComercio>
       <NombreComercio>Comercio Sierra</NombreComercio>
-      <ModalidadTarifa>Tarifa Fija</ModalidadTarifa>
-      <TarifaBase>18500.0</TarifaBase>
-      <DespachosTotales>3</DespachosTotales>
-      <DespachosFacturables>1</DespachosFacturables>
-      <TotalFacturado>18500.0</TotalFacturado>
+      <ModalidadTarifa>Tarifa por Distancia</ModalidadTarifa>
+      <TarifaBase>1200</TarifaBase>
+      <DespachosTotales>8</DespachosTotales>
+      <DespachosFacturables>5</DespachosFacturables>
+      <TotalFacturado>118800</TotalFacturado>
     </ComercioFinancieroDto>
   </DesgloseComerciosFinanciero>
   <CobrosPorModalidadTarifa>
     <CobroTarifaDto>
       <ModalidadTarifa>Tarifa por Peso</ModalidadTarifa>
-      <TotalFacturado>35700.00</TotalFacturado>
-    </CobroTarifaDto>
-    <CobroTarifaDto>
-      <ModalidadTarifa>Tarifa por Distancia</ModalidadTarifa>
-      <TotalFacturado>50250.0</TotalFacturado>
+      <TotalFacturado>77000.0</TotalFacturado>
     </CobroTarifaDto>
     <CobroTarifaDto>
       <ModalidadTarifa>Tarifa Fija</ModalidadTarifa>
-      <TotalFacturado>18500.0</TotalFacturado>
+      <TotalFacturado>90000</TotalFacturado>
+    </CobroTarifaDto>
+    <CobroTarifaDto>
+      <ModalidadTarifa>Tarifa por Distancia</ModalidadTarifa>
+      <TotalFacturado>118800</TotalFacturado>
     </CobroTarifaDto>
   </CobrosPorModalidadTarifa>
   <InconsistenciasPorTipo>
     <ConteoInconsistenciaDto>
       <Clave>DatoInvalido</Clave>
-      <Cantidad>7</Cantidad>
+      <Cantidad>6</Cantidad>
     </ConteoInconsistenciaDto>
     <ConteoInconsistenciaDto>
       <Clave>Duplicado</Clave>
-      <Cantidad>3</Cantidad>
+      <Cantidad>4</Cantidad>
     </ConteoInconsistenciaDto>
     <ConteoInconsistenciaDto>
       <Clave>ConflictoIdentificacion</Clave>
@@ -151,7 +151,7 @@
     </ConteoInconsistenciaDto>
     <ConteoInconsistenciaDto>
       <Clave>pedidos_andino.xml</Clave>
-      <Cantidad>5</Cantidad>
+      <Cantidad>4</Cantidad>
     </ConteoInconsistenciaDto>
     <ConteoInconsistenciaDto>
       <Clave>seguimiento_norte.json</Clave>
@@ -159,135 +159,135 @@
     </ConteoInconsistenciaDto>
     <ConteoInconsistenciaDto>
       <Clave>seguimiento_andina.xml</Clave>
-      <Cantidad>3</Cantidad>
+      <Cantidad>4</Cantidad>
     </ConteoInconsistenciaDto>
   </InconsistenciasPorArchivo>
   <ListadoInconsistencias>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
-      <IdentificadorReferencia>NX-1090</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1901</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El peso del paquete debe ser estrictamente mayor a 0 kg.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.8991778-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T12:22:24.8004699-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
-      <IdentificadorReferencia>NX-1091</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1902</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
-      <Motivo>El despacho 'NX-1091' no contiene paquetes asociados.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9017608-05:00</FechaDeteccion>
+      <Motivo>El paquete con ID 'P-001' ya se encuentra registrado en el despacho NX-1902.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8008594-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
-      <IdentificadorReferencia>NX-3090</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1903</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
-      <Motivo>La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9018048-05:00</FechaDeteccion>
+      <Motivo>El despacho 'NX-1903' no contiene paquetes asociados.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8008759-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
-      <IdentificadorReferencia>NX-3091</IdentificadorReferencia>
-      <Tipo>DatoInvalido</Tipo>
-      <Motivo>El paquete con ID 'PAQ-DUP-01' ya se encuentra registrado en el despacho NX-3091.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.901899-05:00</FechaDeteccion>
-    </InconsistenciaDto>
-    <InconsistenciaDto>
-      <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
-      <IdentificadorReferencia>NX-2090</IdentificadorReferencia>
-      <Tipo>DatoInvalido</Tipo>
-      <Motivo>El peso del paquete debe ser estrictamente mayor a 0 kg.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9103806-05:00</FechaDeteccion>
-    </InconsistenciaDto>
-    <InconsistenciaDto>
-      <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
-      <IdentificadorReferencia>NX-2091</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1904</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El valor declarado del paquete no puede ser negativo.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9103922-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T12:22:24.8008819-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
-      <IdentificadorReferencia>NX-2092</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1905</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
-      <Motivo>El despacho 'NX-2092' no contiene paquetes asociados.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.910398-05:00</FechaDeteccion>
+      <Motivo>La fecha y hora final de la programacion debe ser estrictamente posterior a la inicial.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8093528-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
-      <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
-      <IdentificadorReferencia>NX-1002</IdentificadorReferencia>
-      <Tipo>Duplicado</Tipo>
-      <Motivo>Despacho con guia 'NX-1002' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.920803-05:00</FechaDeteccion>
+      <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
+      <IdentificadorReferencia>NX-1906</IdentificadorReferencia>
+      <Tipo>DatoInvalido</Tipo>
+      <Motivo>El peso del paquete debe ser estrictamente mayor a 0 kg.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8093653-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-1001</IdentificadorReferencia>
+      <Tipo>Duplicado</Tipo>
+      <Motivo>Despacho con guia 'NX-1001' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.81617-05:00</FechaDeteccion>
+    </InconsistenciaDto>
+    <InconsistenciaDto>
+      <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
+      <IdentificadorReferencia>NX-1007</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
-      <Motivo>Conflicto de identificacion: La guia 'NX-1001' ya existe con informacion contradictoria.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9208133-05:00</FechaDeteccion>
+      <Motivo>Conflicto de identificacion: La guia 'NX-1007' ya existe con informacion contradictoria.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8161745-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
-      <IdentificadorReferencia>NX-2001</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1002</IdentificadorReferencia>
       <Tipo>Duplicado</Tipo>
-      <Motivo>Despacho con guia 'NX-2001' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.920835-05:00</FechaDeteccion>
+      <Motivo>Despacho con guia 'NX-1002' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8162327-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
-      <IdentificadorReferencia>NX-2002</IdentificadorReferencia>
+      <IdentificadorReferencia>NX-1017</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
-      <Motivo>Conflicto de identificacion: La guia 'NX-2002' ya existe con informacion contradictoria.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9208365-05:00</FechaDeteccion>
+      <Motivo>Conflicto de identificacion: La guia 'NX-1017' ya existe con informacion contradictoria.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.816237-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-NORTE-101</IdentificadorReferencia>
+      <IdentificadorReferencia>EV-001</IdentificadorReferencia>
       <Tipo>Duplicado</Tipo>
-      <Motivo>Acontecimiento 'EVT-NORTE-101' duplicado identicamente en la guia 'NX-1001'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.924022-05:00</FechaDeteccion>
+      <Motivo>Acontecimiento 'EV-001' duplicado identicamente en la guia 'NX-1001'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8187481-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-NORTE-100</IdentificadorReferencia>
+      <IdentificadorReferencia>EV-001</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
-      <Motivo>Conflicto en acontecimiento 'EVT-NORTE-100' de la guia 'NX-1001': mismo ID con datos contradictorios.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9240257-05:00</FechaDeteccion>
+      <Motivo>Conflicto en acontecimiento 'EV-001' de la guia 'NX-1001': mismo ID con datos contradictorios.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8187508-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-NORTE-902</IdentificadorReferencia>
+      <IdentificadorReferencia>EV-901</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
-      <Motivo>Incompatibilidad de secuencia en la guia 'NX-1001': El acontecimiento 'RUT' no es valido para el estado 'Entregado'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9280049-05:00</FechaDeteccion>
+      <Motivo>Incompatibilidad de secuencia en la guia 'NX-1003': El acontecimiento 'DEV' no es valido para el estado 'Entregado'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8220304-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-NORTE-901</IdentificadorReferencia>
+      <IdentificadorReferencia>EV-900</IdentificadorReferencia>
       <Tipo>ReferenciaInexistente</Tipo>
-      <Motivo>El acontecimiento 'EVT-NORTE-901' referencia a una guia inexistente: 'NX-9999'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9280921-05:00</FechaDeteccion>
+      <Motivo>El acontecimiento 'EV-900' referencia a una guia inexistente: 'NX-9999'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8220493-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-AND-902</IdentificadorReferencia>
+      <IdentificadorReferencia>AN-003</IdentificadorReferencia>
+      <Tipo>Duplicado</Tipo>
+      <Motivo>Acontecimiento 'AN-003' duplicado identicamente en la guia 'NX-1002'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8221009-05:00</FechaDeteccion>
+    </InconsistenciaDto>
+    <InconsistenciaDto>
+      <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
+      <IdentificadorReferencia>AN-901</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
-      <Motivo>Incompatibilidad de secuencia en la guia 'NX-2001': El acontecimiento 'DEV' no es valido para el estado 'Entregado'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.928167-05:00</FechaDeteccion>
+      <Motivo>Incompatibilidad de secuencia en la guia 'NX-1012': El acontecimiento 'ENT' no es valido para el estado 'Pendiente'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8221323-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-AND-401</IdentificadorReferencia>
+      <IdentificadorReferencia>AN-030</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
-      <Motivo>Incompatibilidad de secuencia en la guia 'NX-2004': El acontecimiento 'ENT' no es valido para el estado 'Pendiente'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.9281861-05:00</FechaDeteccion>
+      <Motivo>Incompatibilidad de secuencia en la guia 'NX-1021': El acontecimiento 'RUT' no es valido para el estado 'EnDistribucion'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8221633-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
-      <IdentificadorReferencia>EVT-AND-901</IdentificadorReferencia>
+      <IdentificadorReferencia>AN-900</IdentificadorReferencia>
       <Tipo>ReferenciaInexistente</Tipo>
-      <Motivo>El acontecimiento 'EVT-AND-901' referencia a una guia inexistente: 'NX-7777'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:28:57.928189-05:00</FechaDeteccion>
+      <Motivo>El acontecimiento 'AN-900' referencia a una guia inexistente: 'NX-9998'.</Motivo>
+      <FechaDeteccion>2026-11-18T12:22:24.8221808-05:00</FechaDeteccion>
     </InconsistenciaDto>
   </ListadoInconsistencias>
 </InformeConsolidadoDto>

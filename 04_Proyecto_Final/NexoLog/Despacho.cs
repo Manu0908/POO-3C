@@ -34,6 +34,7 @@ public class Despacho
     }
 
     public string CodigoEstablecimiento { get; private set; }
+    public string NombreEstablecimiento { get; private set; }
     public string Destinatario { get; private set; }
     public string CiudadDestino { get; private set; }
     public string Transportadora { get; private set; }
@@ -71,6 +72,14 @@ public class Despacho
     public void AsignarModalidad(ModalidadServicio modalidad)
     {
         _modalidad = modalidad;
+    }
+
+    public void AsignarNombreEstablecimiento(string nombreEstablecimiento)
+    {
+        if (!string.IsNullOrWhiteSpace(nombreEstablecimiento))
+        {
+            NombreEstablecimiento = nombreEstablecimiento.Trim();
+        }
     }
 
     public void AgregarPaquete(Paquete paquete)

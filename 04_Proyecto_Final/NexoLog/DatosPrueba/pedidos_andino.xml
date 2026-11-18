@@ -1,138 +1,238 @@
-<?xml version="1.0" encoding="utf-8"?>
-<solicitudes codigoComercio="COM-02" nombreComercio="Comercio Andino">
-  <solicitud guia="NX-2001" modalidad="ESTANDAR">
-    <destinatario>Alejandro Morales</destinatario>
-    <ciudadDestino>Tunja</ciudadDestino>
-    <distanciaKm>140.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-2001-A">
-        <descripcion>Insumos agrícolas orgánicos</descripcion>
-        <peso>2.5</peso>
-        <valorDeclarado>120000.0</valorDeclarado>
-      </paquete>
-      <paquete id="PAQ-2001-B">
-        <descripcion>Semillas certificadas de papa nativa</descripcion>
-        <peso>1.3</peso>
-        <valorDeclarado>85000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <solicitud guia="NX-2002" modalidad="EXPRES">
-    <destinatario>Camila Rojas</destinatario>
-    <ciudadDestino>Duitama</ciudadDestino>
-    <distanciaKm>195.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-2002-A">
-        <descripcion>Instrumental óptico de laboratorio</descripcion>
-        <peso>2.8</peso>
-        <valorDeclarado>650000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <solicitud guia="NX-2003" modalidad="PROGRAMADO">
-    <destinatario>Felipe Barón</destinatario>
-    <ciudadDestino>Sogamoso</ciudadDestino>
-    <distanciaKm>220.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <programacion fecha="2026-11-07" horaInicio="08:00" horaFin="11:00" />
-    <paquetes>
-      <paquete id="PAQ-2003-A">
-        <descripcion>Textiles artesanales y ruanas de lana</descripcion>
-        <peso>4.0</peso>
-        <valorDeclarado>210000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <solicitud guia="NX-2004" modalidad="ESTANDAR">
-    <destinatario>Diana Chía</destinatario>
-    <ciudadDestino>Chiquinquirá</ciudadDestino>
-    <distanciaKm>110.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-2004-A">
-        <descripcion>Vajilla de cerámica artesanal</descripcion>
-        <peso>3.5</peso>
-        <valorDeclarado>140000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <!-- INCONSISTENCIA 1: Registro duplicado idéntico de NX-2001 -->
-  <solicitud guia="NX-2001" modalidad="ESTANDAR">
-    <destinatario>Alejandro Morales</destinatario>
-    <ciudadDestino>Tunja</ciudadDestino>
-    <distanciaKm>140.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-2001-A">
-        <descripcion>Insumos agrícolas orgánicos</descripcion>
-        <peso>2.5</peso>
-        <valorDeclarado>120000.0</valorDeclarado>
-      </paquete>
-      <paquete id="PAQ-2001-B">
-        <descripcion>Semillas certificadas de papa nativa</descripcion>
-        <peso>1.3</peso>
-        <valorDeclarado>85000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <!-- INCONSISTENCIA 2: Conflicto de guía (NX-2002 repetida con destinatario y ciudad contradictorios) -->
-  <solicitud guia="NX-2002" modalidad="ESTANDAR">
-    <destinatario>Gabriel Castro</destinatario>
-    <ciudadDestino>Paipa</ciudadDestino>
-    <distanciaKm>175.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-CONF-01">
-        <descripcion>Mercancía contradictoria en conflicto</descripcion>
-        <peso>1.0</peso>
-        <valorDeclarado>30000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <!-- INCONSISTENCIA 3: Paquete con peso inválido (peso <= 0) -->
-  <solicitud guia="NX-2090" modalidad="ESTANDAR">
-    <destinatario>Valeria Santos</destinatario>
-    <ciudadDestino>Villa de Leyva</ciudadDestino>
-    <distanciaKm>160.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-INV-ZERO">
-        <descripcion>Muestra fósil con peso cero</descripcion>
-        <peso>0.0</peso>
-        <valorDeclarado>50000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <!-- INCONSISTENCIA 4: Paquete con valor declarado negativo -->
-  <solicitud guia="NX-2091" modalidad="ESTANDAR">
-    <destinatario>Mauricio Pinzón</destinatario>
-    <ciudadDestino>Moniquirá</ciudadDestino>
-    <distanciaKm>185.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes>
-      <paquete id="PAQ-INV-NEG">
-        <descripcion>Dulces típicos con valor negativo</descripcion>
-        <peso>2.0</peso>
-        <valorDeclarado>-25000.0</valorDeclarado>
-      </paquete>
-    </paquetes>
-  </solicitud>
-
-  <!-- INCONSISTENCIA 5: Despacho sin paquetes -->
-  <solicitud guia="NX-2092" modalidad="ESTANDAR">
-    <destinatario>Jimena Ospina</destinatario>
-    <ciudadDestino>Nobsa</ciudadDestino>
-    <distanciaKm>205.0</distanciaKm>
-    <transportadora>Transportadora Andina</transportadora>
-    <paquetes />
-  </solicitud>
-</solicitudes>
+<?xml version='1.0' encoding='utf-8'?>
+<Solicitudes comercio="COM-02">
+  <Nombre>Comercio Andino</Nombre>
+  <Solicitud>
+    <NumeroGuia>NX-1002</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Carlos Perez</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>30</Distancia>
+    <Programacion>
+      <Inicio>2026-11-13T10:00:00-05:00</Inicio>
+      <Fin>2026-11-13T12:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-003</Referencia>
+        <Descripcion>Electrodomestico</Descripcion>
+        <Peso>4.0</Peso>
+        <Valor>150000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1005</NumeroGuia>
+    <Tipo>EXPRES</Tipo>
+    <Operador>TR-02</Operador>
+    <Cliente>Cliente 05</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>25</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-112</Referencia>
+        <Descripcion>Articulos del hogar</Descripcion>
+        <Peso>2.0</Peso>
+        <Valor>53000</Valor>
+      </Bulto>
+      <Bulto>
+        <Referencia>P-113</Referencia>
+        <Descripcion>Equipo electronico</Descripcion>
+        <Peso>0.5</Peso>
+        <Valor>62000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1008</NumeroGuia>
+    <Tipo>ESTANDAR</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Cliente 08</Cliente>
+    <Destino>Cartagena</Destino>
+    <Distancia>35</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-121</Referencia>
+        <Descripcion>Papeleria</Descripcion>
+        <Peso>3.3</Peso>
+        <Valor>74000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1011</NumeroGuia>
+    <Tipo>ESTANDAR</Tipo>
+    <Operador>TR-02</Operador>
+    <Cliente>Cliente 11</Cliente>
+    <Destino>Santa Marta</Destino>
+    <Distancia>16</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-130</Referencia>
+        <Descripcion>Accesorios</Descripcion>
+        <Peso>1.7</Peso>
+        <Valor>95000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1014</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Cliente 14</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>32</Distancia>
+    <Programacion>
+      <Inicio>2026-11-16T08:00:00-05:00</Inicio>
+      <Fin>2026-11-16T10:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-139</Referencia>
+        <Descripcion>Equipo electronico</Descripcion>
+        <Peso>3.6</Peso>
+        <Valor>116000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1017</NumeroGuia>
+    <Tipo>EXPRES</Tipo>
+    <Operador>TR-02</Operador>
+    <Cliente>Cliente 17</Cliente>
+    <Destino>Cartagena</Destino>
+    <Distancia>24</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-148</Referencia>
+        <Descripcion>Ropa</Descripcion>
+        <Peso>1.2</Peso>
+        <Valor>137000</Valor>
+      </Bulto>
+      <Bulto>
+        <Referencia>P-149</Referencia>
+        <Descripcion>Calzado</Descripcion>
+        <Peso>0.8</Peso>
+        <Valor>146000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1020</NumeroGuia>
+    <Tipo>ESTANDAR</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Cliente 20</Cliente>
+    <Destino>Cartagena</Destino>
+    <Distancia>33</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-157</Referencia>
+        <Descripcion>Libros</Descripcion>
+        <Peso>6.0</Peso>
+        <Valor>158000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1023</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Cliente 23</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>29</Distancia>
+    <Programacion>
+      <Inicio>2026-11-19T08:00:00-05:00</Inicio>
+      <Fin>2026-11-19T10:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-166</Referencia>
+        <Descripcion>Juguetes</Descripcion>
+        <Peso>2.0</Peso>
+        <Valor>179000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1002</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Carlos Perez</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>30</Distancia>
+    <Programacion>
+      <Inicio>2026-11-13T10:00:00-05:00</Inicio>
+      <Fin>2026-11-13T12:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-003</Referencia>
+        <Descripcion>Electrodomestico</Descripcion>
+        <Peso>4.0</Peso>
+        <Valor>150000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1017</NumeroGuia>
+    <Tipo>EXPRES</Tipo>
+    <Operador>TR-02</Operador>
+    <Cliente>Cliente 17</Cliente>
+    <Destino>Ciudad Diferente</Destino>
+    <Distancia>24</Distancia>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-148</Referencia>
+        <Descripcion>Ropa</Descripcion>
+        <Peso>1.2</Peso>
+        <Valor>137000</Valor>
+      </Bulto>
+      <Bulto>
+        <Referencia>P-149</Referencia>
+        <Descripcion>Calzado</Descripcion>
+        <Peso>0.8</Peso>
+        <Valor>146000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1905</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Carlos Perez</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>30</Distancia>
+    <Programacion>
+      <Inicio>2026-11-13T10:00:00-05:00</Inicio>
+      <Fin>2026-11-13T08:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-003</Referencia>
+        <Descripcion>Electrodomestico</Descripcion>
+        <Peso>4.0</Peso>
+        <Valor>150000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+  <Solicitud>
+    <NumeroGuia>NX-1906</NumeroGuia>
+    <Tipo>PROGRAMADO</Tipo>
+    <Operador>TR-01</Operador>
+    <Cliente>Carlos Perez</Cliente>
+    <Destino>Barranquilla</Destino>
+    <Distancia>30</Distancia>
+    <Programacion>
+      <Inicio>2026-11-13T10:00:00-05:00</Inicio>
+      <Fin>2026-11-13T12:00:00-05:00</Fin>
+    </Programacion>
+    <Bultos>
+      <Bulto>
+        <Referencia>P-003</Referencia>
+        <Descripcion>Electrodomestico</Descripcion>
+        <Peso>0</Peso>
+        <Valor>150000</Valor>
+      </Bulto>
+    </Bultos>
+  </Solicitud>
+</Solicitudes>

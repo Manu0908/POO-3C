@@ -2,28 +2,25 @@ namespace NexoLog.Servicios;
 
 public class ServicioProgramado : ModalidadServicio
 {
-    private DateTime _fechaProgramada;
-    private int _horaInicio;
-    private int _horaFin;
+    private DateTime _inicio;
+    private DateTime _fin;
 
     public override string NombreModalidad { get { return "Programado"; } }
 
     private ServicioProgramado() { }
 
-    public ServicioProgramado(DateTime fechaProgramada, int horaInicio, int horaFin)
+    public ServicioProgramado(DateTime inicio, DateTime fin)
     {
-        if (horaFin <= horaInicio)
+        if (fin <= inicio)
         {
-            throw new NexoLogException("La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial.");
+            throw new NexoLogException("La fecha y hora final de la programacion debe ser estrictamente posterior a la inicial.");
         }
-        _fechaProgramada = fechaProgramada.Date;
-        _horaInicio = horaInicio;
-        _horaFin = horaFin;
+        _inicio = inicio;
+        _fin = fin;
     }
 
-    public DateTime FechaProgramada { get { return _fechaProgramada; } }
-    public int HoraInicio { get { return _horaInicio; } }
-    public int HoraFin { get { return _horaFin; } }
+    public DateTime Inicio { get { return _inicio; } }
+    public DateTime Fin { get { return _fin; } }
 
     public override bool EvaluarCumplimiento(Despacho despacho)
     {
@@ -39,17 +36,11 @@ public class ServicioProgramado : ModalidadServicio
             return false;
         }
 
-        if (eventoRut != null && eventoRut.FechaHora.Date < _fechaProgramada.Date)
+        if (eventoRut != null && eventoRut.FechaHora.Date < _inicio.Date)
         {
             return false;
         }
 
-        if (eventoEnt.FechaHora.Date != _fechaProgramada.Date)
-        {
-            return false;
-        }
-
-        int horaEntrega = eventoEnt.FechaHora.Hour;
-        return horaEntrega >= _horaInicio && horaEntrega < _horaFin;
+        return eventoEnt.FechaHora >= _inicio && eventoEnt.FechaHora <= _fin;
     }
 }

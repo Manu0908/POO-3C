@@ -1,226 +1,413 @@
-[
-  {
-    "codigoEstablecimiento": "COM-01",
-    "nombreComercio": "Comercio Caribe",
-    "solicitudes": [
-      {
-        "numeroGuia": "NX-1001",
-        "destinatario": "Laura Restrepo",
-        "ciudadDestino": "Barranquilla",
-        "distanciaKm": 120.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "EXPRES",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-1001-A",
-            "descripcion": "Accesorios de computación y conectividad",
-            "peso": 2.2,
-            "valorDeclarado": 180000.0
-          },
-          {
-            "idPaquete": "PAQ-1001-B",
-            "descripcion": "Dispositivos periféricos de red",
-            "peso": 1.5,
-            "valorDeclarado": 95000.0
+{
+  "comercios": [
+    {
+      "comercio": "COM-01",
+      "nombre": "Comercio Caribe",
+      "solicitudes": [
+        {
+          "guia": "NX-1001",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Laura Gomez",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 18,
+          "paquetes": [
+            {
+              "codigo": "P-001",
+              "descripcion": "Calzado",
+              "pesoKg": 2.5,
+              "valor": 90000
+            },
+            {
+              "codigo": "P-002",
+              "descripcion": "Accesorios",
+              "pesoKg": 1.2,
+              "valor": 45000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1004",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 04",
+          "ciudad": "Fundacion",
+          "distanciaKm": 20,
+          "paquetes": [
+            {
+              "codigo": "P-109",
+              "descripcion": "Libros",
+              "pesoKg": 1.5,
+              "valor": 46000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1007",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 07",
+          "ciudad": "Cienaga",
+          "distanciaKm": 14,
+          "paquetes": [
+            {
+              "codigo": "P-118",
+              "descripcion": "Juguetes",
+              "pesoKg": 2.8,
+              "valor": 67000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1010",
+          "servicio": "PROGRAMADO",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 10",
+          "ciudad": "Barranquilla",
+          "distanciaKm": 28,
+          "paquetes": [
+            {
+              "codigo": "P-127",
+              "descripcion": "Calzado",
+              "pesoKg": 5.2,
+              "valor": 88000
+            }
+          ],
+          "programacion": {
+            "inicio": "2026-11-15T14:00:00-05:00",
+            "fin": "2026-11-15T16:00:00-05:00"
           }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1002",
-        "destinatario": "Carlos Mendoza",
-        "ciudadDestino": "Cartagena",
-        "distanciaKm": 230.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-1002-A",
-            "descripcion": "Material de oficina y papelería corporativa",
-            "peso": 4.5,
-            "valorDeclarado": 210000.0
+        },
+        {
+          "guia": "NX-1013",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 13",
+          "ciudad": "Fundacion",
+          "distanciaKm": 19,
+          "paquetes": [
+            {
+              "codigo": "P-136",
+              "descripcion": "Articulos del hogar",
+              "pesoKg": 2.2,
+              "valor": 109000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1016",
+          "servicio": "EXPRES",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 16",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 13,
+          "paquetes": [
+            {
+              "codigo": "P-145",
+              "descripcion": "Papeleria",
+              "pesoKg": 2.1,
+              "valor": 130000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1019",
+          "servicio": "PROGRAMADO",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 19",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 16,
+          "paquetes": [
+            {
+              "codigo": "P-154",
+              "descripcion": "Accesorios",
+              "pesoKg": 1.6,
+              "valor": 151000
+            },
+            {
+              "codigo": "P-155",
+              "descripcion": "Libros",
+              "pesoKg": 1.0,
+              "valor": 160000
+            }
+          ],
+          "programacion": {
+            "inicio": "2026-11-17T09:00:00-05:00",
+            "fin": "2026-11-17T11:00:00-05:00"
           }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1003",
-        "destinatario": "Sofía Herrera",
-        "ciudadDestino": "Santa Marta",
-        "distanciaKm": 95.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "PROGRAMADO",
-        "fechaProgramada": "2026-11-05",
-        "horaInicio": "14:00",
-        "horaFin": "17:00",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-1003-A",
-            "descripcion": "Calzado deportivo y prendas térmicas",
-            "peso": 2.0,
-            "valorDeclarado": 85000.0
+        },
+        {
+          "guia": "NX-1022",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 22",
+          "ciudad": "Barranquilla",
+          "distanciaKm": 38,
+          "paquetes": [
+            {
+              "codigo": "P-163",
+              "descripcion": "Equipo electronico",
+              "pesoKg": 4.1,
+              "valor": 172000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1001",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Laura Gomez",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 18,
+          "paquetes": [
+            {
+              "codigo": "P-001",
+              "descripcion": "Calzado",
+              "pesoKg": 2.5,
+              "valor": 90000
+            },
+            {
+              "codigo": "P-002",
+              "descripcion": "Accesorios",
+              "pesoKg": 1.2,
+              "valor": 45000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1007",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 07",
+          "ciudad": "Cienaga",
+          "distanciaKm": 99,
+          "paquetes": [
+            {
+              "codigo": "P-118",
+              "descripcion": "Juguetes",
+              "pesoKg": 2.8,
+              "valor": 67000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1901",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Laura Gomez",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 18,
+          "paquetes": [
+            {
+              "codigo": "P-001",
+              "descripcion": "Calzado",
+              "pesoKg": -2,
+              "valor": 90000
+            },
+            {
+              "codigo": "P-002",
+              "descripcion": "Accesorios",
+              "pesoKg": 1.2,
+              "valor": 45000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1902",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Laura Gomez",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 18,
+          "paquetes": [
+            {
+              "codigo": "P-001",
+              "descripcion": "Calzado",
+              "pesoKg": 2.5,
+              "valor": 90000
+            },
+            {
+              "codigo": "P-001",
+              "descripcion": "Accesorios",
+              "pesoKg": 1.2,
+              "valor": 45000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "comercio": "COM-03",
+      "nombre": "Comercio Sierra",
+      "solicitudes": [
+        {
+          "guia": "NX-1003",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 03",
+          "ciudad": "Cienaga",
+          "distanciaKm": 12,
+          "paquetes": [
+            {
+              "codigo": "P-106",
+              "descripcion": "Accesorios",
+              "pesoKg": 3.0,
+              "valor": 39000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1006",
+          "servicio": "PROGRAMADO",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 06",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 22,
+          "paquetes": [
+            {
+              "codigo": "P-115",
+              "descripcion": "Equipo electronico",
+              "pesoKg": 4.5,
+              "valor": 60000
+            }
+          ],
+          "programacion": {
+            "inicio": "2026-11-14T10:00:00-05:00",
+            "fin": "2026-11-14T12:00:00-05:00"
           }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1002",
-        "destinatario": "Carlos Mendoza",
-        "ciudadDestino": "Cartagena",
-        "distanciaKm": 230.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-1002-A",
-            "descripcion": "Material de oficina y papelería corporativa",
-            "peso": 4.5,
-            "valorDeclarado": 210000.0
+        },
+        {
+          "guia": "NX-1009",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 09",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 15,
+          "paquetes": [
+            {
+              "codigo": "P-124",
+              "descripcion": "Ropa",
+              "pesoKg": 0.9,
+              "valor": 81000
+            },
+            {
+              "codigo": "P-125",
+              "descripcion": "Calzado",
+              "pesoKg": 1.1,
+              "valor": 90000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1012",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 12",
+          "ciudad": "Cienaga",
+          "distanciaKm": 11,
+          "paquetes": [
+            {
+              "codigo": "P-133",
+              "descripcion": "Libros",
+              "pesoKg": 2.6,
+              "valor": 102000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1015",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 15",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 8,
+          "paquetes": [
+            {
+              "codigo": "P-142",
+              "descripcion": "Juguetes",
+              "pesoKg": 1.4,
+              "valor": 123000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1018",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 18",
+          "ciudad": "Barranquilla",
+          "distanciaKm": 40,
+          "paquetes": [
+            {
+              "codigo": "P-151",
+              "descripcion": "Calzado",
+              "pesoKg": 3.8,
+              "valor": 144000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1021",
+          "servicio": "PROGRAMADO",
+          "transportadora": "TR-01",
+          "destinatario": "Cliente 21",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 17,
+          "paquetes": [
+            {
+              "codigo": "P-160",
+              "descripcion": "Articulos del hogar",
+              "pesoKg": 2.7,
+              "valor": 165000
+            }
+          ],
+          "programacion": {
+            "inicio": "2026-11-18T15:00:00-05:00",
+            "fin": "2026-11-18T17:00:00-05:00"
           }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1001",
-        "destinatario": "Pedro Gómez",
-        "ciudadDestino": "Montería",
-        "distanciaKm": 310.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-CONFLICTO-1",
-            "descripcion": "Caja sospechosa en conflicto",
-            "peso": 5.0,
-            "valorDeclarado": 50000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1090",
-        "destinatario": "Mario Silva",
-        "ciudadDestino": "Sincelejo",
-        "distanciaKm": 180.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-INV-01",
-            "descripcion": "Paquete con peso inválido de cero",
-            "peso": 0.0,
-            "valorDeclarado": 30000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-1091",
-        "destinatario": "Clara Villegas",
-        "ciudadDestino": "Barranquilla",
-        "distanciaKm": 115.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "EXPRES",
-        "paquetes": []
-      }
-    ]
-  },
-  {
-    "codigoEstablecimiento": "COM-03",
-    "nombreComercio": "Comercio Sierra",
-    "solicitudes": [
-      {
-        "numeroGuia": "NX-3001",
-        "destinatario": "Jorge Bucaramanga",
-        "ciudadDestino": "Bucaramanga",
-        "distanciaKm": 380.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-3001-A",
-            "descripcion": "Herramientas mecánicas de precisión",
-            "peso": 3.0,
-            "valorDeclarado": 150000.0
-          },
-          {
-            "idPaquete": "PAQ-3001-B",
-            "descripcion": "Equipos de medición láser",
-            "peso": 2.5,
-            "valorDeclarado": 110000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-3002",
-        "destinatario": "Elena Duarte",
-        "ciudadDestino": "Valledupar",
-        "distanciaKm": 290.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "PROGRAMADO",
-        "fechaProgramada": "2026-11-06",
-        "horaInicio": "09:00",
-        "horaFin": "12:00",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-3002-A",
-            "descripcion": "Textiles y telas especiales",
-            "peso": 3.2,
-            "valorDeclarado": 160000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-3003",
-        "destinatario": "Andrés Cepeda",
-        "ciudadDestino": "Riohacha",
-        "distanciaKm": 420.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "EXPRES",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-3003-A",
-            "descripcion": "Suministros médicos prioritarios",
-            "peso": 1.8,
-            "valorDeclarado": 90000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-3090",
-        "destinatario": "Roberto Peña",
-        "ciudadDestino": "San Gil",
-        "distanciaKm": 210.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "PROGRAMADO",
-        "fechaProgramada": "2026-11-08",
-        "horaInicio": "17:00",
-        "horaFin": "13:00",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-3090-A",
-            "descripcion": "Caja con intervalo horario invertido",
-            "peso": 2.5,
-            "valorDeclarado": 75000.0
-          }
-        ]
-      },
-      {
-        "numeroGuia": "NX-3091",
-        "destinatario": "Lucía Cadena",
-        "ciudadDestino": "Cúcuta",
-        "distanciaKm": 540.0,
-        "transportadora": "Transportadora Norte",
-        "modalidad": "ESTANDAR",
-        "paquetes": [
-          {
-            "idPaquete": "PAQ-DUP-01",
-            "descripcion": "Repuestos de ferretería parte 1",
-            "peso": 2.0,
-            "valorDeclarado": 40000.0
-          },
-          {
-            "idPaquete": "PAQ-DUP-01",
-            "descripcion": "Repuestos de ferretería parte 2",
-            "peso": 1.8,
-            "valorDeclarado": 40000.0
-          }
-        ]
-      }
-    ]
-  }
-]
+        },
+        {
+          "guia": "NX-1024",
+          "servicio": "EXPRES",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 24",
+          "ciudad": "Santa Marta",
+          "distanciaKm": 18,
+          "paquetes": [
+            {
+              "codigo": "P-169",
+              "descripcion": "Papeleria",
+              "pesoKg": 2.2,
+              "valor": 186000
+            }
+          ]
+        },
+        {
+          "guia": "NX-1903",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 03",
+          "ciudad": "Cienaga",
+          "distanciaKm": 12,
+          "paquetes": []
+        },
+        {
+          "guia": "NX-1904",
+          "servicio": "ESTANDAR",
+          "transportadora": "TR-02",
+          "destinatario": "Cliente 03",
+          "ciudad": "Cienaga",
+          "distanciaKm": 12,
+          "paquetes": [
+            {
+              "codigo": "P-106",
+              "descripcion": "Accesorios",
+              "pesoKg": 3.0,
+              "valor": -100
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

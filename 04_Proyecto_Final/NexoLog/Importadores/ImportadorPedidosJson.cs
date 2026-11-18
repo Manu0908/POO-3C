@@ -15,7 +15,8 @@ public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
         {
             string contenidoJson = File.ReadAllText(rutaArchivo, Encoding.UTF8);
             JsonSerializerOptions opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            List<LoteEstablecimientoDto> lotes = JsonSerializer.Deserialize<List<LoteEstablecimientoDto>>(contenidoJson, opciones) ?? new List<LoteEstablecimientoDto>();
+            RaizPedidosDto raiz = JsonSerializer.Deserialize<RaizPedidosDto>(contenidoJson, opciones);
+            List<LoteEstablecimientoDto> lotes = raiz != null ? raiz.Comercios : new List<LoteEstablecimientoDto>();
 
             foreach (LoteEstablecimientoDto lote in lotes)
             {
@@ -23,7 +24,7 @@ public class ImportadorPedidosJson : IImportadorArchivo<Despacho>
                 {
                     try
                     {
-                        despachosValidos.Add(solicitud.MapToDomain(lote.CodigoEstablecimiento));
+                        despachosValidos.Add(solicitud.MapToDomain(lote.CodigoEstablecimiento, lote.NombreComercio));
                     }
                     catch (NexoLogException ex)
                     {

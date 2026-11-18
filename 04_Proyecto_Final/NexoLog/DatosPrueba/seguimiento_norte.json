@@ -1,149 +1,236 @@
 [
   {
-    "idAcontecimiento": "EVT-NORTE-102",
-    "numeroGuia": "NX-1001",
-    "tipo": "ENT",
-    "fechaHora": "2026-11-04T18:15:00",
-    "observacion": "Mercancía entregada a satisfacción a Laura Restrepo (desordenado deliberadamente en el archivo)"
+    "id": "EV-001",
+    "guia": "NX-1001",
+    "codigo": "REC",
+    "fecha": "2026-11-10T08:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-100",
-    "numeroGuia": "NX-1001",
-    "tipo": "REC",
-    "fechaHora": "2026-11-04T08:30:00",
-    "observacion": "Paquetes recibidos en bodega central de Transportadora Norte"
+    "id": "EV-002",
+    "guia": "NX-1001",
+    "codigo": "RUT",
+    "fecha": "2026-11-10T08:50:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-101",
-    "numeroGuia": "NX-1001",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-04T09:45:00",
-    "observacion": "Salida a distribución local (1h 15m tras recepción, cumple estándar exprés <= 2h)"
+    "id": "EV-003",
+    "guia": "NX-1001",
+    "codigo": "ENT",
+    "fecha": "2026-11-10T14:20:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-200",
-    "numeroGuia": "NX-1002",
-    "tipo": "REC",
-    "fechaHora": "2026-11-04T10:00:00",
-    "observacion": "Recepción de bulto de papelería corporativa"
+    "id": "EV-016",
+    "guia": "NX-1011",
+    "codigo": "REC",
+    "fecha": "2026-11-12T08:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-201",
-    "numeroGuia": "NX-1002",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-05T08:00:00",
-    "observacion": "Despacho intermunicipal hacia Cartagena"
+    "id": "EV-009",
+    "guia": "NX-1005",
+    "codigo": "ENT",
+    "fecha": "2026-11-10T18:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-202",
-    "numeroGuia": "NX-1002",
-    "tipo": "ENT",
-    "fechaHora": "2026-11-06T11:00:00",
-    "observacion": "Entrega confirmada a Carlos Mendoza (49h tras recepción, cumple <= 72h)"
+    "id": "EV-012",
+    "guia": "NX-1007",
+    "codigo": "ENT",
+    "fecha": "2026-11-12T11:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-300",
-    "numeroGuia": "NX-1003",
-    "tipo": "REC",
-    "fechaHora": "2026-11-04T14:00:00",
-    "observacion": "Recepción de paquete para entrega programada"
+    "id": "EV-033",
+    "guia": "NX-1024",
+    "codigo": "REC",
+    "fecha": "2026-11-17T09:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-301",
-    "numeroGuia": "NX-1003",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-05T10:00:00",
-    "observacion": "Salida a ruta el día previsto para franja de la tarde"
+    "id": "EV-023",
+    "guia": "NX-1015",
+    "codigo": "ENT",
+    "fecha": "2026-11-14T12:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-302",
-    "numeroGuia": "NX-1003",
-    "tipo": "ENT",
-    "fechaHora": "2026-11-05T15:30:00",
-    "observacion": "Entrega exitosa dentro de la franja programada (14:00 - 17:00)"
+    "id": "EV-015",
+    "guia": "NX-1009",
+    "codigo": "DEV",
+    "fecha": "2026-11-12T17:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-400",
-    "numeroGuia": "NX-3001",
-    "tipo": "REC",
-    "fechaHora": "2026-11-01T08:00:00",
-    "observacion": "Recepción de cajas pesadas de herramientas"
+    "id": "EV-014",
+    "guia": "NX-1009",
+    "codigo": "RUT",
+    "fecha": "2026-11-12T07:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-401",
-    "numeroGuia": "NX-3001",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-02T09:00:00",
-    "observacion": "Ruta hacia Bucaramanga"
+    "id": "EV-026",
+    "guia": "NX-1017",
+    "codigo": "ENT",
+    "fecha": "2026-11-16T12:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-402",
-    "numeroGuia": "NX-3001",
-    "tipo": "ENT",
-    "fechaHora": "2026-11-04T15:00:00",
-    "observacion": "Entrega tardía (79h tras recepción, excede compromiso de 72h pero facturable)"
+    "id": "EV-021",
+    "guia": "NX-1015",
+    "codigo": "REC",
+    "fecha": "2026-11-14T07:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-500",
-    "numeroGuia": "NX-3002",
-    "tipo": "REC",
-    "fechaHora": "2026-11-05T11:00:00",
-    "observacion": "Recepción de telas en punto de despacho"
+    "id": "EV-004",
+    "guia": "NX-1003",
+    "codigo": "REC",
+    "fecha": "2026-11-10T07:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-501",
-    "numeroGuia": "NX-3002",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-06T08:00:00",
-    "observacion": "Ruta en Valledupar programada para la mañana"
+    "id": "EV-017",
+    "guia": "NX-1011",
+    "codigo": "RUT",
+    "fecha": "2026-11-12T09:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-502",
-    "numeroGuia": "NX-3002",
-    "tipo": "DEV",
-    "fechaHora": "2026-11-06T10:30:00",
-    "observacion": "Destinatario no se encontró en el domicilio; se inicia devolución"
+    "id": "EV-007",
+    "guia": "NX-1005",
+    "codigo": "REC",
+    "fecha": "2026-11-10T09:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-600",
-    "numeroGuia": "NX-3003",
-    "tipo": "REC",
-    "fechaHora": "2026-11-06T14:00:00",
-    "observacion": "Recepción exprés de suministros"
+    "id": "EV-901",
+    "guia": "NX-1003",
+    "codigo": "DEV",
+    "fecha": "2026-11-12T07:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-601",
-    "numeroGuia": "NX-3003",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-06T15:15:00",
-    "observacion": "En tránsito hacia Riohacha (Despacho permanece pendiente/en ruta)"
+    "id": "EV-020",
+    "guia": "NX-1013",
+    "codigo": "DEV",
+    "fecha": "2026-11-13T16:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-901",
-    "numeroGuia": "NX-9999",
-    "tipo": "REC",
-    "fechaHora": "2026-11-04T11:00:00",
-    "observacion": "INCONSISTENCIA: Acontecimiento asociado a guía inexistente en el sistema"
+    "id": "EV-010",
+    "guia": "NX-1007",
+    "codigo": "REC",
+    "fecha": "2026-11-11T09:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-101",
-    "numeroGuia": "NX-1001",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-04T09:45:00",
-    "observacion": "INCONSISTENCIA: Acontecimiento duplicado exactamente idéntico"
+    "id": "EV-034",
+    "guia": "NX-1024",
+    "codigo": "RUT",
+    "fecha": "2026-11-17T10:00:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-100",
-    "numeroGuia": "NX-1001",
-    "tipo": "REC",
-    "fechaHora": "2026-11-04T07:00:00",
-    "observacion": "INCONSISTENCIA: Mismo ID con hora contradictoria (conflicto)"
+    "id": "EV-028",
+    "guia": "NX-1019",
+    "codigo": "RUT",
+    "fecha": "2026-11-17T08:35:00-05:00"
   },
   {
-    "idAcontecimiento": "EVT-NORTE-902",
-    "numeroGuia": "NX-1001",
-    "tipo": "RUT",
-    "fechaHora": "2026-11-05T09:00:00",
-    "observacion": "INCONSISTENCIA: Acontecimiento registrado con posterioridad a la entrega final del despacho"
+    "id": "EV-008",
+    "guia": "NX-1005",
+    "codigo": "RUT",
+    "fecha": "2026-11-10T12:00:00-05:00"
+  },
+  {
+    "id": "EV-025",
+    "guia": "NX-1017",
+    "codigo": "RUT",
+    "fecha": "2026-11-15T12:00:00-05:00"
+  },
+  {
+    "id": "EV-013",
+    "guia": "NX-1009",
+    "codigo": "REC",
+    "fecha": "2026-11-12T06:00:00-05:00"
+  },
+  {
+    "id": "EV-019",
+    "guia": "NX-1013",
+    "codigo": "RUT",
+    "fecha": "2026-11-13T07:00:00-05:00"
+  },
+  {
+    "id": "EV-900",
+    "guia": "NX-9999",
+    "codigo": "REC",
+    "fecha": "2026-11-17T07:00:00-05:00"
+  },
+  {
+    "id": "EV-001",
+    "guia": "NX-1001",
+    "codigo": "REC",
+    "fecha": "2026-11-10T08:00:00-05:00"
+  },
+  {
+    "id": "EV-022",
+    "guia": "NX-1015",
+    "codigo": "RUT",
+    "fecha": "2026-11-14T07:50:00-05:00"
+  },
+  {
+    "id": "EV-001",
+    "guia": "NX-1001",
+    "codigo": "REC",
+    "fecha": "2026-11-10T08:05:00-05:00"
+  },
+  {
+    "id": "EV-029",
+    "guia": "NX-1019",
+    "codigo": "ENT",
+    "fecha": "2026-11-17T09:45:00-05:00"
+  },
+  {
+    "id": "EV-031",
+    "guia": "NX-1022",
+    "codigo": "RUT",
+    "fecha": "2026-11-16T09:00:00-05:00"
+  },
+  {
+    "id": "EV-018",
+    "guia": "NX-1013",
+    "codigo": "REC",
+    "fecha": "2026-11-13T06:00:00-05:00"
+  },
+  {
+    "id": "EV-024",
+    "guia": "NX-1017",
+    "codigo": "REC",
+    "fecha": "2026-11-15T11:00:00-05:00"
+  },
+  {
+    "id": "EV-005",
+    "guia": "NX-1003",
+    "codigo": "RUT",
+    "fecha": "2026-11-10T08:00:00-05:00"
+  },
+  {
+    "id": "EV-006",
+    "guia": "NX-1003",
+    "codigo": "ENT",
+    "fecha": "2026-11-12T06:00:00-05:00"
+  },
+  {
+    "id": "EV-035",
+    "guia": "NX-1024",
+    "codigo": "DEV",
+    "fecha": "2026-11-17T16:00:00-05:00"
+  },
+  {
+    "id": "EV-011",
+    "guia": "NX-1007",
+    "codigo": "RUT",
+    "fecha": "2026-11-11T09:30:00-05:00"
+  },
+  {
+    "id": "EV-027",
+    "guia": "NX-1019",
+    "codigo": "REC",
+    "fecha": "2026-11-15T11:00:00-05:00"
+  },
+  {
+    "id": "EV-030",
+    "guia": "NX-1022",
+    "codigo": "REC",
+    "fecha": "2026-11-16T08:00:00-05:00"
+  },
+  {
+    "id": "EV-032",
+    "guia": "NX-1022",
+    "codigo": "ENT",
+    "fecha": "2026-11-19T09:00:00-05:00"
   }
 ]

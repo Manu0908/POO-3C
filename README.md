@@ -27,7 +27,8 @@ POO-3C-IA/
 │   ├── Sesion_14 - Clases Abstractas, Interfaces y Excepciones.pdf
 │   ├── Sesion_15 - UML.pdf
 │   ├── Sesion_17 - Serializacion + DTO + Deserealizacion.pdf
-│   └── Sesion_19 - Strategy + Factory Method.pdf
+│   ├── Sesion_19 - Strategy + Factory Method.pdf
+│   └── Sesion_21 - Pruebas Unitarias.pdf
 │
 ├── 01_Ejemplos_Clase/
 │   ├── Sesion_03_Gimnasio/

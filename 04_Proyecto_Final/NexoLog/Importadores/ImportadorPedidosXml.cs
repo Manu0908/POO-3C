@@ -17,15 +17,16 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
             string contenidoXml = File.ReadAllText(rutaArchivo, Encoding.UTF8);
             XDocument documento = XDocument.Parse(contenidoXml);
             XElement raiz = documento.Root;
-            string codigoComercio = (string)raiz.Attribute("codigoComercio") ?? string.Empty;
+            string codigoComercio = (string)raiz.Attribute("comercio") ?? string.Empty;
+            string nombreComercio = (string)raiz.Element("Nombre") ?? string.Empty;
 
-            foreach (XElement elSol in raiz.Elements("solicitud"))
+            foreach (XElement elSol in raiz.Elements("Solicitud"))
             {
-                string numeroGuia = (string)elSol.Attribute("guia") ?? "SOLICITUD_SIN_GUIA";
+                string numeroGuia = (string)elSol.Element("NumeroGuia") ?? "SOLICITUD_SIN_GUIA";
                 try
                 {
                     PedidoDto dto = LeerPedidoDto(elSol);
-                    despachosValidos.Add(dto.MapToDomain(codigoComercio));
+                    despachosValidos.Add(dto.MapToDomain(codigoComercio, nombreComercio));
                 }
                 catch (Exception ex)
                 {
@@ -43,31 +44,39 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
 
     private PedidoDto LeerPedidoDto(XElement elSol)
     {
-        XElement elProg = elSol.Element("programacion");
+        XElement elProg = elSol.Element("Programacion");
+        ProgramacionDto progDto = null;
+        if (elProg != null)
+        {
+            progDto = new ProgramacionDto
+            {
+                Inicio = DateTime.Parse((string)elProg.Element("Inicio") ?? string.Empty, CultureInfo.InvariantCulture),
+                Fin = DateTime.Parse((string)elProg.Element("Fin") ?? string.Empty, CultureInfo.InvariantCulture)
+            };
+        }
+
         PedidoDto dto = new PedidoDto
         {
-            NumeroGuia = (string)elSol.Attribute("guia") ?? string.Empty,
-            Modalidad = (string)elSol.Attribute("modalidad") ?? string.Empty,
-            Destinatario = (string)elSol.Element("destinatario") ?? string.Empty,
-            CiudadDestino = (string)elSol.Element("ciudadDestino") ?? string.Empty,
-            Transportadora = (string)elSol.Element("transportadora") ?? string.Empty,
-            DistanciaKm = double.Parse((string)elSol.Element("distanciaKm") ?? "0", CultureInfo.InvariantCulture),
-            FechaProgramada = elProg != null ? (string)elProg.Attribute("fecha") ?? string.Empty : string.Empty,
-            HoraInicio = elProg != null ? (string)elProg.Attribute("horaInicio") ?? string.Empty : string.Empty,
-            HoraFin = elProg != null ? (string)elProg.Attribute("horaFin") ?? string.Empty : string.Empty
+            NumeroGuia = (string)elSol.Element("NumeroGuia") ?? string.Empty,
+            Modalidad = (string)elSol.Element("Tipo") ?? string.Empty,
+            Transportadora = (string)elSol.Element("Operador") ?? string.Empty,
+            Destinatario = (string)elSol.Element("Cliente") ?? string.Empty,
+            CiudadDestino = (string)elSol.Element("Destino") ?? string.Empty,
+            DistanciaKm = double.Parse((string)elSol.Element("Distancia") ?? "0", CultureInfo.InvariantCulture),
+            Programacion = progDto
         };
 
-        XElement elPaquetes = elSol.Element("paquetes");
-        if (elPaquetes != null)
+        XElement elBultos = elSol.Element("Bultos");
+        if (elBultos != null)
         {
-            foreach (XElement elPaq in elPaquetes.Elements("paquete"))
+            foreach (XElement elBulto in elBultos.Elements("Bulto"))
             {
                 dto.Paquetes.Add(new PaqueteDto
                 {
-                    IdPaquete = (string)elPaq.Attribute("id") ?? string.Empty,
-                    Descripcion = (string)elPaq.Element("descripcion") ?? string.Empty,
-                    Peso = double.Parse((string)elPaq.Element("peso") ?? "0", CultureInfo.InvariantCulture),
-                    ValorDeclarado = decimal.Parse((string)elPaq.Element("valorDeclarado") ?? "0", CultureInfo.InvariantCulture)
+                    IdPaquete = (string)elBulto.Element("Referencia") ?? string.Empty,
+                    Descripcion = (string)elBulto.Element("Descripcion") ?? string.Empty,
+                    Peso = double.Parse((string)elBulto.Element("Peso") ?? "0", CultureInfo.InvariantCulture),
+                    ValorDeclarado = decimal.Parse((string)elBulto.Element("Valor") ?? "0", CultureInfo.InvariantCulture)
                 });
             }
         }

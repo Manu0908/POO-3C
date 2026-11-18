@@ -77,11 +77,16 @@ public class Empresa
         }
 
         string codEst = despacho.CodigoEstablecimiento;
+        string nombreEst = string.IsNullOrWhiteSpace(despacho.NombreEstablecimiento) ? $"Comercio {codEst}" : despacho.NombreEstablecimiento;
         Establecimiento est = ObtenerEstablecimiento(codEst);
         if (est == null)
         {
-            est = new Establecimiento(codEst, $"Comercio {codEst}");
+            est = new Establecimiento(codEst, nombreEst);
             _establecimientos.Add(est);
+        }
+        else if (!string.IsNullOrWhiteSpace(despacho.NombreEstablecimiento))
+        {
+            est.ActualizarNombreComercial(despacho.NombreEstablecimiento);
         }
 
         est.AgregarDespacho(despacho);

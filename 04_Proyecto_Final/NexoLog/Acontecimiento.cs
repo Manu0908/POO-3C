@@ -56,11 +56,19 @@ public class Acontecimiento
         private set
         {
             string limpio = (value ?? string.Empty).Trim().ToUpper();
-            if (!_acontecimientosExistentes.Contains(limpio))
+            string normalizado = limpio switch
+            {
+                "INGRESO" => TipoRec,
+                "RUTA" => TipoRut,
+                "ENTREGA" => TipoEnt,
+                "RETORNO" => TipoDev,
+                _ => limpio
+            };
+            if (!_acontecimientosExistentes.Contains(normalizado))
             {
                 throw new NexoLogException($"Tipo de acontecimiento desconocido: '{value}'.");
             }
-            _tipo = limpio;
+            _tipo = normalizado;
         }
     }
 
