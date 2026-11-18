@@ -2,19 +2,19 @@ namespace NexoLog.Tarifas;
 
 public class TarifaFija : ITarifa
 {
-    private decimal _valorFijo;
+    private double _valorFijo;
 
-    public string TipoTarifa { get { return "Tarifa Fija"; } }
-    public decimal ValorBase { get { return _valorFijo; } }
+    public string TipoTarifa => "Tarifa Fija";
+    public double ValorBase => _valorFijo;
 
     private TarifaFija() { }
 
-    public TarifaFija(decimal valorFijo)
+    public TarifaFija(double valorFijo)
     {
         ValorFijo = valorFijo;
     }
 
-    public decimal ValorFijo
+    public double ValorFijo
     {
         get { return _valorFijo; }
         private set
@@ -27,7 +27,7 @@ public class TarifaFija : ITarifa
         }
     }
 
-    public decimal CalcularTarifa(Despacho despacho)
+    public double CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -36,7 +36,7 @@ public class TarifaFija : ITarifa
 
         if (!despacho.EsFacturable())
         {
-            return 0m;
+            return 0;
         }
 
         return _valorFijo;

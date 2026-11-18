@@ -6,7 +6,13 @@ public static class ImportadorFactory
 {
     public static IImportadorArchivo<AcuerdoDto> CrearAcuerdos(string formato)
     {
-        return (formato ?? string.Empty).Trim().ToLower() switch
+        if (string.IsNullOrWhiteSpace(formato))
+        {
+            throw new NexoLogException("Debe indicar un formato para acuerdos.");
+        }
+
+        var tipo = formato.Trim().ToLower();
+        return tipo switch
         {
             "json" => new ImportadorAcuerdosJson(),
             _ => throw new NexoLogException($"Formato no soportado para acuerdos: '{formato}'.")
@@ -15,7 +21,13 @@ public static class ImportadorFactory
 
     public static IImportadorArchivo<Despacho> CrearPedidos(string formato)
     {
-        return (formato ?? string.Empty).Trim().ToLower() switch
+        if (string.IsNullOrWhiteSpace(formato))
+        {
+            throw new NexoLogException("Debe indicar un formato para pedidos.");
+        }
+
+        var tipo = formato.Trim().ToLower();
+        return tipo switch
         {
             "json" => new ImportadorPedidosJson(),
             "xml" => new ImportadorPedidosXml(),
@@ -25,7 +37,13 @@ public static class ImportadorFactory
 
     public static IImportadorArchivo<Acontecimiento> CrearSeguimientos(string formato)
     {
-        return (formato ?? string.Empty).Trim().ToLower() switch
+        if (string.IsNullOrWhiteSpace(formato))
+        {
+            throw new NexoLogException("Debe indicar un formato para seguimientos.");
+        }
+
+        var tipo = formato.Trim().ToLower();
+        return tipo switch
         {
             "json" => new ImportadorSeguimientosJson(),
             "xml" => new ImportadorSeguimientosXml(),

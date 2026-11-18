@@ -5,11 +5,11 @@ public class ServicioExpres : ModalidadServicio
     private const int _tiempoInicioDistribucionMaximoH = 2;
     private const int _tiempoEntregaMaximoH = 24;
 
-    public override string NombreModalidad { get { return "Exprés"; } }
+    public override string NombreModalidad => "Exprés";
 
     public ServicioExpres() { }
 
-    public override bool EvaluarCumplimiento(Despacho despacho)
+    public override bool Cumple(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -27,7 +27,14 @@ public class ServicioExpres : ModalidadServicio
         double horasHaciaRuta = (eventoRut.FechaHora - eventoRec.FechaHora).TotalHours;
         double horasHaciaEntrega = (eventoEnt.FechaHora - eventoRec.FechaHora).TotalHours;
 
-        return horasHaciaRuta >= 0 && horasHaciaRuta <= _tiempoInicioDistribucionMaximoH
-            && horasHaciaEntrega >= 0 && horasHaciaEntrega <= _tiempoEntregaMaximoH;
+        if (horasHaciaRuta >= 0 && horasHaciaRuta <= _tiempoInicioDistribucionMaximoH
+            && horasHaciaEntrega >= 0 && horasHaciaEntrega <= _tiempoEntregaMaximoH)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

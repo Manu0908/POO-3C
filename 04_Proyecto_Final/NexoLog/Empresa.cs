@@ -8,9 +8,20 @@ public class Empresa
     private List<Despacho> _despachos;
     private List<RegistroInconsistencia> _inconsistencias;
 
-    public List<Establecimiento> Establecimientos { get { return new List<Establecimiento>(_establecimientos); } }
-    public List<Despacho> Despachos { get { return new List<Despacho>(_despachos); } }
-    public List<RegistroInconsistencia> Inconsistencias { get { return new List<RegistroInconsistencia>(_inconsistencias); } }
+    public List<Establecimiento> Establecimientos
+    {
+        get { return new List<Establecimiento>(_establecimientos); }
+    }
+
+    public List<Despacho> Despachos
+    {
+        get { return new List<Despacho>(_despachos); }
+    }
+
+    public List<RegistroInconsistencia> Inconsistencias
+    {
+        get { return new List<RegistroInconsistencia>(_inconsistencias); }
+    }
 
     public Empresa()
     {
@@ -42,7 +53,7 @@ public class Empresa
             return;
         }
 
-        Establecimiento existente = ObtenerEstablecimiento(nuevoEstablecimiento.Codigo);
+        var existente = ObtenerEstablecimiento(nuevoEstablecimiento.Codigo);
         if (existente != null)
         {
             if (nuevoEstablecimiento.TarifaAcordada != null)
@@ -64,21 +75,28 @@ public class Empresa
         }
 
         string guia = despacho.NumeroGuia;
-        Despacho existente = ObtenerDespacho(guia);
+        var existente = ObtenerDespacho(guia);
         if (existente != null)
         {
-            bool esIdentico = existente.TieneMismosDatosQue(despacho);
-            string tipo = esIdentico ? RegistroInconsistencia.TipoDuplicado : RegistroInconsistencia.TipoConflictoIdentificacion;
-            string motivo = esIdentico
-                ? $"Despacho con guia '{guia}' duplicado identicamente en la fuente; se omite duplicado."
-                : $"Conflicto de identificacion: La guia '{guia}' ya existe con informacion contradictoria.";
+            string tipo = RegistroInconsistencia.TipoConflictoIdentificacion;
+            string motivo = $"Conflicto de identificacion: La guia '{guia}' ya existe con informacion contradictoria.";
+            if (existente.TieneMismosDatosQue(despacho))
+            {
+                tipo = RegistroInconsistencia.TipoDuplicado;
+                motivo = $"Despacho con guia '{guia}' duplicado identicamente en la fuente; se omite duplicado.";
+            }
             _inconsistencias.Add(new RegistroInconsistencia(archivoOrigen, guia, tipo, motivo, DateTime.Now));
             return;
         }
 
         string codEst = despacho.CodigoEstablecimiento;
-        string nombreEst = string.IsNullOrWhiteSpace(despacho.NombreEstablecimiento) ? $"Comercio {codEst}" : despacho.NombreEstablecimiento;
-        Establecimiento est = ObtenerEstablecimiento(codEst);
+        string nombreEst = $"Comercio {codEst}";
+        if (!string.IsNullOrWhiteSpace(despacho.NombreEstablecimiento))
+        {
+            nombreEst = despacho.NombreEstablecimiento;
+        }
+
+        var est = ObtenerEstablecimiento(codEst);
         if (est == null)
         {
             est = new Establecimiento(codEst, nombreEst);
@@ -95,16 +113,16 @@ public class Empresa
 
     public void RegistrarSeguimientos(List<Acontecimiento> acontecimientos, string archivoOrigen)
     {
-        List<string> guias = acontecimientos.Select(e => e.NumeroGuia.ToUpper()).Distinct().ToList();
+        var guias = acontecimientos.Select(e => e.NumeroGuia.ToUpper()).Distinct().ToList();
 
         foreach (string guia in guias)
         {
-            List<Acontecimiento> eventosGuia = acontecimientos.Where(e => e.NumeroGuia.ToUpper() == guia).ToList();
-            Despacho despacho = ObtenerDespacho(guia);
+            var eventosGuia = acontecimientos.Where(e => e.NumeroGuia.ToUpper() == guia).ToList();
+            var despacho = ObtenerDespacho(guia);
 
             if (despacho == null)
             {
-                foreach (Acontecimiento e in eventosGuia)
+                foreach (var e in eventosGuia)
                 {
                     _inconsistencias.Add(new RegistroInconsistencia(
                         archivoOrigen,
@@ -122,26 +140,28 @@ public class Empresa
 
     private void RegistrarEventosEnDespacho(Despacho despacho, List<Acontecimiento> eventos, string archivoOrigen)
     {
-        List<Acontecimiento> validos = new List<Acontecimiento>();
+        var validos = new List<Acontecimiento>();
 
-        foreach (Acontecimiento evt in eventos)
+        foreach (var evt in eventos)
         {
-            Acontecimiento prev = validos.FirstOrDefault(v => v.IdAcontecimiento.ToLower() == evt.IdAcontecimiento.ToLower());
+            var prev = validos.FirstOrDefault(v => v.IdAcontecimiento.ToLower() == evt.IdAcontecimiento.ToLower());
             if (prev != null)
             {
-                bool identico = prev.Tipo == evt.Tipo && prev.FechaHora == evt.FechaHora;
-                string tipo = identico ? RegistroInconsistencia.TipoDuplicado : RegistroInconsistencia.TipoConflictoIdentificacion;
-                string motivo = identico
-                    ? $"Acontecimiento '{evt.IdAcontecimiento}' duplicado identicamente en la guia '{despacho.NumeroGuia}'."
-                    : $"Conflicto en acontecimiento '{evt.IdAcontecimiento}' de la guia '{despacho.NumeroGuia}': mismo ID con datos contradictorios.";
+                string tipo = RegistroInconsistencia.TipoConflictoIdentificacion;
+                string motivo = $"Conflicto en acontecimiento '{evt.IdAcontecimiento}' de la guia '{despacho.NumeroGuia}': mismo ID con datos contradictorios.";
+                if (prev.Tipo == evt.Tipo && prev.FechaHora == evt.FechaHora)
+                {
+                    tipo = RegistroInconsistencia.TipoDuplicado;
+                    motivo = $"Acontecimiento '{evt.IdAcontecimiento}' duplicado identicamente en la guia '{despacho.NumeroGuia}'.";
+                }
                 _inconsistencias.Add(new RegistroInconsistencia(archivoOrigen, evt.IdAcontecimiento, tipo, motivo, DateTime.Now));
                 continue;
             }
             validos.Add(evt);
         }
 
-        List<Acontecimiento> cronologicos = validos.OrderBy(e => e.FechaHora).ToList();
-        foreach (Acontecimiento evt in cronologicos)
+        var cronologicos = validos.OrderBy(e => e.FechaHora).ToList();
+        foreach (var evt in cronologicos)
         {
             try
             {
@@ -171,8 +191,8 @@ public class Empresa
 
     public InformeConsolidadoDto MapToDto()
     {
-        ComercioOperativoDto resumenGlobal = ConstruirResumenOperativo("TOTAL", "Global", _despachos);
-        InformeConsolidadoDto dto = new InformeConsolidadoDto
+        var resumenGlobal = ConstruirResumenOperativo("TOTAL", "Global", _despachos);
+        var dto = new InformeConsolidadoDto
         {
             FechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
             Sistema = "NexoLog S.A.S.",
@@ -188,13 +208,18 @@ public class Empresa
             PorcentajeCumplimientoSobreEntregados = resumenGlobal.PorcentajeCumplimiento
         };
 
-        foreach (Establecimiento est in _establecimientos)
+        foreach (var est in _establecimientos)
         {
             dto.DesgloseComerciosOperativo.Add(ConstruirResumenOperativo(est.Codigo, est.NombreComercial, est.Despachos));
 
-            string nombreTarifa = est.TarifaAcordada != null ? est.TarifaAcordada.TipoTarifa : "Sin Tarifa Asignada";
-            decimal tarifaBase = est.TarifaAcordada != null ? est.TarifaAcordada.ValorBase : 0m;
-            decimal totalComercio = est.CalcularTotalFacturable();
+            string nombreTarifa = "Sin Tarifa Asignada";
+            double tarifaBase = 0;
+            if (est.TarifaAcordada != null)
+            {
+                nombreTarifa = est.TarifaAcordada.TipoTarifa;
+                tarifaBase = est.TarifaAcordada.ValorBase;
+            }
+            double totalComercio = est.CalcularTotalFacturable();
 
             dto.DesgloseComerciosFinanciero.Add(new ComercioFinancieroDto
             {
@@ -209,10 +234,10 @@ public class Empresa
             dto.GranTotalFacturado += totalComercio;
         }
 
-        List<string> tarifas = dto.DesgloseComerciosFinanciero.Select(c => c.ModalidadTarifa).Distinct().ToList();
+        var tarifas = dto.DesgloseComerciosFinanciero.Select(c => c.ModalidadTarifa).Distinct().ToList();
         foreach (string tarifa in tarifas)
         {
-            decimal totalTarifa = dto.DesgloseComerciosFinanciero
+            double totalTarifa = dto.DesgloseComerciosFinanciero
                 .Where(c => c.ModalidadTarifa == tarifa)
                 .Sum(c => c.TotalFacturado);
             dto.CobrosPorModalidadTarifa.Add(new CobroTarifaDto { ModalidadTarifa = tarifa, TotalFacturado = totalTarifa });
@@ -220,16 +245,11 @@ public class Empresa
 
         dto.DespachosEntregadosNoValorados = _despachos.Count(d => EstaEntregadoSinTarifa(d));
 
-        List<string> modalidades = _despachos
-            .Select(d => d.Modalidad != null ? d.Modalidad.NombreModalidad : "Sin Asignar")
-            .Distinct()
-            .ToList();
+        var modalidades = _despachos.Select(d => ObtenerNombreModalidad(d)).Distinct().ToList();
         foreach (string mod in modalidades)
         {
-            List<Despacho> grupo = _despachos
-                .Where(d => (d.Modalidad != null ? d.Modalidad.NombreModalidad : "Sin Asignar") == mod)
-                .ToList();
-            ComercioOperativoDto resumenMod = ConstruirResumenOperativo(mod, mod, grupo);
+            var grupo = _despachos.Where(d => ObtenerNombreModalidad(d) == mod).ToList();
+            var resumenMod = ConstruirResumenOperativo(mod, mod, grupo);
             dto.DesgloseModalidades.Add(new ModalidadOperativoDto
             {
                 Modalidad = mod,
@@ -242,23 +262,41 @@ public class Empresa
         }
 
         dto.TotalInconsistencias = _inconsistencias.Count;
-        dto.ListadoInconsistencias = _inconsistencias.Select(InconsistenciaDto.MapToDto).ToList();
+        dto.ListadoInconsistencias = _inconsistencias.Select(i => i.MapToDto()).ToList();
 
-        List<string> tiposInc = _inconsistencias.Select(i => i.Tipo ?? "Desconocido").Distinct().ToList();
+        var tiposInc = _inconsistencias.Select(i => ValorOTexto(i.Tipo, "Desconocido")).Distinct().ToList();
         foreach (string t in tiposInc)
         {
-            int cantidad = _inconsistencias.Count(i => (i.Tipo ?? "Desconocido") == t);
+            int cantidad = _inconsistencias.Count(i => ValorOTexto(i.Tipo, "Desconocido") == t);
             dto.InconsistenciasPorTipo.Add(new ConteoInconsistenciaDto { Clave = t, Cantidad = cantidad });
         }
 
-        List<string> archivosInc = _inconsistencias.Select(i => i.ArchivoOrigen ?? "Desconocido").Distinct().ToList();
+        var archivosInc = _inconsistencias.Select(i => ValorOTexto(i.ArchivoOrigen, "Desconocido")).Distinct().ToList();
         foreach (string arch in archivosInc)
         {
-            int cantidad = _inconsistencias.Count(i => (i.ArchivoOrigen ?? "Desconocido") == arch);
+            int cantidad = _inconsistencias.Count(i => ValorOTexto(i.ArchivoOrigen, "Desconocido") == arch);
             dto.InconsistenciasPorArchivo.Add(new ConteoInconsistenciaDto { Clave = arch, Cantidad = cantidad });
         }
 
         return dto;
+    }
+
+    private string ObtenerNombreModalidad(Despacho despacho)
+    {
+        if (despacho.Modalidad != null)
+        {
+            return despacho.Modalidad.NombreModalidad;
+        }
+        return "Sin Asignar";
+    }
+
+    private string ValorOTexto(string valor, string respaldo)
+    {
+        if (string.IsNullOrWhiteSpace(valor))
+        {
+            return respaldo;
+        }
+        return valor;
     }
 
     private bool EstaEntregadoSinTarifa(Despacho despacho)
@@ -267,15 +305,20 @@ public class Empresa
         {
             return false;
         }
-        Establecimiento est = ObtenerEstablecimiento(despacho.CodigoEstablecimiento);
+        var est = ObtenerEstablecimiento(despacho.CodigoEstablecimiento);
         return est == null || est.TarifaAcordada == null;
     }
 
     private ComercioOperativoDto ConstruirResumenOperativo(string codigo, string nombre, IEnumerable<Despacho> despachos)
     {
-        List<Despacho> lista = despachos.ToList();
+        var lista = despachos.ToList();
         int entregados = lista.Count(d => d.EstadoActual == Despacho.EstadoEntregado);
-        int cumplidos = lista.Count(d => d.EstadoActual == Despacho.EstadoEntregado && d.EvaluarCumplimiento());
+        int cumplidos = lista.Count(d => d.EstadoActual == Despacho.EstadoEntregado && d.Cumple());
+        double porcentaje = 0.0;
+        if (entregados > 0)
+        {
+            porcentaje = (cumplidos * 100.0) / entregados;
+        }
 
         return new ComercioOperativoDto
         {
@@ -288,13 +331,13 @@ public class Empresa
             EnDistribucion = lista.Count(d => d.EstadoActual == Despacho.EstadoEnDistribucion),
             CumplidosSLA = cumplidos,
             IncumplidosSLA = entregados - cumplidos,
-            PorcentajeCumplimiento = entregados > 0 ? (cumplidos * 100.0) / entregados : 0.0
+            PorcentajeCumplimiento = porcentaje
         };
     }
 
     public void MostrarInformeOperativo()
     {
-        InformeConsolidadoDto op = MapToDto();
+        var op = MapToDto();
         Console.WriteLine($"Total despachos: {op.TotalDespachos}");
         Console.WriteLine($"Entregados: {op.TotalEntregados} | Devueltos: {op.TotalDevueltos} | En Distribucion: {op.TotalEnDistribucion} | Pendientes: {op.TotalPendientes}");
         Console.WriteLine($"Total paquetes: {op.TotalPaquetes} | Peso total: {op.PesoTotalKg:F2} kg");
@@ -302,13 +345,13 @@ public class Empresa
         Console.WriteLine($"Porcentaje SLA sobre entregados: {op.PorcentajeCumplimientoSobreEntregados:F2}%");
 
         Console.WriteLine("\nDesglose por Comercio:");
-        foreach (ComercioOperativoDto com in op.DesgloseComerciosOperativo)
+        foreach (var com in op.DesgloseComerciosOperativo)
         {
             Console.WriteLine($" - [{com.CodigoComercio}] {com.NombreComercio}: Total={com.TotalDespachos}, Entregados={com.Entregados}, Devueltos={com.Devueltos}, SLA={com.PorcentajeCumplimiento:F1}%");
         }
 
         Console.WriteLine("\nDesglose por Modalidad:");
-        foreach (ModalidadOperativoDto mod in op.DesgloseModalidades)
+        foreach (var mod in op.DesgloseModalidades)
         {
             Console.WriteLine($" - {mod.Modalidad}: Total={mod.TotalDespachos}, Entregados={mod.Entregados}, Cumplen={mod.CumplidosSLA}, SLA={mod.PorcentajeCumplimiento:F1}%");
         }
@@ -316,9 +359,9 @@ public class Empresa
 
     public void MostrarInformeFinanciero()
     {
-        InformeConsolidadoDto fin = MapToDto();
+        var fin = MapToDto();
         Console.WriteLine("Liquidacion por comercio:");
-        foreach (ComercioFinancieroDto item in fin.DesgloseComerciosFinanciero)
+        foreach (var item in fin.DesgloseComerciosFinanciero)
         {
             Console.WriteLine($" - [{item.CodigoComercio}] {item.NombreComercio} ({item.ModalidadTarifa}): Facturables={item.DespachosFacturables}, Total=${item.TotalFacturado:N0}");
         }
@@ -326,13 +369,13 @@ public class Empresa
         Console.WriteLine($"\nGran Total Facturado: ${fin.GranTotalFacturado:N0}");
         Console.WriteLine($"Despachos entregados no valorados: {fin.DespachosEntregadosNoValorados}");
 
-        Despacho nx1001 = ObtenerDespacho("NX-1001");
+        var nx1001 = ObtenerDespacho("NX-1001");
         if (nx1001 != null && nx1001.EsFacturable())
         {
-            Establecimiento est = ObtenerEstablecimiento("COM-01");
+            var est = ObtenerEstablecimiento("COM-01");
             if (est != null && est.TarifaAcordada != null)
             {
-                decimal cobro = est.TarifaAcordada.CalcularTarifa(nx1001);
+                double cobro = est.TarifaAcordada.CalcularTarifa(nx1001);
                 Console.WriteLine($"\n[Prueba de control] Guia NX-1001: Peso={nx1001.CalcularPesoTotal():F1} kg | Cobro=${cobro:N0} (Esperado: $12.950)");
             }
         }
@@ -340,24 +383,24 @@ public class Empresa
 
     public void MostrarInformeInconsistencias()
     {
-        InformeConsolidadoDto inc = MapToDto();
+        var inc = MapToDto();
         Console.WriteLine($"Total inconsistencias registradas: {inc.TotalInconsistencias}");
 
         Console.WriteLine("\nPor tipo:");
-        foreach (ConteoInconsistenciaDto par in inc.InconsistenciasPorTipo)
+        foreach (var par in inc.InconsistenciasPorTipo)
         {
             Console.WriteLine($" - {par.Clave}: {par.Cantidad}");
         }
 
         Console.WriteLine("\nPor archivo origen:");
-        foreach (ConteoInconsistenciaDto par in inc.InconsistenciasPorArchivo)
+        foreach (var par in inc.InconsistenciasPorArchivo)
         {
             Console.WriteLine($" - {par.Clave}: {par.Cantidad}");
         }
 
         Console.WriteLine("\nDetalle de inconsistencias:");
         int i = 1;
-        foreach (InconsistenciaDto reg in inc.ListadoInconsistencias)
+        foreach (var reg in inc.ListadoInconsistencias)
         {
             Console.WriteLine($" {i}. [{reg.Tipo}] ({reg.ArchivoOrigen} | {reg.IdentificadorReferencia}): {reg.Motivo}");
             i++;

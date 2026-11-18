@@ -11,10 +11,10 @@ public class RaizPedidosDto
 public class LoteEstablecimientoDto
 {
     [JsonPropertyName("comercio")]
-    public string CodigoEstablecimiento { get; set; } = string.Empty;
+    public string CodigoEstablecimiento { get; set; }
 
     [JsonPropertyName("nombre")]
-    public string NombreComercio { get; set; } = string.Empty;
+    public string NombreComercio { get; set; }
 
     [JsonPropertyName("solicitudes")]
     public List<PedidoDto> Solicitudes { get; set; } = new List<PedidoDto>();

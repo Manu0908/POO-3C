@@ -2,19 +2,19 @@ namespace NexoLog.Tarifas;
 
 public class TarifaPorPeso : ITarifa
 {
-    private decimal _valorPorKilogramo;
+    private double _valorPorKilogramo;
 
-    public string TipoTarifa { get { return "Tarifa por Peso"; } }
-    public decimal ValorBase { get { return _valorPorKilogramo; } }
+    public string TipoTarifa => "Tarifa por Peso";
+    public double ValorBase => _valorPorKilogramo;
 
     private TarifaPorPeso() { }
 
-    public TarifaPorPeso(decimal valorPorKilogramo)
+    public TarifaPorPeso(double valorPorKilogramo)
     {
         ValorPorKilogramo = valorPorKilogramo;
     }
 
-    public decimal ValorPorKilogramo
+    public double ValorPorKilogramo
     {
         get { return _valorPorKilogramo; }
         private set
@@ -27,7 +27,7 @@ public class TarifaPorPeso : ITarifa
         }
     }
 
-    public decimal CalcularTarifa(Despacho despacho)
+    public double CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -36,10 +36,10 @@ public class TarifaPorPeso : ITarifa
 
         if (!despacho.EsFacturable())
         {
-            return 0m;
+            return 0;
         }
 
-        decimal pesoTotal = (decimal)despacho.CalcularPesoTotal();
+        double pesoTotal = despacho.CalcularPesoTotal();
         return pesoTotal * _valorPorKilogramo;
     }
 }

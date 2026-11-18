@@ -1,3 +1,4 @@
+using NexoLog.DTOs;
 using NexoLog.Tarifas;
 
 namespace NexoLog;
@@ -9,7 +10,7 @@ public class Establecimiento
     private ITarifa _tarifaAcordada;
     private List<Despacho> _despachos;
 
-    public int CantidadDespachos { get { return _despachos.Count; } }
+    public int CantidadDespachos => _despachos.Count;
 
     private Establecimiento() { }
 
@@ -90,19 +91,56 @@ public class Establecimiento
         _despachos.Add(despacho);
     }
 
-    public decimal CalcularTotalFacturable()
+    public double CalcularTotalFacturable()
     {
         if (_tarifaAcordada == null)
         {
-            return 0m;
+            return 0;
         }
 
         return _despachos.Sum(d => _tarifaAcordada.CalcularTarifa(d));
     }
 
+    public static ITarifa CrearTarifa(string tipoTarifa, double tarifaBase, string codigoComercio)
+    {
+        if (string.IsNullOrWhiteSpace(tipoTarifa))
+        {
+            throw new NexoLogException($"Modalidad de tarifa desconocida '{tipoTarifa}' para el comercio {codigoComercio}.");
+        }
+
+        string tipo = tipoTarifa.Trim().ToUpper();
+        return tipo switch
+        {
+            "PESO" => new TarifaPorPeso(tarifaBase),
+            "DISTANCIA" => new TarifaPorDistancia(tarifaBase),
+            "FIJA" => new TarifaFija(tarifaBase),
+            _ => throw new NexoLogException($"Modalidad de tarifa desconocida '{tipoTarifa}' para el comercio {codigoComercio}.")
+        };
+    }
+
+    public static Establecimiento MapToDomain(AcuerdoDto dto)
+    {
+        if (dto == null)
+        {
+            throw new NexoLogException("El DTO del acuerdo no puede ser nulo.");
+        }
+
+        ITarifa tarifa = CrearTarifa(dto.TipoTarifa, dto.TarifaBase, dto.CodigoComercio);
+        string nombreInicial = "";
+        if (!string.IsNullOrWhiteSpace(dto.CodigoComercio))
+        {
+            nombreInicial = $"Comercio {dto.CodigoComercio.Trim()}";
+        }
+        return new Establecimiento(dto.CodigoComercio, nombreInicial, tarifa);
+    }
+
     public string MostrarInformacion()
     {
-        string tarifaDesc = _tarifaAcordada != null ? _tarifaAcordada.TipoTarifa : "Sin Tarifa";
+        string tarifaDesc = "Sin Tarifa";
+        if (_tarifaAcordada != null)
+        {
+            tarifaDesc = _tarifaAcordada.TipoTarifa;
+        }
         return $"Establecimiento [{Codigo}] - {NombreComercial} | Tarifa: {tarifaDesc} | Despachos: {CantidadDespachos}";
     }
 }

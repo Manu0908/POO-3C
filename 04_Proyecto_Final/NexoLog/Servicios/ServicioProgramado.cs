@@ -5,7 +5,7 @@ public class ServicioProgramado : ModalidadServicio
     private DateTime _inicio;
     private DateTime _fin;
 
-    public override string NombreModalidad { get { return "Programado"; } }
+    public override string NombreModalidad => "Programado";
 
     private ServicioProgramado() { }
 
@@ -19,10 +19,10 @@ public class ServicioProgramado : ModalidadServicio
         _fin = fin;
     }
 
-    public DateTime Inicio { get { return _inicio; } }
-    public DateTime Fin { get { return _fin; } }
+    public DateTime Inicio => _inicio;
+    public DateTime Fin => _fin;
 
-    public override bool EvaluarCumplimiento(Despacho despacho)
+    public override bool Cumple(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -41,6 +41,13 @@ public class ServicioProgramado : ModalidadServicio
             return false;
         }
 
-        return eventoEnt.FechaHora >= _inicio && eventoEnt.FechaHora <= _fin;
+        if (eventoEnt.FechaHora >= _inicio && eventoEnt.FechaHora <= _fin)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

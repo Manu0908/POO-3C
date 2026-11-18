@@ -7,23 +7,17 @@ namespace NexoLog.Exportadores;
 
 public class ExportadorInformesJson : IExportadorInforme
 {
-    public string Extension { get { return "json"; } }
+    public string TipoArchivo => "json";
 
-    public void Exportar(InformeConsolidadoDto dto, string rutaDestino)
+    public void Exportar(InformeConsolidadoDto dto)
     {
-        string directorio = Path.GetDirectoryName(rutaDestino);
-        if (!string.IsNullOrWhiteSpace(directorio) && !Directory.Exists(directorio))
-        {
-            Directory.CreateDirectory(directorio);
-        }
-
-        JsonSerializerOptions opciones = new JsonSerializerOptions
+        var opciones = new JsonSerializerOptions
         {
             WriteIndented = true,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
 
-        string jsonSalida = JsonSerializer.Serialize(dto, opciones);
-        File.WriteAllText(rutaDestino, jsonSalida, Encoding.UTF8);
+        var jsonSalida = JsonSerializer.Serialize(dto, opciones);
+        File.WriteAllText("informes_nexolog.json", jsonSalida, Encoding.UTF8);
     }
 }

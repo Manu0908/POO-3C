@@ -1,3 +1,5 @@
+using NexoLog.DTOs;
+
 namespace NexoLog;
 
 public class RegistroInconsistencia
@@ -39,8 +41,20 @@ public class RegistroInconsistencia
         }
     }
 
+    public InconsistenciaDto MapToDto()
+    {
+        return new InconsistenciaDto
+        {
+            ArchivoOrigen = ArchivoOrigen,
+            IdentificadorReferencia = IdentificadorReferencia,
+            Tipo = Tipo,
+            Motivo = Motivo,
+            FechaDeteccion = FechaDeteccion
+        };
+    }
+
     public string MostrarInformacion()
     {
-        return $"[{FechaDeteccion:yyyy-MM-dd HH:mm:ss}] [{Tipo}] Archivo: '{ArchivoOrigen}' | Ref: '{IdentificadorReferencia}' | {Motivo}";
+        return $"[{FechaDeteccion}] [{Tipo}] Archivo: '{ArchivoOrigen}' | Ref: '{IdentificadorReferencia}' | {Motivo}";
     }
 }

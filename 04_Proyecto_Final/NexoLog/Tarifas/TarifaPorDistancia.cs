@@ -2,19 +2,19 @@ namespace NexoLog.Tarifas;
 
 public class TarifaPorDistancia : ITarifa
 {
-    private decimal _valorPorKilometro;
+    private double _valorPorKilometro;
 
-    public string TipoTarifa { get { return "Tarifa por Distancia"; } }
-    public decimal ValorBase { get { return _valorPorKilometro; } }
+    public string TipoTarifa => "Tarifa por Distancia";
+    public double ValorBase => _valorPorKilometro;
 
     private TarifaPorDistancia() { }
 
-    public TarifaPorDistancia(decimal valorPorKilometro)
+    public TarifaPorDistancia(double valorPorKilometro)
     {
         ValorPorKilometro = valorPorKilometro;
     }
 
-    public decimal ValorPorKilometro
+    public double ValorPorKilometro
     {
         get { return _valorPorKilometro; }
         private set
@@ -27,7 +27,7 @@ public class TarifaPorDistancia : ITarifa
         }
     }
 
-    public decimal CalcularTarifa(Despacho despacho)
+    public double CalcularTarifa(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -36,10 +36,10 @@ public class TarifaPorDistancia : ITarifa
 
         if (!despacho.EsFacturable())
         {
-            return 0m;
+            return 0;
         }
 
-        decimal distancia = (decimal)despacho.DistanciaKm;
+        double distancia = despacho.DistanciaKm;
         return distancia * _valorPorKilometro;
     }
 }

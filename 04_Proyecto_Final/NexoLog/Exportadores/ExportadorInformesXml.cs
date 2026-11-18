@@ -6,18 +6,12 @@ namespace NexoLog.Exportadores;
 
 public class ExportadorInformesXml : IExportadorInforme
 {
-    public string Extension { get { return "xml"; } }
+    public string TipoArchivo => "xml";
 
-    public void Exportar(InformeConsolidadoDto dto, string rutaDestino)
+    public void Exportar(InformeConsolidadoDto dto)
     {
-        string directorio = Path.GetDirectoryName(rutaDestino);
-        if (!string.IsNullOrWhiteSpace(directorio) && !Directory.Exists(directorio))
-        {
-            Directory.CreateDirectory(directorio);
-        }
-
-        XmlSerializer serializer = new XmlSerializer(typeof(InformeConsolidadoDto));
-        using StreamWriter escritor = new StreamWriter(rutaDestino, false, Encoding.UTF8);
+        var serializer = new XmlSerializer(typeof(InformeConsolidadoDto));
+        using var escritor = new StreamWriter("informes_nexolog.xml", false, Encoding.UTF8);
         serializer.Serialize(escritor, dto);
     }
 }

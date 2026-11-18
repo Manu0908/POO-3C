@@ -1,14 +1,16 @@
+using NexoLog.DTOs;
+
 namespace NexoLog;
 
 public class Paquete
 {
     private string _idPaquete;
     private double _peso;
-    private decimal _valorDeclarado;
+    private double _valorDeclarado;
 
     private Paquete() { }
 
-    public Paquete(string idPaquete, string descripcion, double peso, decimal valorDeclarado)
+    public Paquete(string idPaquete, string descripcion, double peso, double valorDeclarado)
     {
         IdPaquete = idPaquete;
         Descripcion = descripcion;
@@ -31,12 +33,12 @@ public class Paquete
         }
     }
 
-    public decimal ValorDeclarado
+    public double ValorDeclarado
     {
         get { return _valorDeclarado; }
         private set
         {
-            if (value < 0m)
+            if (value < 0)
             {
                 throw new NexoLogException("El valor declarado del paquete no puede ser negativo.");
             }
@@ -55,6 +57,16 @@ public class Paquete
             }
             _peso = value;
         }
+    }
+
+    public static Paquete MapToDomain(PaqueteDto dto)
+    {
+        if (dto == null)
+        {
+            throw new NexoLogException("El DTO del paquete no puede ser nulo.");
+        }
+
+        return new Paquete(dto.IdPaquete, dto.Descripcion, dto.Peso, dto.ValorDeclarado);
     }
 
     public string MostrarInformacion()

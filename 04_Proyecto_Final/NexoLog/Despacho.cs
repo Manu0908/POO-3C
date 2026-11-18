@@ -1,3 +1,4 @@
+using NexoLog.DTOs;
 using NexoLog.Servicios;
 
 namespace NexoLog;
@@ -16,7 +17,7 @@ public class Despacho
     private List<Paquete> _paquetes;
     private List<Acontecimiento> _acontecimientos;
 
-    public int CantidadPaquetes { get { return _paquetes.Count; } }
+    public int CantidadPaquetes => _paquetes.Count;
 
     private Despacho() { }
 
@@ -38,10 +39,28 @@ public class Despacho
     public string Destinatario { get; private set; }
     public string CiudadDestino { get; private set; }
     public string Transportadora { get; private set; }
-    public string EstadoActual { get { return _estadoActual; } private set { _estadoActual = value; } }
-    public ModalidadServicio Modalidad { get { return _modalidad; } private set { _modalidad = value; } }
-    public List<Paquete> Paquetes { get { return new List<Paquete>(_paquetes); } }
-    public List<Acontecimiento> Acontecimientos { get { return new List<Acontecimiento>(_acontecimientos); } }
+
+    public string EstadoActual
+    {
+        get { return _estadoActual; }
+        private set { _estadoActual = value; }
+    }
+
+    public ModalidadServicio Modalidad
+    {
+        get { return _modalidad; }
+        private set { _modalidad = value; }
+    }
+
+    public List<Paquete> Paquetes
+    {
+        get { return new List<Paquete>(_paquetes); }
+    }
+
+    public List<Acontecimiento> Acontecimientos
+    {
+        get { return new List<Acontecimiento>(_acontecimientos); }
+    }
 
     public string NumeroGuia
     {
@@ -107,11 +126,11 @@ public class Despacho
         return _estadoActual == EstadoEntregado;
     }
 
-    public bool EvaluarCumplimiento()
+    public bool Cumple()
     {
         if (_modalidad != null && _estadoActual == EstadoEntregado)
         {
-            return _modalidad.EvaluarCumplimiento(this);
+            return _modalidad.Cumple(this);
         }
         return false;
     }
@@ -170,9 +189,46 @@ public class Despacho
         return _acontecimientos.FirstOrDefault(a => a.Tipo == tipo);
     }
 
+    public static Despacho MapToDomain(PedidoDto dto, string codigoEstablecimiento, string nombreEstablecimiento)
+    {
+        if (dto == null)
+        {
+            throw new NexoLogException("El DTO del pedido no puede ser nulo.");
+        }
+
+        if (dto.Paquetes == null || dto.Paquetes.Count == 0)
+        {
+            throw new NexoLogException($"El despacho '{dto.NumeroGuia}' no contiene paquetes asociados.");
+        }
+
+        DateTime? inicio = null;
+        DateTime? fin = null;
+        if (dto.Programacion != null)
+        {
+            inicio = dto.Programacion.Inicio;
+            fin = dto.Programacion.Fin;
+        }
+
+        var modalidad = ModalidadServicio.Crear(dto.Modalidad, inicio, fin, dto.NumeroGuia);
+        var despacho = new Despacho(dto.NumeroGuia, codigoEstablecimiento, dto.Destinatario, dto.CiudadDestino, dto.DistanciaKm, dto.Transportadora);
+        despacho.AsignarModalidad(modalidad);
+        despacho.AsignarNombreEstablecimiento(nombreEstablecimiento);
+
+        foreach (PaqueteDto p in dto.Paquetes)
+        {
+            despacho.AgregarPaquete(Paquete.MapToDomain(p));
+        }
+
+        return despacho;
+    }
+
     public string MostrarInformacion()
     {
-        string modalidadNombre = _modalidad != null ? _modalidad.NombreModalidad : "Sin Asignar";
+        string modalidadNombre = "Sin Asignar";
+        if (_modalidad != null)
+        {
+            modalidadNombre = _modalidad.NombreModalidad;
+        }
         return $"Guia: {NumeroGuia} | Modalidad: {modalidadNombre} | Destino: {CiudadDestino} ({Destinatario}) | Distancia: {DistanciaKm:F1} km | Estado: {EstadoActual} | Paquetes: {CantidadPaquetes} ({CalcularPesoTotal():F2} kg)";
     }
 

@@ -1,3 +1,5 @@
+using NexoLog.DTOs;
+
 namespace NexoLog;
 
 public class Acontecimiento
@@ -55,7 +57,12 @@ public class Acontecimiento
         get { return _tipo; }
         private set
         {
-            string limpio = (value ?? string.Empty).Trim().ToUpper();
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NexoLogException("El tipo de acontecimiento es obligatorio.");
+            }
+
+            string limpio = value.Trim().ToUpper();
             string normalizado = limpio switch
             {
                 "INGRESO" => TipoRec,
@@ -70,6 +77,16 @@ public class Acontecimiento
             }
             _tipo = normalizado;
         }
+    }
+
+    public static Acontecimiento MapToDomain(AcontecimientoDto dto)
+    {
+        if (dto == null)
+        {
+            throw new NexoLogException("El DTO del acontecimiento no puede ser nulo.");
+        }
+
+        return new Acontecimiento(dto.IdAcontecimiento, dto.NumeroGuia, dto.Tipo, dto.FechaHora);
     }
 
     public string MostrarInformacion()

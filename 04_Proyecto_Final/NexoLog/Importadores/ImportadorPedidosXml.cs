@@ -9,34 +9,38 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
 {
     public List<Despacho> Importar(string rutaArchivo, List<RegistroInconsistencia> inconsistencias)
     {
-        List<Despacho> despachosValidos = new List<Despacho>();
-        string nombreArchivo = Path.GetFileName(rutaArchivo);
+        var despachosValidos = new List<Despacho>();
 
         try
         {
             string contenidoXml = File.ReadAllText(rutaArchivo, Encoding.UTF8);
-            XDocument documento = XDocument.Parse(contenidoXml);
-            XElement raiz = documento.Root;
-            string codigoComercio = (string)raiz.Attribute("comercio") ?? string.Empty;
-            string nombreComercio = (string)raiz.Element("Nombre") ?? string.Empty;
+            var documento = XDocument.Parse(contenidoXml);
+            var raiz = documento.Root;
 
-            foreach (XElement elSol in raiz.Elements("Solicitud"))
+            string codigoComercio = "";
+            if (raiz.Attribute("comercio") != null)
             {
-                string numeroGuia = (string)elSol.Element("NumeroGuia") ?? "SOLICITUD_SIN_GUIA";
+                codigoComercio = raiz.Attribute("comercio").Value;
+            }
+            string nombreComercio = ObtenerTexto(raiz, "Nombre", "");
+
+            foreach (var elSol in raiz.Elements("Solicitud"))
+            {
+                string numeroGuia = ObtenerTexto(elSol, "NumeroGuia", "SOLICITUD_SIN_GUIA");
                 try
                 {
-                    PedidoDto dto = LeerPedidoDto(elSol);
-                    despachosValidos.Add(dto.MapToDomain(codigoComercio, nombreComercio));
+                    var dto = LeerPedidoDto(elSol);
+                    despachosValidos.Add(Despacho.MapToDomain(dto, codigoComercio, nombreComercio));
                 }
                 catch (Exception ex)
                 {
-                    inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, numeroGuia, RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
+                    inconsistencias.Add(new RegistroInconsistencia(rutaArchivo, numeroGuia, RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
                 }
             }
         }
         catch (Exception ex)
         {
-            inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, "GENERAL", RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
+            inconsistencias.Add(new RegistroInconsistencia(rutaArchivo, "GENERAL", RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
         }
 
         return despachosValidos;
@@ -44,43 +48,53 @@ public class ImportadorPedidosXml : IImportadorArchivo<Despacho>
 
     private PedidoDto LeerPedidoDto(XElement elSol)
     {
-        XElement elProg = elSol.Element("Programacion");
+        var elProg = elSol.Element("Programacion");
         ProgramacionDto progDto = null;
         if (elProg != null)
         {
             progDto = new ProgramacionDto
             {
-                Inicio = DateTime.Parse((string)elProg.Element("Inicio") ?? string.Empty, CultureInfo.InvariantCulture),
-                Fin = DateTime.Parse((string)elProg.Element("Fin") ?? string.Empty, CultureInfo.InvariantCulture)
+                Inicio = DateTime.Parse(ObtenerTexto(elProg, "Inicio", ""), CultureInfo.InvariantCulture),
+                Fin = DateTime.Parse(ObtenerTexto(elProg, "Fin", ""), CultureInfo.InvariantCulture)
             };
         }
 
-        PedidoDto dto = new PedidoDto
+        var dto = new PedidoDto
         {
-            NumeroGuia = (string)elSol.Element("NumeroGuia") ?? string.Empty,
-            Modalidad = (string)elSol.Element("Tipo") ?? string.Empty,
-            Transportadora = (string)elSol.Element("Operador") ?? string.Empty,
-            Destinatario = (string)elSol.Element("Cliente") ?? string.Empty,
-            CiudadDestino = (string)elSol.Element("Destino") ?? string.Empty,
-            DistanciaKm = double.Parse((string)elSol.Element("Distancia") ?? "0", CultureInfo.InvariantCulture),
+            NumeroGuia = ObtenerTexto(elSol, "NumeroGuia", ""),
+            Modalidad = ObtenerTexto(elSol, "Tipo", ""),
+            Transportadora = ObtenerTexto(elSol, "Operador", ""),
+            Destinatario = ObtenerTexto(elSol, "Cliente", ""),
+            CiudadDestino = ObtenerTexto(elSol, "Destino", ""),
+            DistanciaKm = double.Parse(ObtenerTexto(elSol, "Distancia", "0"), CultureInfo.InvariantCulture),
             Programacion = progDto
         };
 
-        XElement elBultos = elSol.Element("Bultos");
+        var elBultos = elSol.Element("Bultos");
         if (elBultos != null)
         {
-            foreach (XElement elBulto in elBultos.Elements("Bulto"))
+            foreach (var elBulto in elBultos.Elements("Bulto"))
             {
                 dto.Paquetes.Add(new PaqueteDto
                 {
-                    IdPaquete = (string)elBulto.Element("Referencia") ?? string.Empty,
-                    Descripcion = (string)elBulto.Element("Descripcion") ?? string.Empty,
-                    Peso = double.Parse((string)elBulto.Element("Peso") ?? "0", CultureInfo.InvariantCulture),
-                    ValorDeclarado = decimal.Parse((string)elBulto.Element("Valor") ?? "0", CultureInfo.InvariantCulture)
+                    IdPaquete = ObtenerTexto(elBulto, "Referencia", ""),
+                    Descripcion = ObtenerTexto(elBulto, "Descripcion", ""),
+                    Peso = double.Parse(ObtenerTexto(elBulto, "Peso", "0"), CultureInfo.InvariantCulture),
+                    ValorDeclarado = double.Parse(ObtenerTexto(elBulto, "Valor", "0"), CultureInfo.InvariantCulture)
                 });
             }
         }
 
         return dto;
+    }
+
+    private string ObtenerTexto(XElement elemento, string nombreEtiqueta, string valorDefecto)
+    {
+        var hijo = elemento.Element(nombreEtiqueta);
+        if (hijo == null)
+        {
+            return valorDefecto;
+        }
+        return hijo.Value;
     }
 }

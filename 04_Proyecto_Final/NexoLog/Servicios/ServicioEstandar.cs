@@ -4,11 +4,11 @@ public class ServicioEstandar : ModalidadServicio
 {
     private const int _tiempoEntregaMaximoH = 72;
 
-    public override string NombreModalidad { get { return "Estándar"; } }
+    public override string NombreModalidad => "Estándar";
 
     public ServicioEstandar() { }
 
-    public override bool EvaluarCumplimiento(Despacho despacho)
+    public override bool Cumple(Despacho despacho)
     {
         if (despacho == null)
         {
@@ -23,6 +23,13 @@ public class ServicioEstandar : ModalidadServicio
         }
 
         double horasTranscurridas = (eventoEnt.FechaHora - eventoRec.FechaHora).TotalHours;
-        return horasTranscurridas >= 0 && horasTranscurridas <= _tiempoEntregaMaximoH;
+        if (horasTranscurridas >= 0 && horasTranscurridas <= _tiempoEntregaMaximoH)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

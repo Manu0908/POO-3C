@@ -21,9 +21,9 @@ Este documento es la **única fuente de verdad** normativa, arquitectónica y es
 ## 2. Reglas de Oro en C# (Consolidadas con Sesiones 01–19, `ParcialA` y `ParcialB`)
 
 ### 2.1. Declaraciones, Tipos y Estructuras de Control
-* **Declaraciones explícitas e individuales (cero `var`):** cada variable lleva su tipo explícito en su propia línea independiente. Queda prohibido agrupar (`double a, b;`) y prohibido usar `var`.
+* **Declaraciones claras e individuales (`var` permitido):** cada variable se declara en su propia línea independiente (prohibido agrupar `double a, b;`). Se permite `var` en tipos extensos o colecciones (especialmente importadores, exportadores, LINQ y `Program.cs`) y tipos explícitos (`double` en lugar de `decimal`) en campos, parámetros y firmas.
 * **Cero `enum` (usar constantes):** estados y tipos fijos públicos se modelan con `public const string PascalCase` (ej. `Despacho.EstadoPendiente`); constantes internas de clase/estrategia usan `private const <tipo> _camelCase` (`_precioPorPagina`, `_porcentajeDescuento`).
-* **Uso de `switch` comprimido y bifurcaciones:** se permite únicamente el formato comprimido (*switch expression* `=>`) en fábricas, validaciones de transición, mapeadores y menús de consola (prohibido el `switch` tradicional con bloques `case ...: break;`); para otras bifurcaciones de flujo se utiliza `if / else if / else`.
+* **Uso de `switch` comprimido y bifurcaciones:** se permite únicamente el formato comprimido (*switch expression* `=>`) en fábricas, validaciones de transición, mapeadores y menús de consola (prohibido el `switch` tradicional con bloques `case ...: break;`); evitar expresiones compactas (`??` o ternarios `? :`) reemplazándolas por `if / else` simples.
 * **Cero `TimeSpan` complejo:** modelar franjas horarias sencillas con tipos primitivos (`int _horaInicio`, `int _horaFin` o texto simple).
 * **Comparaciones simples de cadenas:** preferir `==` o `.ToLower() == ...` en lugar de formas verbosas cuando no se requiera comparación cultural especial.
 
@@ -97,14 +97,14 @@ public class Despacho
 
 ### 2.6. Polimorfismo Real, DTOs (Sesión 17), Patrones (Sesión 19) y Resiliencia
 * **Polimorfismo real en interfaces (cero chequeos `is Subtipo`):** si una capa necesita un dato o cálculo común de varias implementaciones, ese miembro debe vivir en la interfaz (`ITarifa.TipoTarifa`, `ITarifa.ValorBase`), prohibiéndose cadenas `if (x is TarifaPorPeso) ... else if ...`.
-* **Sesión 17 — DTOs y Mappers ("Los objetos de dominio nunca se serializan"):**
-  - Ingesta: archivo (JSON/XML) $\rightarrow$ DTO unificado (`AcuerdoDto`, `PedidoDto`, `PaqueteDto`, `AcontecimientoDto`) $\rightarrow$ `MapToDomain(...)` $\rightarrow$ entidad validada.
-  - Salida/Reportes: `Empresa.MapToDto()` $\rightarrow$ `InformeConsolidadoDto` (`{ get; set; }`, listas serializables nativas para `JsonSerializer` y `XmlSerializer`).
+* **Sesión 17 — DTOs puros y Mappers en el dominio ("Los objetos de dominio nunca se serializan"):**
+  - Los DTOs (`AcuerdoDto`, `PedidoDto`, `PaqueteDto`, `AcontecimientoDto`, `LoteEstablecimientoDto`, `RaizPedidosDto`, `InconsistenciaDto`, `InformeConsolidadoDto`) son contenedores puros de propiedades `{ get; set; }` sin `= string.Empty;` y usando `double` (nunca `decimal`).
+  - Los métodos `MapToDomain(...)`, `CrearTarifa(...)` y `MapToDto()` viven en sus respectivas entidades de dominio (`Establecimiento`, `Despacho`, `Paquete`, `Acontecimiento`, `RegistroInconsistencia`, `Empresa`).
   - **Prohibidos los tipos anónimos (`new { ... }`)**.
 * **Sesión 19 — `Strategy + Factory Method`:**
   - Estrategias detrás de interfaces con nombres de dominio puro (`ITarifa`, `IImportadorArchivo<T>`, `IExportadorInforme`) sin sufijos artificiales (`Strategy`).
   - Creación centralizada en fábricas estáticas simétricas (`ImportadorFactory`, `ExportadorFactory`) o método estático `Crear(...)` en clase abstracta base (`ModalidadServicio.Crear(...)`), evitando lógica de instanciación dispersa en `Program.cs` o en la ingesta.
-  - *Reglas de sintaxis en fábricas y patrones:* usar switch expressions (`=>`) para la selección de estrategias, modalidades y formatos, manteniendo tipos explícitos (cero `var`), cero comentarios y retorno directo de la instancia correspondiente.
+  - *Reglas de sintaxis en fábricas y patrones:* usar switch expressions (`=>`) para la selección de estrategias, modalidades y formatos (`json`/`xml` directos y sin tildes duplicadas), cero comentarios y retorno directo de la instancia correspondiente.
 * **Dominio puro y rechazo a clases anémicas:** `Empresa` coordina colecciones del negocio, consolida sus reportes y expone `MapToDto()` (estilo `Solicitud` en CopiaExpress) sin lectura de disco ni carpetas intermedias innecesarias. Registros históricos sin comportamiento divergente (`Acontecimiento`) no se dividen en subclases vacías; `Despacho` gobierna su máquina de estados en `AgregarAcontecimiento`.
 * **Excepciones y UTF-8:** usar excepciones de dominio heredando de `Exception` cuando la regla o el enunciado las exija (`NexoLogException`, o `Excepciones.cs` en parciales) y `ArgumentException`/`Exception` en ejercicios sencillos; especificar siempre `Encoding.UTF8` explícito en consola y archivos.
 
@@ -113,7 +113,7 @@ public class Despacho
 ## 3. Reglas de Modelado UML de Clases (Draw.io)
 
 * **Cero rombos:** el docente no usa rombos de agregación ni composición (Sesión 15 diap. 4, 6 y 7). Toda relación estructural se dibuja con líneas de asociación simples y multiplicidades explícitas (`1`, `0..*`, `1..*`), herencia con triángulo cerrado vacío y realización con línea discontinua y triángulo vacío.
-* **Cero prefijo `_`, cero `= valor` y cero `{override}`:** visibilidad privada solo con `-` en camelCase (`- codigo: string`); sin valores fijos asignados (`= 2000`) ni etiquetas `{override}` redundantes.
+* **Prefijo `_` en campos privados UML, cero `= valor` y cero `{override}`:** visibilidad privada con `- _camelCase` (`- _codigo: string`), tamaño de fuente uniforme en todo el diagrama, sin valores fijos asignados (`= 2000`) ni etiquetas `{override}` redundantes.
 * **Orientación vertical, simetría y fidelidad 1:1:** interfaces y clases padre siempre **arriba** y sus implementaciones/hijas **abajo**; fábricas (`ImportadorFactory`, `ExportadorFactory`) a un costado con dependencia discontinua (`«use»`) y simetría entre entrada y salida. **Regla de Sesión 15 diap. 14:** no agregar cajas, factorías vacías ni clases puente (`AcuerdoComercial`) que no existan en C#.
 
 ---

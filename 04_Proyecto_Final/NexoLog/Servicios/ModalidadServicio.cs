@@ -6,7 +6,7 @@ public abstract class ModalidadServicio
 
     protected ModalidadServicio() { }
 
-    public abstract bool EvaluarCumplimiento(Despacho despacho);
+    public abstract bool Cumple(Despacho despacho);
 
     public string MostrarInformacion()
     {
@@ -15,13 +15,16 @@ public abstract class ModalidadServicio
 
     public static ModalidadServicio Crear(string modalidad, DateTime? inicio, DateTime? fin, string numeroGuia)
     {
-        string tipo = (modalidad ?? string.Empty).Trim().ToUpper();
+        if (string.IsNullOrWhiteSpace(modalidad))
+        {
+            throw new NexoLogException($"Modalidad de servicio desconocida '{modalidad}' en la guia '{numeroGuia}'.");
+        }
+
+        string tipo = modalidad.Trim().ToUpper();
         return tipo switch
         {
             "ESTANDAR" => new ServicioEstandar(),
-            "ESTÁNDAR" => new ServicioEstandar(),
             "EXPRES" => new ServicioExpres(),
-            "EXPRÉS" => new ServicioExpres(),
             "PROGRAMADO" => CrearProgramado(inicio, fin, numeroGuia),
             _ => throw new NexoLogException($"Modalidad de servicio desconocida '{modalidad}' en la guia '{numeroGuia}'.")
         };

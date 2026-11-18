@@ -8,7 +8,7 @@ using NexoLog.Importadores;
 Console.OutputEncoding = Encoding.UTF8;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
-Empresa sistema = new Empresa();
+var sistema = new Empresa();
 string carpetaDatos = LocalizarCarpetaDatos();
 bool continuar = true;
 bool archivosCargados = false;
@@ -62,36 +62,36 @@ bool CargarArchivos(Empresa sys, string ruta)
     }
 
     sys.Limpiar();
-    List<RegistroInconsistencia> inconsistenciasLectura = new List<RegistroInconsistencia>();
+    var inconsistenciasLectura = new List<RegistroInconsistencia>();
 
-    IImportadorArchivo<AcuerdoDto> importadorAcuerdos = ImportadorFactory.CrearAcuerdos("json");
-    IImportadorArchivo<Despacho> importadorCaribe = ImportadorFactory.CrearPedidos("json");
-    IImportadorArchivo<Despacho> importadorAndino = ImportadorFactory.CrearPedidos("xml");
-    IImportadorArchivo<Acontecimiento> importadorNorte = ImportadorFactory.CrearSeguimientos("json");
-    IImportadorArchivo<Acontecimiento> importadorAndina = ImportadorFactory.CrearSeguimientos("xml");
+    var importadorAcuerdos = ImportadorFactory.CrearAcuerdos("json");
+    var importadorCaribe = ImportadorFactory.CrearPedidos("json");
+    var importadorAndino = ImportadorFactory.CrearPedidos("xml");
+    var importadorNorte = ImportadorFactory.CrearSeguimientos("json");
+    var importadorAndina = ImportadorFactory.CrearSeguimientos("xml");
 
-    List<AcuerdoDto> acuerdos = importadorAcuerdos.Importar(Path.Combine(ruta, "acuerdos.json"), inconsistenciasLectura);
-    List<Despacho> pedidosCaribe = importadorCaribe.Importar(Path.Combine(ruta, "pedidos_caribe.json"), inconsistenciasLectura);
-    List<Despacho> pedidosAndino = importadorAndino.Importar(Path.Combine(ruta, "pedidos_andino.xml"), inconsistenciasLectura);
-    List<Acontecimiento> seguimientosNorte = importadorNorte.Importar(Path.Combine(ruta, "seguimiento_norte.json"), inconsistenciasLectura);
-    List<Acontecimiento> seguimientosAndina = importadorAndina.Importar(Path.Combine(ruta, "seguimiento_andina.xml"), inconsistenciasLectura);
+    var acuerdos = importadorAcuerdos.Importar(Path.Combine(ruta, "acuerdos.json"), inconsistenciasLectura);
+    var pedidosCaribe = importadorCaribe.Importar(Path.Combine(ruta, "pedidos_caribe.json"), inconsistenciasLectura);
+    var pedidosAndino = importadorAndino.Importar(Path.Combine(ruta, "pedidos_andino.xml"), inconsistenciasLectura);
+    var seguimientosNorte = importadorNorte.Importar(Path.Combine(ruta, "seguimiento_norte.json"), inconsistenciasLectura);
+    var seguimientosAndina = importadorAndina.Importar(Path.Combine(ruta, "seguimiento_andina.xml"), inconsistenciasLectura);
 
-    foreach (RegistroInconsistencia inc in inconsistenciasLectura)
+    foreach (var inc in inconsistenciasLectura)
     {
         sys.RegistrarInconsistencia(inc);
     }
 
-    foreach (AcuerdoDto dto in acuerdos)
+    foreach (var dto in acuerdos)
     {
-        sys.RegistrarEstablecimiento(dto.MapToDomain());
+        sys.RegistrarEstablecimiento(Establecimiento.MapToDomain(dto));
     }
 
-    foreach (Despacho d in pedidosCaribe)
+    foreach (var d in pedidosCaribe)
     {
         sys.RegistrarDespacho(d, "pedidos_caribe.json");
     }
 
-    foreach (Despacho d in pedidosAndino)
+    foreach (var d in pedidosAndino)
     {
         sys.RegistrarDespacho(d, "pedidos_andino.xml");
     }
@@ -156,22 +156,19 @@ bool ExportarInformes(Empresa sys)
         return true;
     }
 
-    Console.WriteLine("1. Exportar a JSON");
-    Console.WriteLine("2. Exportar a XML");
-    Console.Write("Seleccione formato [1 o 2 / json o xml]: ");
-    string f = (Console.ReadLine() ?? string.Empty).Trim();
+    Console.Write("Seleccione formato (json / xml): ");
+    string f = Console.ReadLine();
+    if (f == null)
+    {
+        return true;
+    }
 
     try
     {
-        IExportadorInforme exportador = ExportadorFactory.Crear(f);
-        string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{exportador.Extension}");
-        Console.Write($"Ruta destino (ENTER para '{rutaDefecto}'): ");
-        string rutaInput = (Console.ReadLine() ?? string.Empty).Trim();
-        string rutaFinal = string.IsNullOrWhiteSpace(rutaInput) ? rutaDefecto : rutaInput;
-
-        InformeConsolidadoDto dto = sys.MapToDto();
-        exportador.Exportar(dto, rutaFinal);
-        Console.WriteLine($"Informes exportados exitosamente en:\n  {Path.GetFullPath(rutaFinal)}");
+        var exportador = ExportadorFactory.Crear(f.Trim());
+        var dto = sys.MapToDto();
+        exportador.Exportar(dto);
+        Console.WriteLine($"Informes exportados exitosamente en: informes_nexolog.{exportador.TipoArchivo}");
     }
     catch (Exception ex)
     {

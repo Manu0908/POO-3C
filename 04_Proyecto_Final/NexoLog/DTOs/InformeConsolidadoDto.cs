@@ -4,8 +4,8 @@ namespace NexoLog.DTOs;
 
 public class ComercioOperativoDto
 {
-    public string CodigoComercio { get; set; } = string.Empty;
-    public string NombreComercio { get; set; } = string.Empty;
+    public string CodigoComercio { get; set; }
+    public string NombreComercio { get; set; }
     public int TotalDespachos { get; set; }
     public int Entregados { get; set; }
     public int Devueltos { get; set; }
@@ -18,7 +18,7 @@ public class ComercioOperativoDto
 
 public class ModalidadOperativoDto
 {
-    public string Modalidad { get; set; } = string.Empty;
+    public string Modalidad { get; set; }
     public int TotalDespachos { get; set; }
     public int Entregados { get; set; }
     public int CumplidosSLA { get; set; }
@@ -28,34 +28,34 @@ public class ModalidadOperativoDto
 
 public class ComercioFinancieroDto
 {
-    public string CodigoComercio { get; set; } = string.Empty;
-    public string NombreComercio { get; set; } = string.Empty;
-    public string ModalidadTarifa { get; set; } = string.Empty;
-    public decimal TarifaBase { get; set; }
+    public string CodigoComercio { get; set; }
+    public string NombreComercio { get; set; }
+    public string ModalidadTarifa { get; set; }
+    public double TarifaBase { get; set; }
     public int DespachosTotales { get; set; }
     public int DespachosFacturables { get; set; }
-    public decimal TotalFacturado { get; set; }
+    public double TotalFacturado { get; set; }
 }
 
 public class CobroTarifaDto
 {
-    public string ModalidadTarifa { get; set; } = string.Empty;
-    public decimal TotalFacturado { get; set; }
+    public string ModalidadTarifa { get; set; }
+    public double TotalFacturado { get; set; }
 }
 
 public class ConteoInconsistenciaDto
 {
-    public string Clave { get; set; } = string.Empty;
+    public string Clave { get; set; }
     public int Cantidad { get; set; }
 }
 
 public class InformeConsolidadoDto
 {
     [JsonPropertyName("fechaGeneracion")]
-    public string FechaGeneracion { get; set; } = string.Empty;
+    public string FechaGeneracion { get; set; }
 
     [JsonPropertyName("sistema")]
-    public string Sistema { get; set; } = string.Empty;
+    public string Sistema { get; set; }
 
     public int TotalDespachos { get; set; }
     public int TotalEntregados { get; set; }
@@ -67,7 +67,7 @@ public class InformeConsolidadoDto
     public int CumplidosSLA { get; set; }
     public int IncumplidosSLA { get; set; }
     public double PorcentajeCumplimientoSobreEntregados { get; set; }
-    public decimal GranTotalFacturado { get; set; }
+    public double GranTotalFacturado { get; set; }
     public int DespachosEntregadosNoValorados { get; set; }
     public int TotalInconsistencias { get; set; }
 
