@@ -33,7 +33,7 @@ while (continuar)
         break;
     }
 
-    string opcion = lineaLeida.Trim().Trim('\uFEFF');
+    string opcion = lineaLeida.Trim();
     if (string.IsNullOrEmpty(opcion))
     {
         continue;
@@ -195,22 +195,9 @@ bool MostrarOpcionInvalida()
 
 string LocalizarCarpetaDatos()
 {
-    string[] rutas = new string[]
+    if (Directory.Exists("DatosPrueba"))
     {
-        Path.Combine(Directory.GetCurrentDirectory(), "DatosPrueba"),
-        Path.Combine(Directory.GetCurrentDirectory(), "04_Proyecto_Final", "NexoLog", "DatosPrueba"),
-        Path.Combine(AppContext.BaseDirectory, "DatosPrueba"),
-        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "DatosPrueba"),
-        Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "DatosPrueba")
-    };
-
-    foreach (string r in rutas)
-    {
-        if (Directory.Exists(r) && File.Exists(Path.Combine(r, "acuerdos.json")))
-        {
-            return Path.GetFullPath(r);
-        }
+        return "DatosPrueba";
     }
-
-    return Path.Combine(Directory.GetCurrentDirectory(), "DatosPrueba");
+    return Path.Combine("04_Proyecto_Final", "NexoLog", "DatosPrueba");
 }

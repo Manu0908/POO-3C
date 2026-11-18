@@ -4,25 +4,25 @@ namespace NexoLog;
 
 public class Empresa
 {
-    private Dictionary<string, Establecimiento> _establecimientos;
-    private Dictionary<string, Despacho> _despachosPorGuia;
+    private List<Establecimiento> _establecimientos;
+    private List<Despacho> _despachos;
     private List<RegistroInconsistencia> _inconsistencias;
 
-    public List<Establecimiento> Establecimientos { get { return new List<Establecimiento>(_establecimientos.Values); } }
-    public List<Despacho> Despachos { get { return new List<Despacho>(_despachosPorGuia.Values); } }
+    public List<Establecimiento> Establecimientos { get { return new List<Establecimiento>(_establecimientos); } }
+    public List<Despacho> Despachos { get { return new List<Despacho>(_despachos); } }
     public List<RegistroInconsistencia> Inconsistencias { get { return new List<RegistroInconsistencia>(_inconsistencias); } }
 
     public Empresa()
     {
-        _establecimientos = new Dictionary<string, Establecimiento>(StringComparer.OrdinalIgnoreCase);
-        _despachosPorGuia = new Dictionary<string, Despacho>(StringComparer.OrdinalIgnoreCase);
+        _establecimientos = new List<Establecimiento>();
+        _despachos = new List<Despacho>();
         _inconsistencias = new List<RegistroInconsistencia>();
     }
 
     public void Limpiar()
     {
         _establecimientos.Clear();
-        _despachosPorGuia.Clear();
+        _despachos.Clear();
         _inconsistencias.Clear();
     }
 
@@ -42,8 +42,8 @@ public class Empresa
             return;
         }
 
-        Establecimiento existente;
-        if (_establecimientos.TryGetValue(nuevoEstablecimiento.Codigo, out existente))
+        Establecimiento existente = ObtenerEstablecimiento(nuevoEstablecimiento.Codigo);
+        if (existente != null)
         {
             if (nuevoEstablecimiento.TarifaAcordada != null)
             {
@@ -52,7 +52,7 @@ public class Empresa
         }
         else
         {
-            _establecimientos.Add(nuevoEstablecimiento.Codigo, nuevoEstablecimiento);
+            _establecimientos.Add(nuevoEstablecimiento);
         }
     }
 
@@ -64,9 +64,8 @@ public class Empresa
         }
 
         string guia = despacho.NumeroGuia;
-        Despacho existente;
-
-        if (_despachosPorGuia.TryGetValue(guia, out existente))
+        Despacho existente = ObtenerDespacho(guia);
+        if (existente != null)
         {
             bool esIdentico = existente.TieneMismosDatosQue(despacho);
             string tipo = esIdentico ? RegistroInconsistencia.TipoDuplicado : RegistroInconsistencia.TipoConflictoIdentificacion;
@@ -78,51 +77,52 @@ public class Empresa
         }
 
         string codEst = despacho.CodigoEstablecimiento;
-        Establecimiento est;
-        if (!_establecimientos.TryGetValue(codEst, out est))
+        Establecimiento est = ObtenerEstablecimiento(codEst);
+        if (est == null)
         {
             est = new Establecimiento(codEst, $"Comercio {codEst}");
-            _establecimientos.Add(codEst, est);
+            _establecimientos.Add(est);
         }
 
         est.AgregarDespacho(despacho);
-        _despachosPorGuia.Add(guia, despacho);
+        _despachos.Add(despacho);
     }
 
     public void RegistrarSeguimientos(List<Acontecimiento> acontecimientos, string archivoOrigen)
     {
-        IEnumerable<IGrouping<string, Acontecimiento>> agrupados = acontecimientos.GroupBy(e => e.NumeroGuia, StringComparer.OrdinalIgnoreCase);
+        List<string> guias = acontecimientos.Select(e => e.NumeroGuia.ToUpper()).Distinct().ToList();
 
-        foreach (IGrouping<string, Acontecimiento> grupo in agrupados)
+        foreach (string guia in guias)
         {
-            Despacho despacho;
-            if (!_despachosPorGuia.TryGetValue(grupo.Key, out despacho))
+            List<Acontecimiento> eventosGuia = acontecimientos.Where(e => e.NumeroGuia.ToUpper() == guia).ToList();
+            Despacho despacho = ObtenerDespacho(guia);
+
+            if (despacho == null)
             {
-                foreach (Acontecimiento e in grupo)
+                foreach (Acontecimiento e in eventosGuia)
                 {
                     _inconsistencias.Add(new RegistroInconsistencia(
                         archivoOrigen,
                         e.IdAcontecimiento,
                         RegistroInconsistencia.TipoReferenciaInexistente,
-                        $"El acontecimiento '{e.IdAcontecimiento}' referencia a una guia inexistente: '{grupo.Key}'.",
+                        $"El acontecimiento '{e.IdAcontecimiento}' referencia a una guia inexistente: '{e.NumeroGuia}'.",
                         DateTime.Now));
                 }
                 continue;
             }
 
-            RegistrarEventosEnDespacho(despacho, grupo.ToList(), archivoOrigen);
+            RegistrarEventosEnDespacho(despacho, eventosGuia, archivoOrigen);
         }
     }
 
     private void RegistrarEventosEnDespacho(Despacho despacho, List<Acontecimiento> eventos, string archivoOrigen)
     {
-        Dictionary<string, Acontecimiento> vistos = new Dictionary<string, Acontecimiento>(StringComparer.OrdinalIgnoreCase);
         List<Acontecimiento> validos = new List<Acontecimiento>();
 
         foreach (Acontecimiento evt in eventos)
         {
-            Acontecimiento prev;
-            if (vistos.TryGetValue(evt.IdAcontecimiento, out prev))
+            Acontecimiento prev = validos.FirstOrDefault(v => v.IdAcontecimiento.ToLower() == evt.IdAcontecimiento.ToLower());
+            if (prev != null)
             {
                 bool identico = prev.Tipo == evt.Tipo && prev.FechaHora == evt.FechaHora;
                 string tipo = identico ? RegistroInconsistencia.TipoDuplicado : RegistroInconsistencia.TipoConflictoIdentificacion;
@@ -132,7 +132,6 @@ public class Empresa
                 _inconsistencias.Add(new RegistroInconsistencia(archivoOrigen, evt.IdAcontecimiento, tipo, motivo, DateTime.Now));
                 continue;
             }
-            vistos.Add(evt.IdAcontecimiento, evt);
             validos.Add(evt);
         }
 
@@ -157,21 +156,17 @@ public class Empresa
 
     public Despacho ObtenerDespacho(string guia)
     {
-        Despacho d;
-        _despachosPorGuia.TryGetValue(guia, out d);
-        return d;
+        return _despachos.FirstOrDefault(d => d.NumeroGuia.ToLower() == guia.ToLower());
     }
 
     public Establecimiento ObtenerEstablecimiento(string codigo)
     {
-        Establecimiento e;
-        _establecimientos.TryGetValue(codigo, out e);
-        return e;
+        return _establecimientos.FirstOrDefault(e => e.Codigo.ToLower() == codigo.ToLower());
     }
 
     public InformeConsolidadoDto MapToDto()
     {
-        ComercioOperativoDto resumenGlobal = ConstruirResumenOperativo("TOTAL", "Global", _despachosPorGuia.Values);
+        ComercioOperativoDto resumenGlobal = ConstruirResumenOperativo("TOTAL", "Global", _despachos);
         InformeConsolidadoDto dto = new InformeConsolidadoDto
         {
             FechaGeneracion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -181,14 +176,14 @@ public class Empresa
             TotalDevueltos = resumenGlobal.Devueltos,
             TotalPendientes = resumenGlobal.Pendientes,
             TotalEnDistribucion = resumenGlobal.EnDistribucion,
-            TotalPaquetes = _despachosPorGuia.Values.Sum(d => d.CantidadPaquetes),
-            PesoTotalKg = _despachosPorGuia.Values.Sum(d => d.CalcularPesoTotal()),
+            TotalPaquetes = _despachos.Sum(d => d.CantidadPaquetes),
+            PesoTotalKg = _despachos.Sum(d => d.CalcularPesoTotal()),
             CumplidosSLA = resumenGlobal.CumplidosSLA,
             IncumplidosSLA = resumenGlobal.IncumplidosSLA,
             PorcentajeCumplimientoSobreEntregados = resumenGlobal.PorcentajeCumplimiento
         };
 
-        foreach (Establecimiento est in _establecimientos.Values)
+        foreach (Establecimiento est in _establecimientos)
         {
             dto.DesgloseComerciosOperativo.Add(ConstruirResumenOperativo(est.Codigo, est.NombreComercial, est.Despachos));
 
@@ -209,20 +204,30 @@ public class Empresa
             dto.GranTotalFacturado += totalComercio;
         }
 
-        dto.CobrosPorModalidadTarifa = dto.DesgloseComerciosFinanciero
-            .GroupBy(c => c.ModalidadTarifa)
-            .Select(g => new CobroTarifaDto { ModalidadTarifa = g.Key, TotalFacturado = g.Sum(x => x.TotalFacturado) })
-            .ToList();
-
-        dto.DespachosEntregadosNoValorados = _despachosPorGuia.Values.Count(d =>
-            d.EsFacturable() && (!_establecimientos.ContainsKey(d.CodigoEstablecimiento) || _establecimientos[d.CodigoEstablecimiento].TarifaAcordada == null));
-
-        foreach (IGrouping<string, Despacho> grupo in _despachosPorGuia.Values.GroupBy(d => d.Modalidad != null ? d.Modalidad.NombreModalidad : "Sin Asignar"))
+        List<string> tarifas = dto.DesgloseComerciosFinanciero.Select(c => c.ModalidadTarifa).Distinct().ToList();
+        foreach (string tarifa in tarifas)
         {
-            ComercioOperativoDto resumenMod = ConstruirResumenOperativo(grupo.Key, grupo.Key, grupo);
+            decimal totalTarifa = dto.DesgloseComerciosFinanciero
+                .Where(c => c.ModalidadTarifa == tarifa)
+                .Sum(c => c.TotalFacturado);
+            dto.CobrosPorModalidadTarifa.Add(new CobroTarifaDto { ModalidadTarifa = tarifa, TotalFacturado = totalTarifa });
+        }
+
+        dto.DespachosEntregadosNoValorados = _despachos.Count(d => EstaEntregadoSinTarifa(d));
+
+        List<string> modalidades = _despachos
+            .Select(d => d.Modalidad != null ? d.Modalidad.NombreModalidad : "Sin Asignar")
+            .Distinct()
+            .ToList();
+        foreach (string mod in modalidades)
+        {
+            List<Despacho> grupo = _despachos
+                .Where(d => (d.Modalidad != null ? d.Modalidad.NombreModalidad : "Sin Asignar") == mod)
+                .ToList();
+            ComercioOperativoDto resumenMod = ConstruirResumenOperativo(mod, mod, grupo);
             dto.DesgloseModalidades.Add(new ModalidadOperativoDto
             {
-                Modalidad = grupo.Key,
+                Modalidad = mod,
                 TotalDespachos = resumenMod.TotalDespachos,
                 Entregados = resumenMod.Entregados,
                 CumplidosSLA = resumenMod.CumplidosSLA,
@@ -233,16 +238,32 @@ public class Empresa
 
         dto.TotalInconsistencias = _inconsistencias.Count;
         dto.ListadoInconsistencias = _inconsistencias.Select(InconsistenciaDto.MapToDto).ToList();
-        dto.InconsistenciasPorTipo = _inconsistencias
-            .GroupBy(i => i.Tipo ?? "Desconocido")
-            .Select(g => new ConteoInconsistenciaDto { Clave = g.Key, Cantidad = g.Count() })
-            .ToList();
-        dto.InconsistenciasPorArchivo = _inconsistencias
-            .GroupBy(i => i.ArchivoOrigen ?? "Desconocido")
-            .Select(g => new ConteoInconsistenciaDto { Clave = g.Key, Cantidad = g.Count() })
-            .ToList();
+
+        List<string> tiposInc = _inconsistencias.Select(i => i.Tipo ?? "Desconocido").Distinct().ToList();
+        foreach (string t in tiposInc)
+        {
+            int cantidad = _inconsistencias.Count(i => (i.Tipo ?? "Desconocido") == t);
+            dto.InconsistenciasPorTipo.Add(new ConteoInconsistenciaDto { Clave = t, Cantidad = cantidad });
+        }
+
+        List<string> archivosInc = _inconsistencias.Select(i => i.ArchivoOrigen ?? "Desconocido").Distinct().ToList();
+        foreach (string arch in archivosInc)
+        {
+            int cantidad = _inconsistencias.Count(i => (i.ArchivoOrigen ?? "Desconocido") == arch);
+            dto.InconsistenciasPorArchivo.Add(new ConteoInconsistenciaDto { Clave = arch, Cantidad = cantidad });
+        }
 
         return dto;
+    }
+
+    private bool EstaEntregadoSinTarifa(Despacho despacho)
+    {
+        if (!despacho.EsFacturable())
+        {
+            return false;
+        }
+        Establecimiento est = ObtenerEstablecimiento(despacho.CodigoEstablecimiento);
+        return est == null || est.TarifaAcordada == null;
     }
 
     private ComercioOperativoDto ConstruirResumenOperativo(string codigo, string nombre, IEnumerable<Despacho> despachos)

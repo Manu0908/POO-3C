@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <InformeConsolidadoDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <FechaGeneracion>2026-11-18 00:12:35</FechaGeneracion>
+  <FechaGeneracion>2026-11-18 00:28:57</FechaGeneracion>
   <Sistema>NexoLog S.A.S.</Sistema>
   <TotalDespachos>10</TotalDespachos>
   <TotalEntregados>6</TotalEntregados>
@@ -168,126 +168,126 @@
       <IdentificadorReferencia>NX-1090</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El peso del paquete debe ser estrictamente mayor a 0 kg.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5136595-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.8991778-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-1091</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El despacho 'NX-1091' no contiene paquetes asociados.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5163531-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9017608-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-3090</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>La hora final de la franja horaria debe ser estrictamente posterior a la hora inicial.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5163958-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9018048-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-3091</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El paquete con ID 'PAQ-DUP-01' ya se encuentra registrado en el despacho NX-3091.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.516485-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.901899-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
       <IdentificadorReferencia>NX-2090</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El peso del paquete debe ser estrictamente mayor a 0 kg.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5265283-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9103806-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
       <IdentificadorReferencia>NX-2091</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El valor declarado del paquete no puede ser negativo.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5265392-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9103922-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
       <IdentificadorReferencia>NX-2092</IdentificadorReferencia>
       <Tipo>DatoInvalido</Tipo>
       <Motivo>El despacho 'NX-2092' no contiene paquetes asociados.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5265452-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.910398-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-1002</IdentificadorReferencia>
       <Tipo>Duplicado</Tipo>
       <Motivo>Despacho con guia 'NX-1002' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5377395-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.920803-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_caribe.json</ArchivoOrigen>
       <IdentificadorReferencia>NX-1001</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
       <Motivo>Conflicto de identificacion: La guia 'NX-1001' ya existe con informacion contradictoria.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5377556-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9208133-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
       <IdentificadorReferencia>NX-2001</IdentificadorReferencia>
       <Tipo>Duplicado</Tipo>
       <Motivo>Despacho con guia 'NX-2001' duplicado identicamente en la fuente; se omite duplicado.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5377718-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.920835-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>pedidos_andino.xml</ArchivoOrigen>
       <IdentificadorReferencia>NX-2002</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
       <Motivo>Conflicto de identificacion: La guia 'NX-2002' ya existe con informacion contradictoria.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5377724-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9208365-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
       <IdentificadorReferencia>EVT-NORTE-101</IdentificadorReferencia>
       <Tipo>Duplicado</Tipo>
       <Motivo>Acontecimiento 'EVT-NORTE-101' duplicado identicamente en la guia 'NX-1001'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5401894-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.924022-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
       <IdentificadorReferencia>EVT-NORTE-100</IdentificadorReferencia>
       <Tipo>ConflictoIdentificacion</Tipo>
       <Motivo>Conflicto en acontecimiento 'EVT-NORTE-100' de la guia 'NX-1001': mismo ID con datos contradictorios.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5401926-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9240257-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
       <IdentificadorReferencia>EVT-NORTE-902</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
       <Motivo>Incompatibilidad de secuencia en la guia 'NX-1001': El acontecimiento 'RUT' no es valido para el estado 'Entregado'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5439947-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9280049-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_norte.json</ArchivoOrigen>
       <IdentificadorReferencia>EVT-NORTE-901</IdentificadorReferencia>
       <Tipo>ReferenciaInexistente</Tipo>
       <Motivo>El acontecimiento 'EVT-NORTE-901' referencia a una guia inexistente: 'NX-9999'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5441427-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9280921-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
       <IdentificadorReferencia>EVT-AND-902</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
       <Motivo>Incompatibilidad de secuencia en la guia 'NX-2001': El acontecimiento 'DEV' no es valido para el estado 'Entregado'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5441777-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.928167-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
       <IdentificadorReferencia>EVT-AND-401</IdentificadorReferencia>
       <Tipo>AcontecimientoIncompatible</Tipo>
       <Motivo>Incompatibilidad de secuencia en la guia 'NX-2004': El acontecimiento 'ENT' no es valido para el estado 'Pendiente'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5441877-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.9281861-05:00</FechaDeteccion>
     </InconsistenciaDto>
     <InconsistenciaDto>
       <ArchivoOrigen>seguimiento_andina.xml</ArchivoOrigen>
       <IdentificadorReferencia>EVT-AND-901</IdentificadorReferencia>
       <Tipo>ReferenciaInexistente</Tipo>
       <Motivo>El acontecimiento 'EVT-AND-901' referencia a una guia inexistente: 'NX-7777'.</Motivo>
-      <FechaDeteccion>2026-11-18T00:12:35.5441941-05:00</FechaDeteccion>
+      <FechaDeteccion>2026-11-18T00:28:57.928189-05:00</FechaDeteccion>
     </InconsistenciaDto>
   </ListadoInconsistencias>
 </InformeConsolidadoDto>

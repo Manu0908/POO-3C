@@ -74,12 +74,9 @@ public class Establecimiento
             throw new NexoLogException("No se puede agregar un despacho nulo al establecimiento.");
         }
 
-        foreach (Despacho d in _despachos)
+        if (_despachos.Any(d => d.NumeroGuia.ToLower() == despacho.NumeroGuia.ToLower()))
         {
-            if (d.NumeroGuia.ToLower() == despacho.NumeroGuia.ToLower())
-            {
-                throw new NexoLogException($"Ya existe un despacho con numero de guia '{despacho.NumeroGuia}' en el establecimiento {NombreComercial}.");
-            }
+            throw new NexoLogException($"Ya existe un despacho con numero de guia '{despacho.NumeroGuia}' en el establecimiento {NombreComercial}.");
         }
 
         _despachos.Add(despacho);
@@ -92,16 +89,7 @@ public class Establecimiento
             return 0m;
         }
 
-        decimal totalFacturable = 0m;
-        foreach (Despacho despacho in _despachos)
-        {
-            if (despacho.EsFacturable())
-            {
-                totalFacturable += _tarifaAcordada.CalcularTarifa(despacho);
-            }
-        }
-
-        return totalFacturable;
+        return _despachos.Sum(d => _tarifaAcordada.CalcularTarifa(d));
     }
 
     public string MostrarInformacion()
