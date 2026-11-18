@@ -4,7 +4,6 @@ using NexoLog;
 using NexoLog.DTOs;
 using NexoLog.Exportadores;
 using NexoLog.Importadores;
-using NexoLog.Informes;
 
 Console.OutputEncoding = Encoding.UTF8;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -21,15 +20,15 @@ List<Acontecimiento> seguimientosAndinaCargados = new List<Acontecimiento>();
 List<RegistroInconsistencia> inconsistenciasLectura = new List<RegistroInconsistencia>();
 
 bool archivosCargados = false;
-bool informacionIntegrada = false;
+bool datosConsolidados = false;
 
 while (continuar)
 {
     Console.WriteLine("\n========================================================");
-    Console.WriteLine("        SISTEMA DE GESTION LOGISTICA - NEXOLOG          ");
+    Console.WriteLine("        SISTEMA DE LOGISTICA Y DISTRIBUCION - NEXOLOG   ");
     Console.WriteLine("========================================================");
     Console.WriteLine(" 1. Cargar archivos de datos");
-    Console.WriteLine(" 2. Procesar e integrar informacion");
+    Console.WriteLine(" 2. Consolidar datos en la empresa");
     Console.WriteLine(" 3. Ver informe operativo");
     Console.WriteLine(" 4. Ver informe financiero");
     Console.WriteLine(" 5. Ver informe de inconsistencias");
@@ -43,6 +42,7 @@ while (continuar)
     {
         break;
     }
+
     string opcion = lineaLeida.Trim().Trim('\uFEFF');
     if (string.IsNullOrEmpty(opcion))
     {
@@ -59,13 +59,13 @@ while (continuar)
             ConsolidarDatosEnEmpresa(sistema);
             break;
         case "3":
-            MostrarInformeOperativo(sistema);
+            VerInformeOperativo(sistema);
             break;
         case "4":
-            MostrarInformeFinanciero(sistema);
+            VerInformeFinanciero(sistema);
             break;
         case "5":
-            MostrarInformeInconsistencias(sistema);
+            VerInformeInconsistencias(sistema);
             break;
         case "6":
             ExportarInformes(sistema);
@@ -97,23 +97,17 @@ void CargarArchivos(Empresa sys, string ruta)
     inconsistenciasLectura.Clear();
     sys.Limpiar();
 
-    string rutaAcuerdos = Path.Combine(ruta, "acuerdos.json");
-    string rutaCaribe = Path.Combine(ruta, "pedidos_caribe.json");
-    string rutaAndino = Path.Combine(ruta, "pedidos_andino.xml");
-    string rutaNorte = Path.Combine(ruta, "seguimiento_norte.json");
-    string rutaAndina = Path.Combine(ruta, "seguimiento_andina.xml");
-
     IImportadorArchivo<AcuerdoDto> importadorAcuerdos = ImportadorFactory.CrearAcuerdos("json");
     IImportadorArchivo<Despacho> importadorCaribe = ImportadorFactory.CrearPedidos("json");
     IImportadorArchivo<Despacho> importadorAndino = ImportadorFactory.CrearPedidos("xml");
     IImportadorArchivo<Acontecimiento> importadorNorte = ImportadorFactory.CrearSeguimientos("json");
     IImportadorArchivo<Acontecimiento> importadorAndina = ImportadorFactory.CrearSeguimientos("xml");
 
-    acuerdosCargados = importadorAcuerdos.Importar(rutaAcuerdos, inconsistenciasLectura);
-    pedidosCaribeCargados = importadorCaribe.Importar(rutaCaribe, inconsistenciasLectura);
-    pedidosAndinoCargados = importadorAndino.Importar(rutaAndino, inconsistenciasLectura);
-    seguimientosNorteCargados = importadorNorte.Importar(rutaNorte, inconsistenciasLectura);
-    seguimientosAndinaCargados = importadorAndina.Importar(rutaAndina, inconsistenciasLectura);
+    acuerdosCargados = importadorAcuerdos.Importar(Path.Combine(ruta, "acuerdos.json"), inconsistenciasLectura);
+    pedidosCaribeCargados = importadorCaribe.Importar(Path.Combine(ruta, "pedidos_caribe.json"), inconsistenciasLectura);
+    pedidosAndinoCargados = importadorAndino.Importar(Path.Combine(ruta, "pedidos_andino.xml"), inconsistenciasLectura);
+    seguimientosNorteCargados = importadorNorte.Importar(Path.Combine(ruta, "seguimiento_norte.json"), inconsistenciasLectura);
+    seguimientosAndinaCargados = importadorAndina.Importar(Path.Combine(ruta, "seguimiento_andina.xml"), inconsistenciasLectura);
 
     foreach (RegistroInconsistencia inc in inconsistenciasLectura)
     {
@@ -121,7 +115,7 @@ void CargarArchivos(Empresa sys, string ruta)
     }
 
     archivosCargados = true;
-    informacionIntegrada = false;
+    datosConsolidados = false;
 
     int totalDespachosPrelim = pedidosCaribeCargados.Count + pedidosAndinoCargados.Count;
     int totalSeguimientosPrelim = seguimientosNorteCargados.Count + seguimientosAndinaCargados.Count;
@@ -135,7 +129,7 @@ void CargarArchivos(Empresa sys, string ruta)
 
 void ConsolidarDatosEnEmpresa(Empresa sys)
 {
-    Console.WriteLine("--- Consolidacion de Informacion ---");
+    Console.WriteLine("--- Consolidacion de Datos ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
@@ -167,140 +161,68 @@ void ConsolidarDatosEnEmpresa(Empresa sys)
     sys.RegistrarSeguimientos(seguimientosNorteCargados, "seguimiento_norte.json");
     sys.RegistrarSeguimientos(seguimientosAndinaCargados, "seguimiento_andina.xml");
 
-    informacionIntegrada = true;
+    datosConsolidados = true;
 
     Console.WriteLine($"Establecimientos consolidados: {sys.Establecimientos.Count}");
-    Console.WriteLine($"Despachos unicos integrados: {sys.Despachos.Count}");
+    Console.WriteLine($"Despachos unicos registrados: {sys.Despachos.Count}");
     Console.WriteLine($"Inconsistencias totales registradas: {sys.Inconsistencias.Count}");
-    Console.WriteLine("Integracion completada con exito.");
+    Console.WriteLine("Consolidacion completada con exito.");
 }
 
-void MostrarInformeOperativo(Empresa sys)
+void VerInformeOperativo(Empresa sys)
 {
     Console.WriteLine("--- Informe Operativo ---");
-    if (!informacionIntegrada)
+    if (!datosConsolidados)
     {
-        Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
+        Console.WriteLine("Primero debe consolidar los datos (Opcion 2).");
         return;
     }
 
-    InformeOperativo op = sys.GenerarInformeOperativo();
-    Console.WriteLine($"Total despachos: {op.TotalDespachos}");
-    Console.WriteLine($"Entregados: {op.TotalEntregados} | Devueltos: {op.TotalDevueltos} | En Distribucion: {op.TotalEnDistribucion} | Pendientes: {op.TotalPendientes}");
-    Console.WriteLine($"Total paquetes: {op.TotalPaquetes} | Peso total: {op.PesoTotalKg:F2} kg");
-    Console.WriteLine($"Cumplimiento SLA: {op.CumplidosSLA} cumplidos, {op.IncumplidosSLA} incumplidos");
-    Console.WriteLine($"Porcentaje SLA sobre entregados: {op.PorcentajeCumplimientoSobreEntregados:F2}%");
-
-    Console.WriteLine("\nDesglose por Comercio:");
-    foreach (ResumenComercioOperativo com in op.DesgloseComercios)
-    {
-        Console.WriteLine($" - [{com.CodigoComercio}] {com.NombreComercio}: Total={com.TotalDespachos}, Entregados={com.Entregados}, Devueltos={com.Devueltos}, SLA={com.PorcentajeCumplimiento:F1}%");
-    }
-
-    Console.WriteLine("\nDesglose por Modalidad:");
-    foreach (ResumenModalidadOperativo mod in op.DesgloseModalidades)
-    {
-        Console.WriteLine($" - {mod.Modalidad}: Total={mod.TotalDespachos}, Entregados={mod.Entregados}, Cumplen={mod.CumplidosSLA}, SLA={mod.PorcentajeCumplimiento:F1}%");
-    }
+    sys.MostrarInformeOperativo();
 }
 
-void MostrarInformeFinanciero(Empresa sys)
+void VerInformeFinanciero(Empresa sys)
 {
     Console.WriteLine("--- Informe Financiero ---");
-    if (!informacionIntegrada)
+    if (!datosConsolidados)
     {
-        Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
+        Console.WriteLine("Primero debe consolidar los datos (Opcion 2).");
         return;
     }
 
-    InformeFinanciero fin = sys.GenerarInformeFinanciero();
-    Console.WriteLine("Liquidacion por comercio:");
-    foreach (ItemFinancieroComercio item in fin.DesgloseComercios)
-    {
-        Console.WriteLine($" - [{item.CodigoComercio}] {item.NombreComercio} ({item.ModalidadTarifa}): Facturables={item.DespachosFacturables}, Total=${item.TotalFacturado:N0}");
-    }
-
-    Console.WriteLine($"\nGran Total Facturado: ${fin.GranTotalFacturado:N0}");
-    Console.WriteLine($"Despachos entregados no valorados: {fin.DespachosEntregadosNoValorados}");
-
-    Despacho nx1001 = sys.ObtenerDespacho("NX-1001");
-    if (nx1001 != null && nx1001.EsFacturable())
-    {
-        Establecimiento est = sys.ObtenerEstablecimiento("COM-01");
-        if (est != null && est.TarifaAcordada != null)
-        {
-            decimal cobro = est.TarifaAcordada.CalcularTarifa(nx1001);
-            Console.WriteLine($"\n[Prueba de control] Guia NX-1001: Peso={nx1001.CalcularPesoTotal():F1} kg | Cobro=${cobro:N0} (Esperado: $12.950)");
-        }
-    }
+    sys.MostrarInformeFinanciero();
 }
 
-void MostrarInformeInconsistencias(Empresa sys)
+void VerInformeInconsistencias(Empresa sys)
 {
     Console.WriteLine("--- Informe de Inconsistencias ---");
-    InformeInconsistencias inc = sys.GenerarInformeInconsistencias();
-    Console.WriteLine($"Total inconsistencias registradas: {inc.TotalInconsistencias}");
-
-    Console.WriteLine("\nPor tipo:");
-    foreach (KeyValuePair<string, int> par in inc.InconsistenciasPorTipo)
-    {
-        Console.WriteLine($" - {par.Key}: {par.Value}");
-    }
-
-    Console.WriteLine("\nPor archivo origen:");
-    foreach (KeyValuePair<string, int> par in inc.InconsistenciasPorArchivo)
-    {
-        Console.WriteLine($" - {par.Key}: {par.Value}");
-    }
-
-    Console.WriteLine("\nDetalle de inconsistencias:");
-    int i = 1;
-    foreach (InconsistenciaDto reg in inc.Listado)
-    {
-        Console.WriteLine($" {i}. [{reg.Tipo}] ({reg.ArchivoOrigen} | {reg.IdentificadorReferencia}): {reg.Motivo}");
-        i++;
-    }
+    sys.MostrarInformeInconsistencias();
 }
 
 void ExportarInformes(Empresa sys)
 {
     Console.WriteLine("--- Exportacion de Informes ---");
-    if (!informacionIntegrada)
+    if (!datosConsolidados)
     {
-        Console.WriteLine("Primero debe integrar la informacion (Opcion 2).");
+        Console.WriteLine("Primero debe consolidar los datos (Opcion 2).");
         return;
     }
 
     Console.WriteLine("1. Exportar a JSON");
     Console.WriteLine("2. Exportar a XML");
-    Console.Write("Seleccione formato [1 o 2]: ");
+    Console.Write("Seleccione formato [1 o 2 / json o xml]: ");
     string f = (Console.ReadLine() ?? string.Empty).Trim();
 
-    IExportadorInforme exportador;
     try
     {
-        exportador = ExportadorFactory.Crear(f);
-    }
-    catch (NexoLogException ex)
-    {
-        Console.WriteLine($"Error: {ex.Message}");
-        return;
-    }
+        IExportadorInforme exportador = ExportadorFactory.Crear(f);
+        string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{exportador.Extension}");
+        Console.Write($"Ruta destino (ENTER para '{rutaDefecto}'): ");
+        string rutaInput = (Console.ReadLine() ?? string.Empty).Trim();
+        string rutaFinal = string.IsNullOrWhiteSpace(rutaInput) ? rutaDefecto : rutaInput;
 
-    string extension = exportador.Extension;
-
-    string rutaDefecto = Path.Combine(Directory.GetCurrentDirectory(), "InformesExportados", $"informes_nexolog.{extension}");
-    Console.Write($"Ruta destino (ENTER para '{rutaDefecto}'): ");
-    string rutaInput = (Console.ReadLine() ?? string.Empty).Trim();
-    string rutaFinal = string.IsNullOrWhiteSpace(rutaInput) ? rutaDefecto : rutaInput;
-
-    InformeOperativo op = sys.GenerarInformeOperativo();
-    InformeFinanciero fin = sys.GenerarInformeFinanciero();
-    InformeInconsistencias inc = sys.GenerarInformeInconsistencias();
-
-    try
-    {
-        exportador.Exportar(op, fin, inc, rutaFinal);
+        InformeConsolidadoDto dto = sys.MapToDto();
+        exportador.Exportar(dto, rutaFinal);
         Console.WriteLine($"Informes exportados exitosamente en:\n  {Path.GetFullPath(rutaFinal)}");
     }
     catch (Exception ex)

@@ -2,7 +2,11 @@ namespace NexoLog.Servicios;
 
 public class ServicioEstandar : ModalidadServicio
 {
-    public ServicioEstandar() : base("Estándar") { }
+    private const int _tiempoEntregaMaximoH = 72;
+
+    public override string NombreModalidad { get { return "Estándar"; } }
+
+    public ServicioEstandar() { }
 
     public override bool EvaluarCumplimiento(Despacho despacho)
     {
@@ -11,27 +15,14 @@ public class ServicioEstandar : ModalidadServicio
             return false;
         }
 
-        Acontecimiento eventoRec = null;
-        Acontecimiento eventoEnt = null;
-
-        foreach (Acontecimiento acontecimiento in despacho.Historial)
-        {
-            if (acontecimiento.Tipo == Acontecimiento.TipoRec && eventoRec == null)
-            {
-                eventoRec = acontecimiento;
-            }
-            else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
-            {
-                eventoEnt = acontecimiento;
-            }
-        }
-
+        Acontecimiento eventoRec = despacho.BuscarAcontecimiento(Acontecimiento.TipoRec);
+        Acontecimiento eventoEnt = despacho.BuscarAcontecimiento(Acontecimiento.TipoEnt);
         if (eventoRec == null || eventoEnt == null)
         {
             return false;
         }
 
         double horasTranscurridas = (eventoEnt.FechaHora - eventoRec.FechaHora).TotalHours;
-        return horasTranscurridas >= 0 && horasTranscurridas <= 72.0;
+        return horasTranscurridas >= 0 && horasTranscurridas <= _tiempoEntregaMaximoH;
     }
 }

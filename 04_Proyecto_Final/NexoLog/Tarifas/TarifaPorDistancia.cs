@@ -4,12 +4,15 @@ public class TarifaPorDistancia : ITarifa
 {
     private decimal _valorPorKilometro;
 
+    public string TipoTarifa { get { return "Tarifa por Distancia"; } }
+    public decimal ValorBase { get { return _valorPorKilometro; } }
+
+    private TarifaPorDistancia() { }
+
     public TarifaPorDistancia(decimal valorPorKilometro)
     {
         ValorPorKilometro = valorPorKilometro;
     }
-
-    public decimal ValorBase { get { return _valorPorKilometro; } }
 
     public decimal ValorPorKilometro
     {
@@ -38,10 +41,5 @@ public class TarifaPorDistancia : ITarifa
 
         decimal distancia = (decimal)despacho.DistanciaKm;
         return distancia * _valorPorKilometro;
-    }
-
-    public string ObtenerTipoTarifa()
-    {
-        return "Tarifa por Distancia";
     }
 }

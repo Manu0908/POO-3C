@@ -23,7 +23,7 @@ Este documento es la **única fuente de verdad** normativa, arquitectónica y es
 ### 2.1. Declaraciones, Tipos y Estructuras de Control
 * **Declaraciones explícitas e individuales (cero `var`):** cada variable lleva su tipo explícito en su propia línea independiente. Queda prohibido agrupar (`double a, b;`) y prohibido usar `var`.
 * **Cero `enum` (usar constantes):** estados y tipos fijos públicos se modelan con `public const string PascalCase` (ej. `Despacho.EstadoPendiente`); constantes internas de clase/estrategia usan `private const <tipo> _camelCase` (`_precioPorPagina`, `_porcentajeDescuento`).
-* **Uso de `switch` y bifurcaciones:** se permite el uso de `switch` tradicional (con `case`, `break`, `default`) o switch expression en fábricas, mapeadores, menús de consola y despacho de tipos fijos/constantes; para bifurcaciones condicionales complejas o de negocio se continúa usando `if / else if / else`.
+* **Uso de `switch` comprimido y bifurcaciones:** se prefiere el formato comprimido (*switch expression* `=>`) en fábricas, validaciones de transición y mapeadores, y se permite `switch` en menús de consola; para bifurcaciones condicionales complejas o de negocio se continúa usando `if / else if / else`.
 * **Cero `TimeSpan` complejo:** modelar franjas horarias sencillas con tipos primitivos (`int _horaInicio`, `int _horaFin` o texto simple).
 * **Comparaciones simples de cadenas:** preferir `==` o `.ToLower() == ...` en lugar de formas verbosas cuando no se requiera comparación cultural especial.
 
@@ -91,21 +91,21 @@ public class Despacho
 ```
 
 ### 2.5. Nomenclatura Expresiva y Regla de la "Y" (Responsabilidad Única)
-* **Prohibidos nombres vagos:** está prohibido nombrar métodos como `Procesar...`, `Integrar...`, `Manejar...` o `Gestionar...`. Todo método debe revelar con exactitud su acción en el dominio (`RegistrarAcontecimiento`, `RegistrarRecepcion`, `RegistrarSalidaARuta`, `RegistrarEntrega`, `RegistrarDevolucion`, `ConsolidarDatosEnEmpresa`, `VerificarQueNoEsteFinalizado`, `TieneMismosDatosQue`, `EsFacturable`).
-* **Regla de la "Y":** si un método requiere la conjunción *"Y"* en su nombre (`ExtraerYAgregar...`) porque hace dos tareas distintas, debe dividirse en dos métodos cohesivos separados donde uno orqueste al otro (`ExtraerDespachoDesdeXml` + `AgregarPedidoSiEsValido`).
+* **Prohibidos nombres vagos:** está prohibido nombrar métodos como `Procesar...`, `Integrar...`, `Manejar...` o `Gestionar...` (incluyendo textos del menú). Todo método debe revelar con exactitud su acción en el dominio (`AgregarAcontecimiento`, `BuscarAcontecimiento`, `ConsolidarDatosEnEmpresa`, `TieneMismosDatosQue`, `EsFacturable`).
+* **Regla de la "Y":** si un método requiere la conjunción *"Y"* en su nombre (`ExtraerYAgregar...`) porque hace dos tareas distintas, debe dividirse en dos métodos cohesivos separados donde uno orqueste al otro.
 * **Método de salida en consola:** usar `MostrarInformacion()` en las entidades que proyecten detalle en pantalla; evitar sobrecargar `ToString()` para formateos complejos.
 
 ### 2.6. Polimorfismo Real, DTOs (Sesión 17), Patrones (Sesión 19) y Resiliencia
-* **Polimorfismo real en interfaces (cero chequeos `is Subtipo`):** si una capa necesita un dato o cálculo común de varias implementaciones, ese miembro debe vivir en la interfaz (`ITarifa.ValorBase`, `Nombre`), prohibiéndose cadenas `if (x is TarifaPorPeso) ... else if ...`.
+* **Polimorfismo real en interfaces (cero chequeos `is Subtipo`):** si una capa necesita un dato o cálculo común de varias implementaciones, ese miembro debe vivir en la interfaz (`ITarifa.TipoTarifa`, `ITarifa.ValorBase`), prohibiéndose cadenas `if (x is TarifaPorPeso) ... else if ...`.
 * **Sesión 17 — DTOs y Mappers ("Los objetos de dominio nunca se serializan"):**
-  - Ingesta: archivo $\rightarrow$ DTO $\rightarrow$ `MapToDomain(...)` $\rightarrow$ entidad validada.
-  - Salida/Reportes: entidad $\rightarrow$ `MapToDto(...)` $\rightarrow$ DTO puro (`{ get; set; }`, `[JsonPropertyName("...")]`) $\rightarrow$ JSON/XML/CSV.
+  - Ingesta: archivo (JSON/XML) $\rightarrow$ DTO unificado (`AcuerdoDto`, `PedidoDto`, `PaqueteDto`, `AcontecimientoDto`) $\rightarrow$ `MapToDomain(...)` $\rightarrow$ entidad validada.
+  - Salida/Reportes: `Empresa.MapToDto()` $\rightarrow$ `InformeConsolidadoDto` (`{ get; set; }`, listas serializables nativas para `JsonSerializer` y `XmlSerializer`).
   - **Prohibidos los tipos anónimos (`new { ... }`)**.
 * **Sesión 19 — `Strategy + Factory Method`:**
   - Estrategias detrás de interfaces con nombres de dominio puro (`ITarifa`, `IImportadorArchivo<T>`, `IExportadorInforme`) sin sufijos artificiales (`Strategy`).
   - Creación centralizada en fábricas estáticas simétricas (`ImportadorFactory`, `ExportadorFactory`) o método estático `Crear(...)` en clase abstracta base (`ModalidadServicio.Crear(...)`), evitando lógica de instanciación dispersa en `Program.cs` o en la ingesta.
-  - *Reglas de sintaxis en fábricas y patrones:* se permite `switch` tradicional o switch expressions para la selección de estrategias, modalidades y formatos, manteniendo de forma estricta tipos explícitos (cero `var`), cero comentarios y retorno directo de la instancia correspondiente.
-* **Dominio puro y rechazo a clases anémicas:** `Empresa` coordina colecciones del negocio sin lectura de disco ni cálculos extensos de informes (tampoco renombrarla a `SistemaLogistico` o `PipelineProcessor`). Registros históricos sin comportamiento divergente (`Acontecimiento`) no se dividen en subclases vacías; `Despacho` gobierna su máquina de estados.
+  - *Reglas de sintaxis en fábricas y patrones:* usar switch expressions (`=>`) para la selección de estrategias, modalidades y formatos, manteniendo tipos explícitos (cero `var`), cero comentarios y retorno directo de la instancia correspondiente.
+* **Dominio puro y rechazo a clases anémicas:** `Empresa` coordina colecciones del negocio, consolida sus reportes y expone `MapToDto()` (estilo `Solicitud` en CopiaExpress) sin lectura de disco ni carpetas intermedias innecesarias. Registros históricos sin comportamiento divergente (`Acontecimiento`) no se dividen en subclases vacías; `Despacho` gobierna su máquina de estados en `AgregarAcontecimiento`.
 * **Excepciones y UTF-8:** usar excepciones de dominio heredando de `Exception` cuando la regla o el enunciado las exija (`NexoLogException`, o `Excepciones.cs` en parciales) y `ArgumentException`/`Exception` en ejercicios sencillos; especificar siempre `Encoding.UTF8` explícito en consola y archivos.
 
 ---
@@ -141,7 +141,7 @@ public class Despacho
 ### 5.2. Reglas de Negocio y Cifras de Control (Golden Baseline de NexoLog)
 * **Acuerdos comerciales (`DatosPrueba/acuerdos.json`):** `COM-01` Tarifa por peso (`$3.500/kg`), `COM-02` Tarifa por distancia (`$150/km`), `COM-03` Tarifa fija (`$18.500`).
 * **Caso de control `NX-1001`:** `2.2 kg + 1.5 kg = 3.7 kg` $\times$ `$3.500/kg` $=$ **`$12.950`** exactos.
-* **Ordenamiento temporal obligatorio:** antes de ejecutar `Despacho.RegistrarAcontecimiento()`, ordenar ascendentemente los acontecimientos por `FechaHora` para reconstruir eventos desordenados en archivo.
+* **Ordenamiento temporal obligatorio:** antes de ejecutar `Despacho.AgregarAcontecimiento()`, ordenar ascendentemente los acontecimientos por `FechaHora` para reconstruir eventos desordenados en archivo.
 * **SLA y facturación:**
   - Porcentaje SLA = `(Entregados a Tiempo / Total Entregados) × 100` (`4 / 6 = 66.67%`). Pendientes, en distribución y devueltos se excluyen del denominador.
   - Solo los despachos con estado final `Entregado` habilitan cobro (`Gran Total Facturado: $104.450`); un entregado fuera de tiempo sigue siendo facturable, aunque incumple SLA.

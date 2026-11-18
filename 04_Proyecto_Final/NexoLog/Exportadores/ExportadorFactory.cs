@@ -4,17 +4,13 @@ public static class ExportadorFactory
 {
     public static IExportadorInforme Crear(string formato)
     {
-        string formatoNormalizado = (formato ?? string.Empty).Trim().ToLowerInvariant();
-        switch (formatoNormalizado)
+        return (formato ?? string.Empty).Trim().ToLower() switch
         {
-            case "1":
-            case "json":
-                return new ExportadorInformesJson();
-            case "2":
-            case "xml":
-                return new ExportadorInformesXml();
-            default:
-                throw new NexoLogException($"Formato de exportacion no soportado: '{formato}'.");
-        }
+            "1" => new ExportadorInformesJson(),
+            "json" => new ExportadorInformesJson(),
+            "2" => new ExportadorInformesXml(),
+            "xml" => new ExportadorInformesXml(),
+            _ => throw new NexoLogException($"Formato de exportacion no soportado: '{formato}'.")
+        };
     }
 }

@@ -11,86 +11,29 @@ public class ImportadorAcuerdosJson : IImportadorArchivo<AcuerdoDto>
         List<AcuerdoDto> acuerdosValidos = new List<AcuerdoDto>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);
 
-        if (!File.Exists(rutaArchivo))
-        {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                "GENERAL",
-                RegistroInconsistencia.TipoReferenciaInexistente,
-                $"El archivo de acuerdos '{rutaArchivo}' no existe.",
-                DateTime.Now));
-            return acuerdosValidos;
-        }
-
         try
         {
             string contenidoJson = File.ReadAllText(rutaArchivo, Encoding.UTF8);
-            JsonSerializerOptions opciones = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            List<AcuerdoDto> acuerdosLeidos = JsonSerializer.Deserialize<List<AcuerdoDto>>(contenidoJson, opciones);
-
-            if (acuerdosLeidos == null || acuerdosLeidos.Count == 0)
-            {
-                inconsistencias.Add(new RegistroInconsistencia(
-                    nombreArchivo,
-                    "GENERAL",
-                    RegistroInconsistencia.TipoDatoInvalido,
-                    "El archivo de acuerdos esta vacio o no contiene registros validos.",
-                    DateTime.Now));
-                return acuerdosValidos;
-            }
+            JsonSerializerOptions opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            List<AcuerdoDto> acuerdosLeidos = JsonSerializer.Deserialize<List<AcuerdoDto>>(contenidoJson, opciones) ?? new List<AcuerdoDto>();
 
             foreach (AcuerdoDto acuerdo in acuerdosLeidos)
             {
-                if (string.IsNullOrWhiteSpace(acuerdo.CodigoComercio))
+                try
                 {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        "ACUERDO_SIN_CODIGO",
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        "El acuerdo comercial carece de codigo de comercio.",
-                        DateTime.Now));
-                    continue;
+                    acuerdo.MapToDomain();
+                    acuerdosValidos.Add(acuerdo);
                 }
-
-                if (acuerdo.TarifaBase <= 0)
+                catch (NexoLogException ex)
                 {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        acuerdo.CodigoComercio,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"La tarifa base para {acuerdo.CodigoComercio} debe ser mayor a cero.",
-                        DateTime.Now));
-                    continue;
+                    string refComercio = string.IsNullOrWhiteSpace(acuerdo.CodigoComercio) ? "ACUERDO_SIN_CODIGO" : acuerdo.CodigoComercio;
+                    inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, refComercio, RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
                 }
-
-                string tipoTarifaMayus = (acuerdo.TipoTarifa ?? string.Empty).Trim().ToUpperInvariant();
-                if (tipoTarifaMayus != "PESO" && tipoTarifaMayus != "DISTANCIA" && tipoTarifaMayus != "FIJA")
-                {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        acuerdo.CodigoComercio,
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        $"Tipo de tarifa desconocido: '{acuerdo.TipoTarifa}'.",
-                        DateTime.Now));
-                    continue;
-                }
-
-                acuerdo.TipoTarifa = tipoTarifaMayus;
-                acuerdosValidos.Add(acuerdo);
             }
         }
         catch (Exception ex)
         {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                "GENERAL",
-                RegistroInconsistencia.TipoDatoInvalido,
-                $"Error critico al leer acuerdos: {ex.Message}",
-                DateTime.Now));
+            inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, "GENERAL", RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
         }
 
         return acuerdosValidos;

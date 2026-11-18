@@ -106,7 +106,7 @@ public class Establecimiento
 
     public string MostrarInformacion()
     {
-        string tarifaDesc = _tarifaAcordada != null ? _tarifaAcordada.ObtenerTipoTarifa() : "Sin Tarifa";
+        string tarifaDesc = _tarifaAcordada != null ? _tarifaAcordada.TipoTarifa : "Sin Tarifa";
         return $"Establecimiento [{Codigo}] - {NombreComercial} | Tarifa: {tarifaDesc} | Despachos: {CantidadDespachos}";
     }
 }

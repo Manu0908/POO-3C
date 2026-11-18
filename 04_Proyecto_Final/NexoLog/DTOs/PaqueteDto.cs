@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace NexoLog.DTOs;
 
-public class PaqueteJsonDto
+public class PaqueteDto
 {
     [JsonPropertyName("idPaquete")]
     public string IdPaquete { get; set; } = string.Empty;
@@ -18,10 +18,6 @@ public class PaqueteJsonDto
 
     public Paquete MapToDomain()
     {
-        if (string.IsNullOrWhiteSpace(IdPaquete))
-        {
-            throw new NexoLogException("Paquete sin identificador.");
-        }
         return new Paquete(IdPaquete, Descripcion, Peso, ValorDeclarado);
     }
 }

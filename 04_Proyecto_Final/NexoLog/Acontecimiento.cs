@@ -7,8 +7,10 @@ public class Acontecimiento
     public const string TipoEnt = "ENT";
     public const string TipoDev = "DEV";
 
+    private List<string> _acontecimientosExistentes = new List<string> { TipoRec, TipoRut, TipoEnt, TipoDev };
     private string _idAcontecimiento;
     private string _numeroGuia;
+    private string _tipo;
 
     private Acontecimiento() { }
 
@@ -16,11 +18,10 @@ public class Acontecimiento
     {
         IdAcontecimiento = idAcontecimiento;
         NumeroGuia = numeroGuia;
-        Tipo = tipo != null ? tipo.Trim().ToUpperInvariant() : string.Empty;
+        Tipo = tipo;
         FechaHora = fechaHora;
     }
 
-    public string Tipo { get; private set; }
     public DateTime FechaHora { get; private set; }
 
     public string IdAcontecimiento
@@ -46,6 +47,20 @@ public class Acontecimiento
                 throw new NexoLogException("El numero de guia asociado al acontecimiento es obligatorio.");
             }
             _numeroGuia = value.Trim();
+        }
+    }
+
+    public string Tipo
+    {
+        get { return _tipo; }
+        private set
+        {
+            string limpio = (value ?? string.Empty).Trim().ToUpper();
+            if (!_acontecimientosExistentes.Contains(limpio))
+            {
+                throw new NexoLogException($"Tipo de acontecimiento desconocido: '{value}'.");
+            }
+            _tipo = limpio;
         }
     }
 

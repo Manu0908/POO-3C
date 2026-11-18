@@ -14,7 +14,7 @@ public class Despacho
     private string _estadoActual;
     private ModalidadServicio _modalidad;
     private List<Paquete> _paquetes;
-    private List<Acontecimiento> _historial;
+    private List<Acontecimiento> _acontecimientos;
 
     public int CantidadPaquetes { get { return _paquetes.Count; } }
 
@@ -30,7 +30,7 @@ public class Despacho
         Transportadora = transportadora;
         _estadoActual = EstadoPendiente;
         _paquetes = new List<Paquete>();
-        _historial = new List<Acontecimiento>();
+        _acontecimientos = new List<Acontecimiento>();
     }
 
     public string CodigoEstablecimiento { get; private set; }
@@ -40,7 +40,7 @@ public class Despacho
     public string EstadoActual { get { return _estadoActual; } private set { _estadoActual = value; } }
     public ModalidadServicio Modalidad { get { return _modalidad; } private set { _modalidad = value; } }
     public List<Paquete> Paquetes { get { return new List<Paquete>(_paquetes); } }
-    public List<Acontecimiento> Historial { get { return new List<Acontecimiento>(_historial); } }
+    public List<Acontecimiento> Acontecimientos { get { return new List<Acontecimiento>(_acontecimientos); } }
 
     public string NumeroGuia
     {
@@ -80,12 +80,9 @@ public class Despacho
             throw new NexoLogException("No se puede agregar un paquete nulo al despacho.");
         }
 
-        foreach (Paquete p in _paquetes)
+        if (_paquetes.Any(p => p.IdPaquete.ToLower() == paquete.IdPaquete.ToLower()))
         {
-            if (p.IdPaquete.ToLower() == paquete.IdPaquete.ToLower())
-            {
-                throw new NexoLogException($"El paquete con ID '{paquete.IdPaquete}' ya se encuentra registrado en el despacho {NumeroGuia}.");
-            }
+            throw new NexoLogException($"El paquete con ID '{paquete.IdPaquete}' ya se encuentra registrado en el despacho {NumeroGuia}.");
         }
 
         _paquetes.Add(paquete);
@@ -93,12 +90,7 @@ public class Despacho
 
     public double CalcularPesoTotal()
     {
-        double pesoTotal = 0.0;
-        foreach (Paquete paquete in _paquetes)
-        {
-            pesoTotal += paquete.Peso;
-        }
-        return pesoTotal;
+        return _paquetes.Sum(x => x.Peso);
     }
 
     public bool EsFacturable()
@@ -115,106 +107,58 @@ public class Despacho
         return false;
     }
 
-    public void RegistrarAcontecimiento(Acontecimiento acontecimiento)
+    public void AgregarAcontecimiento(Acontecimiento acontecimiento)
     {
         if (acontecimiento == null)
         {
-            throw new NexoLogException("No se puede registrar un acontecimiento nulo.");
+            throw new NexoLogException("El acontecimiento no puede ser nulo.");
         }
 
-        VerificarQueNoEsteFinalizado();
-
-        switch (acontecimiento.Tipo)
+        if (!PrimerAcontecimientoValido(acontecimiento) || !AcontecimientoValido(acontecimiento))
         {
-            case Acontecimiento.TipoRec:
-                RegistrarRecepcion(acontecimiento);
-                break;
-            case Acontecimiento.TipoRut:
-                RegistrarSalidaARuta(acontecimiento);
-                break;
-            case Acontecimiento.TipoEnt:
-                RegistrarEntrega(acontecimiento);
-                break;
-            case Acontecimiento.TipoDev:
-                RegistrarDevolucion(acontecimiento);
-                break;
-            default:
-                throw new NexoLogException($"Tipo de acontecimiento desconocido: '{acontecimiento.Tipo}'.");
+            throw new NexoLogException($"El acontecimiento '{acontecimiento.Tipo}' no es valido para el estado '{_estadoActual}'.");
         }
+
+        _acontecimientos.Add(acontecimiento);
+        _estadoActual = acontecimiento.Tipo switch
+        {
+            Acontecimiento.TipoRut => EstadoEnDistribucion,
+            Acontecimiento.TipoEnt => EstadoEntregado,
+            Acontecimiento.TipoDev => EstadoDevuelto,
+            _ => _estadoActual
+        };
     }
 
-    private void VerificarQueNoEsteFinalizado()
+    private bool PrimerAcontecimientoValido(Acontecimiento acontecimiento)
     {
-        if (_estadoActual == EstadoEntregado || _estadoActual == EstadoDevuelto)
+        if (_acontecimientos.Count == 0)
         {
-            throw new NexoLogException($"El despacho ya se encuentra finalizado en estado '{_estadoActual}'.");
+            return acontecimiento.Tipo == Acontecimiento.TipoRec;
         }
+        return true;
     }
 
-    private void RegistrarRecepcion(Acontecimiento evt)
+    private bool AcontecimientoValido(Acontecimiento acontecimiento)
     {
-        if (_estadoActual != EstadoPendiente)
+        if (_acontecimientos.Count == 0)
         {
-            throw new NexoLogException($"No se puede registrar recepcion en estado '{_estadoActual}'.");
+            return true;
         }
 
-        foreach (Acontecimiento hito in _historial)
+        Acontecimiento ultimoAcontecimiento = _acontecimientos.Last();
+        return ultimoAcontecimiento.Tipo switch
         {
-            if (hito.Tipo == Acontecimiento.TipoRec)
-            {
-                throw new NexoLogException($"El despacho '{NumeroGuia}' ya cuenta con un acontecimiento de recepcion registrado.");
-            }
-        }
-
-        _historial.Add(evt);
+            Acontecimiento.TipoRec => acontecimiento.Tipo == Acontecimiento.TipoRut,
+            Acontecimiento.TipoRut => acontecimiento.Tipo == Acontecimiento.TipoEnt || acontecimiento.Tipo == Acontecimiento.TipoDev,
+            Acontecimiento.TipoEnt => false,
+            Acontecimiento.TipoDev => false,
+            _ => false
+        };
     }
 
-    private void RegistrarSalidaARuta(Acontecimiento evt)
+    public Acontecimiento BuscarAcontecimiento(string tipo)
     {
-        if (_estadoActual != EstadoPendiente)
-        {
-            throw new NexoLogException($"No se puede pasar a ruta desde el estado '{_estadoActual}'.");
-        }
-
-        bool tieneRec = false;
-        foreach (Acontecimiento hito in _historial)
-        {
-            if (hito.Tipo == Acontecimiento.TipoRec)
-            {
-                tieneRec = true;
-                break;
-            }
-        }
-
-        if (!tieneRec)
-        {
-            throw new NexoLogException("No se puede enviar a ruta sin un acontecimiento previo de recepcion.");
-        }
-
-        _estadoActual = EstadoEnDistribucion;
-        _historial.Add(evt);
-    }
-
-    private void RegistrarEntrega(Acontecimiento evt)
-    {
-        if (_estadoActual != EstadoEnDistribucion)
-        {
-            throw new NexoLogException($"No se puede registrar entrega si el despacho no esta en distribucion (estado actual: '{_estadoActual}').");
-        }
-
-        _estadoActual = EstadoEntregado;
-        _historial.Add(evt);
-    }
-
-    private void RegistrarDevolucion(Acontecimiento evt)
-    {
-        if (_estadoActual != EstadoEnDistribucion)
-        {
-            throw new NexoLogException($"No se puede registrar devolucion si el despacho no esta en distribucion (estado actual: '{_estadoActual}').");
-        }
-
-        _estadoActual = EstadoDevuelto;
-        _historial.Add(evt);
+        return _acontecimientos.FirstOrDefault(a => a.Tipo == tipo);
     }
 
     public string MostrarInformacion()
@@ -229,35 +173,13 @@ public class Despacho
         {
             return false;
         }
-        if (CodigoEstablecimiento.ToLower() != otroDespacho.CodigoEstablecimiento.ToLower())
-        {
-            return false;
-        }
-        if (Destinatario.ToLower() != otroDespacho.Destinatario.ToLower())
-        {
-            return false;
-        }
-        if (CiudadDestino.ToLower() != otroDespacho.CiudadDestino.ToLower())
-        {
-            return false;
-        }
-        if (Math.Abs(DistanciaKm - otroDespacho.DistanciaKm) > 0.001)
-        {
-            return false;
-        }
-        if (Transportadora.ToLower() != otroDespacho.Transportadora.ToLower())
-        {
-            return false;
-        }
-        if (CantidadPaquetes != otroDespacho.CantidadPaquetes)
-        {
-            return false;
-        }
-        if (Math.Abs(CalcularPesoTotal() - otroDespacho.CalcularPesoTotal()) > 0.001)
-        {
-            return false;
-        }
 
-        return true;
+        return CodigoEstablecimiento.ToLower() == otroDespacho.CodigoEstablecimiento.ToLower()
+            && Destinatario.ToLower() == otroDespacho.Destinatario.ToLower()
+            && CiudadDestino.ToLower() == otroDespacho.CiudadDestino.ToLower()
+            && Math.Abs(DistanciaKm - otroDespacho.DistanciaKm) <= 0.001
+            && Transportadora.ToLower() == otroDespacho.Transportadora.ToLower()
+            && CantidadPaquetes == otroDespacho.CantidadPaquetes
+            && Math.Abs(CalcularPesoTotal() - otroDespacho.CalcularPesoTotal()) <= 0.001;
     }
 }

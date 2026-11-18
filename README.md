@@ -65,12 +65,12 @@ POO-3C-IA/
 
 Sistema de consola en C# / .NET 10 para la integración y análisis resiliente de operaciones logísticas multifuente:
 
-* **Entidades de Dominio Puro:** `Empresa`, `Establecimiento`, `Despacho`, `Paquete`, `Acontecimiento`, `RegistroInconsistencia`.
-* **DTOs y Mappers (Sesión 17):** Capa `DTOs/` para deserialización desacoplada (`MapToDomain`) y exportación de reportes sin exponer el dominio (`InconsistenciaDto`, `InformeConsolidadoDto` con `MapToDto`).
-* **Patrón Strategy (Tarifas e I/O):** Interfaz `ITarifa` (`ValorBase` polimórfico y `CalcularTarifa`) con `TarifaFija`, `TarifaPorPeso` y `TarifaPorDistancia`; además contratos simétricos `IImportadorArchivo<T>` e `IExportadorInforme`.
-* **Herencia y Polimorfismo (Modalidades SLA):** Clase abstracta `ModalidadServicio` con `ServicioEstandar`, `ServicioExpres` y `ServicioProgramado`.
-* **Patrón Factory Method:** Fábricas simétricas `ImportadorFactory` y `ExportadorFactory` para instanciar lectores y exportadores JSON/XML con codificación estricta `Encoding.UTF8`.
-* **Informes y Resiliencia:** Tolerancia a fallos parciales ante insumos corruptos consolidados en `InformeOperativo`, `InformeFinanciero` e `InformeInconsistencias`, exportados bajo `InformesExportados/`.
+* **Entidades de Dominio:** `Empresa` (consolida operaciones, genera reportes en consola y expone `MapToDto()`), `Establecimiento`, `Despacho` (`AgregarAcontecimiento`, `BuscarAcontecimiento`), `Paquete`, `Acontecimiento`, `RegistroInconsistencia`.
+* **DTOs y Mappers Unificados (Sesión 17):** Capa `DTOs/` (`AcuerdoDto`, `PedidoDto`, `PaqueteDto`, `AcontecimientoDto`, `LoteEstablecimientoDto`) compartida por JSON y XML (`MapToDomain`), más `InconsistenciaDto` e `InformeConsolidadoDto` serializables directamente con `JsonSerializer` y `XmlSerializer`.
+* **Patrón Strategy (Tarifas e I/O):** Interfaz `ITarifa` (`TipoTarifa`, `ValorBase`, `CalcularTarifa`) con `TarifaFija`, `TarifaPorPeso` y `TarifaPorDistancia`; contratos `IImportadorArchivo<T>` e `IExportadorInforme` (`Exportar(InformeConsolidadoDto, ruta)`).
+* **Herencia y Polimorfismo (Modalidades SLA):** Clase abstracta `ModalidadServicio` (con fábrica `Crear(...)` usando *switch expression*) y `ServicioEstandar`, `ServicioExpres`, `ServicioProgramado`.
+* **Patrón Factory Method:** Fábricas `ImportadorFactory` y `ExportadorFactory` con *switch expressions* (`=>`) para instanciar lectores y exportadores JSON/XML con codificación estricta `Encoding.UTF8`.
+* **Resiliencia:** Tolerancia a fallos parciales ante insumos corruptos consolidados por `Empresa` y exportados bajo `InformesExportados/`.
 
 ### Compilación y ejecución
 

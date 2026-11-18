@@ -6,7 +6,11 @@ public class ServicioProgramado : ModalidadServicio
     private int _horaInicio;
     private int _horaFin;
 
-    public ServicioProgramado(DateTime fechaProgramada, int horaInicio, int horaFin) : base("Programado")
+    public override string NombreModalidad { get { return "Programado"; } }
+
+    private ServicioProgramado() { }
+
+    public ServicioProgramado(DateTime fechaProgramada, int horaInicio, int horaFin)
     {
         if (horaFin <= horaInicio)
         {
@@ -28,21 +32,8 @@ public class ServicioProgramado : ModalidadServicio
             return false;
         }
 
-        Acontecimiento eventoRut = null;
-        Acontecimiento eventoEnt = null;
-
-        foreach (Acontecimiento acontecimiento in despacho.Historial)
-        {
-            if (acontecimiento.Tipo == Acontecimiento.TipoRut && eventoRut == null)
-            {
-                eventoRut = acontecimiento;
-            }
-            else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
-            {
-                eventoEnt = acontecimiento;
-            }
-        }
-
+        Acontecimiento eventoRut = despacho.BuscarAcontecimiento(Acontecimiento.TipoRut);
+        Acontecimiento eventoEnt = despacho.BuscarAcontecimiento(Acontecimiento.TipoEnt);
         if (eventoEnt == null)
         {
             return false;
@@ -59,11 +50,6 @@ public class ServicioProgramado : ModalidadServicio
         }
 
         int horaEntrega = eventoEnt.FechaHora.Hour;
-        if (horaEntrega >= _horaInicio && horaEntrega < _horaFin)
-        {
-            return true;
-        }
-
-        return false;
+        return horaEntrega >= _horaInicio && horaEntrega < _horaFin;
     }
 }

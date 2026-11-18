@@ -11,5 +11,5 @@ public class LoteEstablecimientoDto
     public string NombreComercio { get; set; } = string.Empty;
 
     [JsonPropertyName("solicitudes")]
-    public List<PedidoJsonDto> Solicitudes { get; set; } = new List<PedidoJsonDto>();
+    public List<PedidoDto> Solicitudes { get; set; } = new List<PedidoDto>();
 }

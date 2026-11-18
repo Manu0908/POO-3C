@@ -4,12 +4,15 @@ public class TarifaPorPeso : ITarifa
 {
     private decimal _valorPorKilogramo;
 
+    public string TipoTarifa { get { return "Tarifa por Peso"; } }
+    public decimal ValorBase { get { return _valorPorKilogramo; } }
+
+    private TarifaPorPeso() { }
+
     public TarifaPorPeso(decimal valorPorKilogramo)
     {
         ValorPorKilogramo = valorPorKilogramo;
     }
-
-    public decimal ValorBase { get { return _valorPorKilogramo; } }
 
     public decimal ValorPorKilogramo
     {
@@ -38,10 +41,5 @@ public class TarifaPorPeso : ITarifa
 
         decimal pesoTotal = (decimal)despacho.CalcularPesoTotal();
         return pesoTotal * _valorPorKilogramo;
-    }
-
-    public string ObtenerTipoTarifa()
-    {
-        return "Tarifa por Peso";
     }
 }

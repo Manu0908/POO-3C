@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Xml.Linq;
+using NexoLog.DTOs;
 
 namespace NexoLog.Importadores;
 
@@ -11,111 +12,34 @@ public class ImportadorSeguimientosXml : IImportadorArchivo<Acontecimiento>
         List<Acontecimiento> acontecimientosValidos = new List<Acontecimiento>();
         string nombreArchivo = Path.GetFileName(rutaArchivo);
 
-        if (!File.Exists(rutaArchivo))
-        {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                "GENERAL",
-                RegistroInconsistencia.TipoReferenciaInexistente,
-                $"El archivo XML de seguimiento '{rutaArchivo}' no existe.",
-                DateTime.Now));
-            return acontecimientosValidos;
-        }
-
         try
         {
-            using (FileStream stream = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read))
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+            string contenidoXml = File.ReadAllText(rutaArchivo, Encoding.UTF8);
+            XDocument documento = XDocument.Parse(contenidoXml);
+
+            foreach (XElement elEvt in documento.Root.Elements("acontecimiento"))
             {
-                XDocument documento = XDocument.Load(reader);
-                XElement raiz = documento.Root;
-
-                if (raiz == null)
+                string idEvt = (string)elEvt.Attribute("id") ?? "EVENTO_XML_INCOMPLETO";
+                try
                 {
-                    inconsistencias.Add(new RegistroInconsistencia(
-                        nombreArchivo,
-                        "GENERAL",
-                        RegistroInconsistencia.TipoDatoInvalido,
-                        "El archivo XML de seguimiento no contiene elemento raiz.",
-                        DateTime.Now));
-                    return acontecimientosValidos;
+                    AcontecimientoDto dto = new AcontecimientoDto
+                    {
+                        IdAcontecimiento = (string)elEvt.Attribute("id") ?? string.Empty,
+                        NumeroGuia = (string)elEvt.Attribute("guia") ?? string.Empty,
+                        Tipo = (string)elEvt.Attribute("tipo") ?? string.Empty,
+                        FechaHora = DateTime.Parse((string)elEvt.Attribute("fechaHora") ?? string.Empty, CultureInfo.InvariantCulture)
+                    };
+                    acontecimientosValidos.Add(dto.MapToDomain());
                 }
-
-                IEnumerable<XElement> elementosAcontecimiento = raiz.Elements("acontecimiento");
-                foreach (XElement elEvt in elementosAcontecimiento)
+                catch (Exception ex)
                 {
-                    string idEvt = (string)elEvt.Attribute("id") ?? string.Empty;
-                    string guia = (string)elEvt.Attribute("guia") ?? string.Empty;
-                    string tipoTexto = (string)elEvt.Attribute("tipo") ?? string.Empty;
-                    string fechaHoraTexto = (string)elEvt.Attribute("fechaHora") ?? string.Empty;
-
-                    if (string.IsNullOrWhiteSpace(idEvt) || string.IsNullOrWhiteSpace(guia))
-                    {
-                        inconsistencias.Add(new RegistroInconsistencia(
-                            nombreArchivo,
-                            "EVENTO_XML_INCOMPLETO",
-                            RegistroInconsistencia.TipoDatoInvalido,
-                            "Se detecto un elemento <acontecimiento> sin atributo 'id' o 'guia'.",
-                            DateTime.Now));
-                        continue;
-                    }
-
-                    string tipoLimpio = tipoTexto.Trim().ToUpperInvariant();
-                    if (tipoLimpio != Acontecimiento.TipoRec &&
-                        tipoLimpio != Acontecimiento.TipoRut &&
-                        tipoLimpio != Acontecimiento.TipoEnt &&
-                        tipoLimpio != Acontecimiento.TipoDev)
-                    {
-                        inconsistencias.Add(new RegistroInconsistencia(
-                            nombreArchivo,
-                            idEvt,
-                            RegistroInconsistencia.TipoDatoInvalido,
-                            $"Tipo de acontecimiento XML desconocido '{tipoTexto}' en el evento '{idEvt}'.",
-                            DateTime.Now));
-                        continue;
-                    }
-
-                    if (!DateTime.TryParse(fechaHoraTexto, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaHora))
-                    {
-                        inconsistencias.Add(new RegistroInconsistencia(
-                            nombreArchivo,
-                            idEvt,
-                            RegistroInconsistencia.TipoDatoInvalido,
-                            $"Fecha/Hora XML invalida '{fechaHoraTexto}' en el evento '{idEvt}'.",
-                            DateTime.Now));
-                        continue;
-                    }
-
-                    try
-                    {
-                        Acontecimiento nuevoAcontecimiento = new Acontecimiento(
-                            idEvt,
-                            guia,
-                            tipoLimpio,
-                            fechaHora);
-
-                        acontecimientosValidos.Add(nuevoAcontecimiento);
-                    }
-                    catch (NexoLogException ex)
-                    {
-                        inconsistencias.Add(new RegistroInconsistencia(
-                            nombreArchivo,
-                            idEvt,
-                            RegistroInconsistencia.TipoDatoInvalido,
-                            $"Error al crear acontecimiento XML '{idEvt}': {ex.Message}",
-                            DateTime.Now));
-                    }
+                    inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, idEvt, RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
                 }
             }
         }
         catch (Exception ex)
         {
-            inconsistencias.Add(new RegistroInconsistencia(
-                nombreArchivo,
-                "GENERAL",
-                RegistroInconsistencia.TipoDatoInvalido,
-                $"Error critico al procesar el archivo XML de seguimiento: {ex.Message}",
-                DateTime.Now));
+            inconsistencias.Add(new RegistroInconsistencia(nombreArchivo, "GENERAL", RegistroInconsistencia.TipoDatoInvalido, ex.Message, DateTime.Now));
         }
 
         return acontecimientosValidos;

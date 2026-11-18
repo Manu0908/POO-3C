@@ -2,7 +2,12 @@ namespace NexoLog.Servicios;
 
 public class ServicioExpres : ModalidadServicio
 {
-    public ServicioExpres() : base("Exprés") { }
+    private const int _tiempoInicioDistribucionMaximoH = 2;
+    private const int _tiempoEntregaMaximoH = 24;
+
+    public override string NombreModalidad { get { return "Exprés"; } }
+
+    public ServicioExpres() { }
 
     public override bool EvaluarCumplimiento(Despacho despacho)
     {
@@ -11,26 +16,9 @@ public class ServicioExpres : ModalidadServicio
             return false;
         }
 
-        Acontecimiento eventoRec = null;
-        Acontecimiento eventoRut = null;
-        Acontecimiento eventoEnt = null;
-
-        foreach (Acontecimiento acontecimiento in despacho.Historial)
-        {
-            if (acontecimiento.Tipo == Acontecimiento.TipoRec && eventoRec == null)
-            {
-                eventoRec = acontecimiento;
-            }
-            else if (acontecimiento.Tipo == Acontecimiento.TipoRut && eventoRut == null)
-            {
-                eventoRut = acontecimiento;
-            }
-            else if (acontecimiento.Tipo == Acontecimiento.TipoEnt)
-            {
-                eventoEnt = acontecimiento;
-            }
-        }
-
+        Acontecimiento eventoRec = despacho.BuscarAcontecimiento(Acontecimiento.TipoRec);
+        Acontecimiento eventoRut = despacho.BuscarAcontecimiento(Acontecimiento.TipoRut);
+        Acontecimiento eventoEnt = despacho.BuscarAcontecimiento(Acontecimiento.TipoEnt);
         if (eventoRec == null || eventoRut == null || eventoEnt == null)
         {
             return false;
@@ -39,9 +27,7 @@ public class ServicioExpres : ModalidadServicio
         double horasHaciaRuta = (eventoRut.FechaHora - eventoRec.FechaHora).TotalHours;
         double horasHaciaEntrega = (eventoEnt.FechaHora - eventoRec.FechaHora).TotalHours;
 
-        bool cumpleRuta = horasHaciaRuta >= 0 && horasHaciaRuta <= 2.0;
-        bool cumpleEntrega = horasHaciaEntrega >= 0 && horasHaciaEntrega <= 24.0;
-
-        return cumpleRuta && cumpleEntrega;
+        return horasHaciaRuta >= 0 && horasHaciaRuta <= _tiempoInicioDistribucionMaximoH
+            && horasHaciaEntrega >= 0 && horasHaciaEntrega <= _tiempoEntregaMaximoH;
     }
 }

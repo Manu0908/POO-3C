@@ -4,12 +4,15 @@ public class TarifaFija : ITarifa
 {
     private decimal _valorFijo;
 
+    public string TipoTarifa { get { return "Tarifa Fija"; } }
+    public decimal ValorBase { get { return _valorFijo; } }
+
+    private TarifaFija() { }
+
     public TarifaFija(decimal valorFijo)
     {
         ValorFijo = valorFijo;
     }
-
-    public decimal ValorBase { get { return _valorFijo; } }
 
     public decimal ValorFijo
     {
@@ -37,10 +40,5 @@ public class TarifaFija : ITarifa
         }
 
         return _valorFijo;
-    }
-
-    public string ObtenerTipoTarifa()
-    {
-        return "Tarifa Fija";
     }
 }
