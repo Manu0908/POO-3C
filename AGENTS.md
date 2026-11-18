@@ -91,7 +91,7 @@ public class Despacho
 ```
 
 ### 2.5. Nomenclatura Expresiva y Regla de la "Y" (Responsabilidad Única)
-* **Prohibidos nombres vagos:** está prohibido nombrar métodos como `Procesar...`, `Integrar...`, `Manejar...` o `Gestionar...` (incluyendo textos del menú). Todo método debe revelar con exactitud su acción en el dominio (`AgregarAcontecimiento`, `BuscarAcontecimiento`, `ConsolidarDatosEnEmpresa`, `TieneMismosDatosQue`, `EsFacturable`).
+* **Prohibidos nombres vagos:** está prohibido nombrar métodos como `Procesar...`, `Integrar...`, `Manejar...` o `Gestionar...` (incluyendo textos del menú). Todo método debe revelar con exactitud su acción en el dominio (`AgregarAcontecimiento`, `BuscarAcontecimiento`, `TieneMismosDatosQue`, `EsFacturable`).
 * **Regla de la "Y":** si un método requiere la conjunción *"Y"* en su nombre (`ExtraerYAgregar...`) porque hace dos tareas distintas, debe dividirse en dos métodos cohesivos separados donde uno orqueste al otro.
 * **Método de salida en consola:** usar `MostrarInformacion()` en las entidades que proyecten detalle en pantalla; evitar sobrecargar `ToString()` para formateos complejos.
 
