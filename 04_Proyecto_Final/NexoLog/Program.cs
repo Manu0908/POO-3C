@@ -40,44 +40,25 @@ while (continuar)
     }
     Console.WriteLine();
 
-    if (opcion == "1")
+    continuar = opcion switch
     {
-        CargarArchivos(sistema, carpetaDatos);
-    }
-    else if (opcion == "2")
-    {
-        VerInformeOperativo(sistema);
-    }
-    else if (opcion == "3")
-    {
-        VerInformeFinanciero(sistema);
-    }
-    else if (opcion == "4")
-    {
-        VerInformeInconsistencias(sistema);
-    }
-    else if (opcion == "5")
-    {
-        ExportarInformes(sistema);
-    }
-    else if (opcion == "0")
-    {
-        Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
-        continuar = false;
-    }
-    else
-    {
-        Console.WriteLine("Opcion invalida. Intente nuevamente.");
-    }
+        "1" => CargarArchivos(sistema, carpetaDatos),
+        "2" => VerInformeOperativo(sistema),
+        "3" => VerInformeFinanciero(sistema),
+        "4" => VerInformeInconsistencias(sistema),
+        "5" => ExportarInformes(sistema),
+        "0" => Salir(),
+        _ => MostrarOpcionInvalida()
+    };
 }
 
-void CargarArchivos(Empresa sys, string ruta)
+bool CargarArchivos(Empresa sys, string ruta)
 {
     Console.WriteLine("--- Carga de Archivos ---");
     if (!Directory.Exists(ruta))
     {
         Console.WriteLine($"Error: no se encontro la carpeta de datos en '{ruta}'.");
-        return;
+        return true;
     }
 
     sys.Limpiar();
@@ -124,51 +105,55 @@ void CargarArchivos(Empresa sys, string ruta)
     Console.WriteLine($"Despachos unicos registrados: {sys.Despachos.Count}");
     Console.WriteLine($"Inconsistencias detectadas: {sys.Inconsistencias.Count}");
     Console.WriteLine("Archivos cargados exitosamente.");
+    return true;
 }
 
-void VerInformeOperativo(Empresa sys)
+bool VerInformeOperativo(Empresa sys)
 {
     Console.WriteLine("--- Informe Operativo ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
-        return;
+        return true;
     }
 
     sys.MostrarInformeOperativo();
+    return true;
 }
 
-void VerInformeFinanciero(Empresa sys)
+bool VerInformeFinanciero(Empresa sys)
 {
     Console.WriteLine("--- Informe Financiero ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
-        return;
+        return true;
     }
 
     sys.MostrarInformeFinanciero();
+    return true;
 }
 
-void VerInformeInconsistencias(Empresa sys)
+bool VerInformeInconsistencias(Empresa sys)
 {
     Console.WriteLine("--- Informe de Inconsistencias ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
-        return;
+        return true;
     }
 
     sys.MostrarInformeInconsistencias();
+    return true;
 }
 
-void ExportarInformes(Empresa sys)
+bool ExportarInformes(Empresa sys)
 {
     Console.WriteLine("--- Exportacion de Informes ---");
     if (!archivosCargados)
     {
         Console.WriteLine("Primero debe cargar los archivos (Opcion 1).");
-        return;
+        return true;
     }
 
     Console.WriteLine("1. Exportar a JSON");
@@ -192,6 +177,20 @@ void ExportarInformes(Empresa sys)
     {
         Console.WriteLine($"Error al exportar: {ex.Message}");
     }
+
+    return true;
+}
+
+bool Salir()
+{
+    Console.WriteLine("Gracias por utilizar NexoLog. Fin del programa.");
+    return false;
+}
+
+bool MostrarOpcionInvalida()
+{
+    Console.WriteLine("Opcion invalida. Intente nuevamente.");
+    return true;
 }
 
 string LocalizarCarpetaDatos()

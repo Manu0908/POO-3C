@@ -23,7 +23,7 @@ Este documento es la **única fuente de verdad** normativa, arquitectónica y es
 ### 2.1. Declaraciones, Tipos y Estructuras de Control
 * **Declaraciones explícitas e individuales (cero `var`):** cada variable lleva su tipo explícito en su propia línea independiente. Queda prohibido agrupar (`double a, b;`) y prohibido usar `var`.
 * **Cero `enum` (usar constantes):** estados y tipos fijos públicos se modelan con `public const string PascalCase` (ej. `Despacho.EstadoPendiente`); constantes internas de clase/estrategia usan `private const <tipo> _camelCase` (`_precioPorPagina`, `_porcentajeDescuento`).
-* **Uso de `switch` comprimido y bifurcaciones:** se permite únicamente el formato comprimido (*switch expression* `=>`) en fábricas, validaciones de transición y mapeadores (prohibido el `switch` tradicional con bloques `case ...: break;`); en menús de consola y bifurcaciones de flujo se utiliza `if / else if / else`.
+* **Uso de `switch` comprimido y bifurcaciones:** se permite únicamente el formato comprimido (*switch expression* `=>`) en fábricas, validaciones de transición, mapeadores y menús de consola (prohibido el `switch` tradicional con bloques `case ...: break;`); para otras bifurcaciones de flujo se utiliza `if / else if / else`.
 * **Cero `TimeSpan` complejo:** modelar franjas horarias sencillas con tipos primitivos (`int _horaInicio`, `int _horaFin` o texto simple).
 * **Comparaciones simples de cadenas:** preferir `==` o `.ToLower() == ...` en lugar de formas verbosas cuando no se requiera comparación cultural especial.
 
