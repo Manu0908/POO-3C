@@ -196,5 +196,12 @@ string LocalizarCarpetaDatos()
     {
         return "DatosPrueba";
     }
+
+    string juntoAlEjecutable = Path.Combine(AppContext.BaseDirectory, "DatosPrueba");
+    if (Directory.Exists(juntoAlEjecutable))
+    {
+        return juntoAlEjecutable;
+    }
+
     return Path.Combine("04_Proyecto_Final", "NexoLog", "DatosPrueba");
 }
